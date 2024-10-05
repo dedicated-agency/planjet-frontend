@@ -5,7 +5,7 @@ const user: any = WebApp.initDataUnsafe?.user;
 const accessToken: any = localStorage.getItem(`accessToken_${user && user.id}`);
 // const accessToken: any = localStorage.getItem(`accessToken_${5673577167}`);
 
-const testMode = true;
+const testMode = false;
 
 const axiosClient = axios.create({
   baseURL: BACKEND_URL,
