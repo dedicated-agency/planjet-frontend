@@ -2,20 +2,15 @@ import { StateContext } from "../context/StateContext";
 import languages from "../local/languages.json";
 import { useNavigate } from "react-router-dom";
 import SettingsComponent from "../components/SettingsComponent";
-import { useMutation, useQuery, useQueryClient } from "react-query";
-import { fetchPutData } from "../common/fetchPutData";
+import { useQuery } from "react-query";
 import { fetchData } from "../common/fetchData";
 import WebApp from "@twa-dev/sdk";
 import { useContext, useEffect, useState } from "react";
+import axiosClient from "../common/axiosClient";
 
 const getGroups = async () => {
   return await fetchData("/user/groups", {});
 };
-
-const updateGroup = async (id: number, isSelected: boolean) => {
-  return await fetchPutData(`/group/${id}`, { is_selected: isSelected });
-};
-
 
 
 const SettingsProjects = () => {
@@ -24,27 +19,8 @@ const SettingsProjects = () => {
   BackButton.onClick(() => window.history.back());
   const { lang } = useContext(StateContext);
   const locales: any = languages;
-  const queryClient = useQueryClient();
   const { data } = useQuery(["groupsData"], () => getGroups());
   const navigate = useNavigate();
-
-  
-
-  const mutation = useMutation(
-    (eventData: { id: number; isSelected: boolean }) =>
-      updateGroup(eventData.id, eventData.isSelected),
-    {
-      onSuccess: () => {
-        // localStorage.setItem("groupUpdateResponse", JSON.stringify(data));
-        queryClient.invalidateQueries("groupsData");
-        queryClient.invalidateQueries("groupSelect");
-      },
-    },
-  );
-
-  // const handleUpdateGroup = (id: number, isSelected: boolean) => {
-  //   mutation.mutate({ id: id, isSelected });
-  // };
 
   useEffect(() => {
     WebApp.setHeaderColor("#F2F2F7");
@@ -58,10 +34,12 @@ const SettingsProjects = () => {
     setSelectedGroups((prev) => ({ ...prev, [id]: isSelected }));
   };
 
-  const handleSave = () => {
-    Object.entries(selectedGroups).forEach(([id, isSelected]) => {
-      mutation.mutate({ id: parseInt(id), isSelected });
-    });
+  const handleSave = async () => {
+    console.log(selectedGroups);
+    await axiosClient.post("/group/selector", Object.entries(selectedGroups).map(([group_id, is_selected]) => ({
+      group_id: Number(group_id),
+      is_selected
+    })));
     navigate("/");
   };
 
