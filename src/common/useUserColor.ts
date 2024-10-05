@@ -2,56 +2,52 @@ import { useMemo } from "react";
 
 const colors = [
   {
-    indigo: "#5856D6",
-    indigo_light: "#E2E2F5",
+    indigo: "#ffffff",
+    indigo_light: "#639CD9",
   },
   {
-    blue: "#007AFF",
-    blue_light: "#D5E7FB",
+    blue: "#ffffff",
+    blue_light: "#56D698",
   },
   {
-    greenblue: "#00C7BE",
-    greenblue_light: "#D5F3F1",
+    greenblue: "#ffffff",
+    greenblue_light: "#D65694",
   },
   {
-    green: "#009951",
-    green_light: "#CFF7D3",
+    green: "#ffffff",
+    green_light: "#DE7977",
   },
   {
-    yellow: "#FFCC00",
-    yellow_light: "#FFF1C2",
-  },
-  {
-    red: "#FF3B30",
-    red_light: "#FDD3D0",
-  },
+    yellow: "#ffffff",
+    yellow_light: "#6463B0",
+  }
 ];
 
 const useUserColor = (id: number | undefined) => {
   const selectedColors = useMemo(() => {
     if (id === undefined || id === null) {
       console.log("ID is null or undefined");
-      return { color: colors[0].indigo, lightColor: colors[0].indigo_light }; // Agar id mavjud bo'lmasa
+      return { color: colors[0].indigo, lightColor: colors[0].indigo_light };
     }
 
-    const index = id % colors.length; // 6 ga qoldiqli
-    const colorGroup: any = colors[index]; // Rang guruhini olish
+    const index = id % colors.length;
+    const colorGroup: any = colors[index]; 
 
     if (!colorGroup) {
       console.log("Color group not found for index:", index);
-      return { color: null, lightColor: null }; // Tekshiruv: undefined qiymat kelmasligi uchun
+      return { color: null, lightColor: null }; 
     }
 
-    const colorName = Object.keys(colorGroup)[0]; // Asosiy rang nomini olish
-    const lightColorName = `${colorName}_light`; // Light rang nomini tuzish
+    const colorName = Object.keys(colorGroup)[0]; 
+    const lightColorName = `${colorName}_light`; 
 
     return {
-      color: colorGroup[colorName], // Asosiy rang
-      lightColor: colorGroup[lightColorName], // Light rang
+      color: colorGroup[colorName],
+      lightColor: colorGroup[lightColorName], 
     };
   }, [id]);
 
-  return selectedColors; // Tanlangan rang va light rangni qaytarish
+  return selectedColors;
 };
 
 export default useUserColor;

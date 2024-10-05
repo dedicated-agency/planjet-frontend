@@ -112,6 +112,7 @@
         "search": "Qidirish",
         "cancel": "Bekor qilish",
         "delete_confirmation": "Ushbu vazifani o'chirishni xohlaysizmi? O'chirish uchun \"I'm Sure\" deb yozing.",
+        "recent_events": "So'ngi voqealar",
         "status_settings": "status sozlamalari",
         "noti_text": "Bot ushbu voqealar paytida guruh suhbatiga xabarnoma yuboradi"
     },
@@ -234,6 +235,7 @@
         "search": "Search",
         "cancel": "cancel",
         "delete_confirmation": "Are you sure you want to delete this task? Please type \"I'm Sure\" to delete.",
+        "recent_events": "Recent Events",
         "status_settings": "status settings",
         "noti_text": "The bot will send notifications to the group chat at these events"
     },
@@ -350,6 +352,7 @@
         "search": "Поиск",
         "cancel": "отменить",
         "delete_confirmation": "Вы уверены, что хотите удалить эту задачу? Чтобы удалить, введите \"I'm Sure\".",
+        "recent_events": "Недавние события",
         "status_settings": "настройки статусов",
         "noti_text": "Бот будет присылать уведомления в групповой чат при этих событиях"
     }
