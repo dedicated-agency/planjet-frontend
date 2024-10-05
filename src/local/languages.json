@@ -17,6 +17,8 @@
         "status": "Status",
         "to_do": "Bajarish kerak",
         "in_progress": "Jarayonda",
+        "testing": "Tekshiruv",
+        "completed": "tugallandi",
         "comments": "Izohlar",
         "participant": "ishtirokchi",
         "select_all": "Barchasini tanlang",
@@ -110,7 +112,9 @@
         "search": "Qidirish",
         "cancel": "Bekor qilish",
         "delete_confirmation": "Ushbu vazifani o'chirishni xohlaysizmi? O'chirish uchun \"I'm Sure\" deb yozing.",
-        "recent_events": "So'ngi voqealar"
+        "recent_events": "So'ngi voqealar",
+        "status_settings": "status sozlamalari",
+        "noti_text": "Bot ushbu voqealar paytida guruh suhbatiga xabarnoma yuboradi"
     },
     "en": {
         "my_tasks": "My tasks",
@@ -136,6 +140,8 @@
         },
         "to_do": "To do",
         "in_progress": "In Progress",
+        "testing": "Testing",
+        "completed": "completed",
         "comments": "Comments",
         "participant": "participant",
         "select_all": "Select all",
@@ -229,7 +235,9 @@
         "search": "Search",
         "cancel": "cancel",
         "delete_confirmation": "Are you sure you want to delete this task? Please type \"I'm Sure\" to delete.",
-        "recent_events": "Recent Events"
+        "recent_events": "Recent Events",
+        "status_settings": "status settings",
+        "noti_text": "The bot will send notifications to the group chat at these events"
     },
     "ru": {
         "my_tasks": "Мои задачи",
@@ -247,8 +255,10 @@
         "created_at": "Дата создания",
         "author": "Автор",
         "status": "Статус",
-        "to_do": "Сделать",
+        "to_do": "К выполнению",
         "in_progress": "В процессе",
+        "testing": "На проверке",
+        "completed": "завершенный",
         "comments": "Комментарии",
         "participant": "участника",
         "select_all": "Выбрать всех",
@@ -342,6 +352,8 @@
         "search": "Поиск",
         "cancel": "отменить",
         "delete_confirmation": "Вы уверены, что хотите удалить эту задачу? Чтобы удалить, введите \"I'm Sure\".",
-        "recent_events": "Недавние события"
+        "recent_events": "Недавние события",
+        "status_settings": "настройки статусов",
+        "noti_text": "Бот будет присылать уведомления в групповой чат при этих событиях"
     }
 }
