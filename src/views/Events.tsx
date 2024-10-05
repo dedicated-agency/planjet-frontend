@@ -43,7 +43,7 @@ const Events = () => {
             className='capitalize font-medium text-[15px] text-customBlack'
             style={{ fontFamily: "SF Pro Display" }}
           >
-            {locales[lang].today}
+            Today
           </p>
         ) : (
           ""
