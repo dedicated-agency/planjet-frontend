@@ -17,6 +17,10 @@ export default {
         customBlue: 'rgba(0, 122, 255, 1)',
         customBlueLight: "rgba(0, 122, 255, 0.15)",
         customIndigo: "rgba(88, 86, 214, 1)",
+        customIndigo100: "rgba(100, 99, 176, 1)",
+        customIndigo120: "rgba(86, 148, 214, 0.12)",
+        customIndigo150: "rgba(100, 99, 176, 0.15)",
+        customIndigo500: "rgba(86, 148, 214, 0.5)",
         customIndigoLight: "rgba(88, 86, 214, 0.15)",
         customBlack: "rgba(0,0,0,0.2)",
         customBlack1: "rgba(0,0,0,0.12)",
@@ -45,6 +49,7 @@ export default {
         customYellowLight: "rgba(255, 241, 194, 1)",
         customRed: "rgba(255, 59, 48, 1)",
         customRedLight: "rgba(253, 211, 208, 1)",
+        
       },
       backgroundImage: {
         'custom-gradient-blue': 'linear-gradient(180deg, rgba(0, 122, 255, 1) 0%, rgba(88, 86, 214, 1) 100%)',

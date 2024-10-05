@@ -76,7 +76,8 @@ const CreateTaskFromGroup = () => {
   const navigate = useNavigate();
   const { project_id } = useParams();
   const locales: any = languages;
-  const { lang, user, availableUserImages, setContextState } = useContext(StateContext);
+  const { lang, user, availableUserImages, setContextState } =
+    useContext(StateContext);
   const [text, setText] = useState("");
   const textareaRef = useRef(null);
   const handleChange = (event: any) => {
@@ -100,8 +101,8 @@ const CreateTaskFromGroup = () => {
 
   const adjustTextareaHeight = () => {
     const textarea: any = textareaRef.current;
-    textarea.style.height = "auto"; 
-    textarea.style.height = `${textarea.scrollHeight}px`; 
+    textarea.style.height = "auto";
+    textarea.style.height = `${textarea.scrollHeight}px`;
   };
 
   const setParticipants = (user: any) => {
@@ -138,7 +139,11 @@ const CreateTaskFromGroup = () => {
   const getUsers = async () => {
     const resultPromises = project.users.map(async (user: any) => {
       try {
-        user.image = await imageCacheChacker(user.telegram_id, availableUserImages, setContextState);
+        user.image = await imageCacheChacker(
+          user.telegram_id,
+          availableUserImages,
+          setContextState,
+        );
         return user;
       } catch (error) {
         console.log("Create task image error" + error);
@@ -219,7 +224,13 @@ const CreateTaskFromGroup = () => {
           </div>
 
           <div className='flex items-center gap-1 text-gray-400'>
-            <Avatar image={""} alt={project.name} width={24} radius={4} id={project.id} />
+            <Avatar
+              image={""}
+              alt={project.name}
+              width={24}
+              radius={4}
+              id={project.id}
+            />
             <p
               className='text-[16px] font-normal text-[#1B1F26]'
               style={{ fontFamily: "SF Pro Display" }}
@@ -266,7 +277,9 @@ const CreateTaskFromGroup = () => {
                     {locales[lang].appoint}
                   </p>
                 )}
-                <ArrowRight className='ml-3' />
+                <div className='ml-3'>
+                  <ArrowRight />
+                </div>
               </div>
             </div>
             {/* Prioritet */}
@@ -327,7 +340,6 @@ const CreateTaskFromGroup = () => {
                 <ArrowRight />
               </div>
             </div>
-
           </div>
         </div>
         {name === "" ? (

@@ -37,8 +37,6 @@ const priorities = [
   },
 ];
 
-
-
 const getGroups = async () => {
   return await fetchData("/user/groups", {});
 };
@@ -52,7 +50,13 @@ const CreateTask = () => {
   }, []);
   const navigate = useNavigate();
   const locales: any = languages;
-  const { lang, user, capitalizeFirstLetter, availableUserImages, setContextState } = useContext(StateContext);
+  const {
+    lang,
+    user,
+    capitalizeFirstLetter,
+    availableUserImages,
+    setContextState,
+  } = useContext(StateContext);
   const [text, setText] = useState("");
   const textareaRef = useRef(null);
   const handleChange = (event: any) => {
@@ -120,7 +124,11 @@ const CreateTask = () => {
   const getUsers = async () => {
     const resultPromises = project.users.map(async (user: any) => {
       try {
-        user.image = await imageCacheChacker(user.telegram_id, availableUserImages, setContextState);
+        user.image = await imageCacheChacker(
+          user.telegram_id,
+          availableUserImages,
+          setContextState,
+        );
         return user;
       } catch (error) {
         console.log("Create task image error" + error);
@@ -263,7 +271,9 @@ const CreateTask = () => {
                     {locales[lang].appoint}
                   </p>
                 )}
-                <ArrowRight className='ml-3' />
+                <div className='ml-3'>
+                  <ArrowRight />
+                </div>
               </div>
             </div>
             {/* Prioritet */}
@@ -368,7 +378,13 @@ const CreateTask = () => {
           >
             <div className='w-full px-[18px] h-[44px] flex items-center justify-between'>
               <div className='flex items-center gap-2'>
-                <Avatar image={""} alt={group.name} radius={6} width={28} id={group.id} />
+                <Avatar
+                  image={""}
+                  alt={group.name}
+                  radius={6}
+                  width={28}
+                  id={group.id}
+                />
                 <p
                   className='font-normal text-[17px] text-black'
                   style={{ fontFamily: "SF Pro Display" }}

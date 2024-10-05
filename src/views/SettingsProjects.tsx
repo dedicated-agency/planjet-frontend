@@ -28,6 +28,8 @@ const SettingsProjects = () => {
   const { data } = useQuery(["groupsData"], () => getGroups());
   const navigate = useNavigate();
 
+  
+
   const mutation = useMutation(
     (eventData: { id: number; isSelected: boolean }) =>
       updateGroup(eventData.id, eventData.isSelected),
