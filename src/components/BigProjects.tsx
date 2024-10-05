@@ -11,6 +11,7 @@ import { fetchData } from "../common/fetchData";
 import { Link } from "react-router-dom";
 import EllipsisText from "./EllipsisText";
 import projectplus from "../assets/images/projectplus.svg";
+import useUserColor from "../common/useUserColor";
 
 const getGroups = async () => {
   return await fetchData("/group/selected", {});
@@ -91,9 +92,7 @@ const BigProjects = () => {
               to={"/groups/" + project.id}
               className='h-[150px] min-w-[220px] rounded-[16px] p-[16px] flex flex-col justify-between flex-1 transtin'
               style={{
-                background: `var(${
-                  index % 2 === 0 ? "--main-indigo" : "--main-blue"
-                })`,
+                background: useUserColor(project.id).lightColor,
               }}
             >
               <div>

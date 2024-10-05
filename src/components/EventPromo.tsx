@@ -1,28 +1,24 @@
-// import { Link } from "react-router-dom";
-// images
-// import { Avatar } from "./mini/Avatar";
 import { useContext } from "react";
 import { dateTimeConverter } from "../common/dateTimeConverter";
 import { StateContext } from "../context/StateContext";
 import languages from "../local/languages.json";
 import ArrowRight from "../assets/icons/ArrowRight";
 import { AvatarUser } from "./mini/AvatarUser";
-// import ArrowLeft from "../assets/icons/ArrowLeft";
 import ArrowLongRight from "../assets/icons/ArrowLongRight";
 import { useState } from "react";
+import useUserColor from "../common/useUserColor";
+import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
 
 const EventPromo = (props: any) => {
-  const { capitalizeFirstLetter, lang } = useContext(StateContext);
+  const { lang } = useContext(StateContext);
   const locales: any = languages;
-  console.log(props.group);
-
   const [isOpenDescription, setisOpenDescription] = useState<boolean>(false);
 
   return (
     <div className='h-auto bg-white rounded-2xl p-3'>
       <p
-        className='text-customIndigo100 text-xs font-medium'
-        style={{ fontFamily: "SF Pro Display" }}
+        className=' text-xs font-medium'
+        style={{ fontFamily: "SF Pro Display", color: useUserColor(props.group.id).lightColor}}
       >
         {props.group.group} | {props.group.project}
       </p>
@@ -59,30 +55,28 @@ const EventPromo = (props: any) => {
         >
           <div className='mt-3'>
             {props.group.events.map((event: any, index: number) => (
-              <>
+              <div key={index}>
                 {event.changes.length === 1 ? (
                   <div className='mt-3'>
                     <div className='flex gap-3 items-center'>
                       <div className='mr-2'>
                         <AvatarUser
                           image={""}
-                          alt='User'
+                          alt={event.user_name}
                           width={20}
                           height={20}
                           size={14}
                         />
                       </div>
                       <p
-                        // Color need change
-                        className='text-red-500 font-normal text-[15px]'
-                        style={{ fontFamily: "SF Pro Display" }}
+                        className='font-normal text-[15px]'
+                        style={{ fontFamily: "SF Pro Display", color: useUserColor(event.id).lightColor }}
                       >
                         {event.user_name}
                       </p>
                       {event.changes.map((change: any, index: number) => (
-                        <>
+                        <div key={index}>
                           <p
-                            key={index}
                             className='font-normal text-black text-xs'
                             style={{ fontFamily: "SF Pro Display" }}
                           >
@@ -106,13 +100,13 @@ const EventPromo = (props: any) => {
                           >
                             {dateTimeConverter.convertTime(change.created_at)}
                           </p>
-                        </>
+                        </div>
                       ))}
                       {/* Time */}
                     </div>
                     <div className='flex items-center gap-1 mt-2'>
                       {event.changes.map((change: any, index: number) => (
-                        <>
+                        <div key={index}>
                           <div className='w-max h-4 bg-customIndigo150 flex justify-center items-center py-1 px-[6px] rounded-2xl'>
                             <p className='text-xs line-through text-customIndigo'>
                               {change.old_value == 1
@@ -130,7 +124,7 @@ const EventPromo = (props: any) => {
                               В процессе
                             </p>
                           </div>
-                        </>
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -140,7 +134,7 @@ const EventPromo = (props: any) => {
                       <div className='mr-2'>
                         <AvatarUser
                           image={""}
-                          alt='User'
+                          alt={event.user_name}
                           width={20}
                           height={20}
                           size={14}
@@ -148,8 +142,8 @@ const EventPromo = (props: any) => {
                       </div>
                       <p
                         // Color need change
-                        className='text-red-500 font-normal text-[15px]'
-                        style={{ fontFamily: "SF Pro Display" }}
+                        className='font-normal text-[15px]'
+                        style={{ fontFamily: "SF Pro Display",  color: useUserColor(event.id).lightColor }}
                       >
                         {event.user_name}
                       </p>
@@ -158,7 +152,7 @@ const EventPromo = (props: any) => {
                       <div className='w-[3px] h-auto bg-customIndigo500 rounded-full ml-2' />
                       <div className='p-2 flex flex-col gap-3'>
                         {event.changes.map((change: any, index: number) => (
-                          <div className='flex flex-col gap-2'>
+                          <div key={index} className='flex flex-col gap-2'>
                             <div className='flex gap-3 items-center'>
                               <p
                                 className='font-normal text-black text-xs'
@@ -231,7 +225,7 @@ const EventPromo = (props: any) => {
                     </div>
                   </div>
                 )}
-              </>
+              </div>
             ))}
           </div>
         </div>

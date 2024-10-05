@@ -12,6 +12,7 @@ import languages from "../local/languages.json";
 import { StateContext } from "../context/StateContext";
 import WebApp from "@twa-dev/sdk";
 import imageCacheChacker from "../common/imagesCacher";
+import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
 
 const getProject = async (id: number) => {
   const response = await axiosClient.get("/project/show/" + id);
@@ -31,7 +32,7 @@ const GroupSettings = () => {
   BackButton.show();
   BackButton.onClick(() => window.history.back());
   const { id } = useParams();
-  const { lang, capitalizeFirstLetter, availableUserImages, setContextState } = useContext(StateContext);
+  const { lang, availableUserImages, setContextState } = useContext(StateContext);
   const navigate = useNavigate();
   const locales: any = languages;
 

@@ -11,6 +11,7 @@ import SymbolBorder from "../assets/icons/SymbolBorder";
 import { Avatar } from "../components/mini/Avatar";
 import { useQuery } from "react-query";
 import { fetchData } from "../common/fetchData";
+import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
 
 const getGroups = async () => {
   return await fetchData("/user/groups", {});
@@ -45,7 +46,7 @@ export const Mytasks = () => {
 
   const { data: groups } = useQuery(["groupsData"], () => getGroups());
 
-  const { lang, capitalizeFirstLetter } = useContext(StateContext);
+  const { lang } = useContext(StateContext);
   const locales: any = languages;
 
   const [state, setState] = useReducer(

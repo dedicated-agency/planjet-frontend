@@ -18,6 +18,7 @@ import Prioritet from "../assets/icons/Prioritet";
 import Calendar from "../assets/icons/Calendar";
 import Square from "../assets/icons/Square";
 import imageCacheChacker from "../common/imagesCacher";
+import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
 
 const priorities = [
   {
@@ -53,7 +54,6 @@ const CreateTask = () => {
   const {
     lang,
     user,
-    capitalizeFirstLetter,
     availableUserImages,
     setContextState,
   } = useContext(StateContext);

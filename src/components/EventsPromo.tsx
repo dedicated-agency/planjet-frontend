@@ -16,9 +16,6 @@ const EventsPromo = () => {
   const { lang } = useContext(StateContext);
   const locales: any = languages;
 
-  console.log({data});
-  
-
   return (
     <div className='flex flex-col gap-[10px]'>
         <div className='flex justify-between items-center h-[36px]'>

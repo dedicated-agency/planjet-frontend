@@ -11,8 +11,6 @@ export const AvatarUser = (props: {
 }) => {
   const { color, lightColor } = useUserColor(props.id);
 
-  console.log(props.id);
-
   return props.image ? (
     <img
       src={props.image}

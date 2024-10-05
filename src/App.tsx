@@ -23,7 +23,7 @@ import Profile from "./views/Profile";
 import Settings from "./views/Settings";
 import TimeZone from "./views/TimeZone";
 
-const testMode: boolean = false;
+const testMode: boolean = true;
 
 function App() {
   const [state, setState] = useReducer(
@@ -97,16 +97,6 @@ function App() {
     }
   };
 
-  function capitalizeFirstLetter(text: string) {
-    let words = text.split(" ");
-
-    if (words.length > 0) {
-      words[0] = words[0].charAt(0).toUpperCase() + words[0].slice(1);
-    }
-
-    return words.join(" ");
-  }
-
   if (!isTelegramWebApp && !testMode) {
     return <NotTelegram/>
   }
@@ -116,7 +106,6 @@ function App() {
     lang: state.lang,
     location: state.location,
     setContextState: setState,
-    capitalizeFirstLetter,
     availableUserImages: state.availableUserImages
   };
 

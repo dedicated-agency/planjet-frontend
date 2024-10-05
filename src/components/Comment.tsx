@@ -1,8 +1,7 @@
-import { useContext } from "react";
-import { StateContext } from "../context/StateContext";
 import { AvatarUser } from "./mini/AvatarUser";
 import { dateTimeConverter } from "../common/dateTimeConverter";
 import useUserColor from "../common/useUserColor";
+import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
 
 interface IComment {
   comment: any;
@@ -10,7 +9,6 @@ interface IComment {
 
 const Comment = ({ comment }: IComment) => {
   const { color, lightColor } = useUserColor(comment.user_id);
-  const { capitalizeFirstLetter } = useContext(StateContext);
   return (
     <div className='flex gap-5' key={comment.id}>
       <AvatarUser

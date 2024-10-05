@@ -10,6 +10,7 @@ import StatusSelector from "./StatusSelector";
 import Comment from "../assets/icons/Comment";
 import { StateContext } from "../context/StateContext";
 import imageCacheChacker from "../common/imagesCacher";
+import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
 
 const initialState = {
   userPhoto: '',
@@ -19,7 +20,7 @@ const initialState = {
 
 const ProjectCaruselItem = (props: any) => {
   const navigate = useNavigate();
-  const { capitalizeFirstLetter, user, availableUserImages, setContextState } = useContext(StateContext);
+  const { user, availableUserImages, setContextState } = useContext(StateContext);
   const { project, statuses, setProjectState, getStatuses, selectedStatus } = props;
 
   const [state, setState] = useReducer(

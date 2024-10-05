@@ -15,6 +15,7 @@ import languages from "../local/languages.json";
 import axiosClient from "../common/axiosClient";
 import Archive from "../assets/icons/Archive";
 import Comment from "./Comment";
+import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
 
 const CommentAndEvent = (props: {
   state: any;
@@ -24,7 +25,7 @@ const CommentAndEvent = (props: {
   const { state, setState, queryClient } = props;
   const locales: any = languages;
   const { id } = useParams();
-  const { lang, capitalizeFirstLetter } = useContext(StateContext);
+  const { lang } = useContext(StateContext);
   const textareaRef = useRef(null);
   const handleChange = (event: any) => {
     setState({ commentText: event.target.value });

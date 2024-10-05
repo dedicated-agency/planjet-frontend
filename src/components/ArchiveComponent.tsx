@@ -1,11 +1,9 @@
-import { useContext } from "react";
 import { LuArrowUpFromLine } from "react-icons/lu";
-import { StateContext } from "../context/StateContext";
 import { dateTimeConverter } from "../common/dateTimeConverter";
 import { Link } from "react-router-dom";
+import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
 
 const ArchiveComponent = (props: any) => {
-  const { capitalizeFirstLetter } = useContext(StateContext);
   return (
     <Link to={`tasks/${props.archive.id}`} className='bg-white p-[16px] rounded-[16px]'>
       <p

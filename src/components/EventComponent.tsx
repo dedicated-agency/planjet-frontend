@@ -6,9 +6,10 @@ import { StateContext } from "../context/StateContext";
 import { dateTimeConverter } from "../common/dateTimeConverter";
 import { Avatar } from "./mini/Avatar";
 import languages from "../local/languages.json";
+import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
 
 const EventComponent = (props: any) => {
-  const { capitalizeFirstLetter, lang } = useContext(StateContext);
+  const { lang } = useContext(StateContext);
   const locales: any = languages;
   
   return (

@@ -24,6 +24,7 @@ import SymbolB from "../assets/icons/SymbolB";
 import Square from "../assets/icons/Square";
 
 import imageCacheChacker from "../common/imagesCacher";
+import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
 
 const getTask = async (id: number) => {
   try {
@@ -71,7 +72,7 @@ export const Task = () => {
 
   const locales: any = languages;
   const { id } = useParams();
-  const { lang, user, capitalizeFirstLetter, availableUserImages, setContextState } = useContext(StateContext);
+  const { lang, user, availableUserImages, setContextState } = useContext(StateContext);
   const navigate = useNavigate();
 
   const setParticipants = (user: any) => {

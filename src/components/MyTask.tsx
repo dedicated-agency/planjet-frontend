@@ -1,12 +1,10 @@
 // import { FaLink, FaRegComment } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
 import { dateTimeConverter } from "../common/dateTimeConverter";
-import { StateContext } from "../context/StateContext";
 import { Avatar } from "./mini/Avatar";
+import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
 
 const ProjectCaruselItem = (props: any) => {
-  const { capitalizeFirstLetter } = useContext(StateContext);
   const { project } = props;
 
 
