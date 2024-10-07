@@ -60,6 +60,7 @@ const initialState = {
   selectStatus: null,
   selectedUsers: [],
   selectPriority: null,
+  focusDelete: false,
 };
 
 export const Task = () => {
@@ -451,7 +452,7 @@ export const Task = () => {
                   : "bg-[#AFF4C6]"
               } rounded-[8px] px-[12px] py-[4px]`}
             >
-              {t('priority_data')[task.priority]}
+              {t(`priority_data_${task.priority}`)}
               <ArrowRight />
             </div>
           </div>
@@ -705,12 +706,12 @@ export const Task = () => {
       {state.isOpenDelete && (
         <div
           className='transition-all bg-black opacity-45 z-10 fixed top-0 w-full h-full'
-          onClick={() => setState({isOpenDelete: true})}
+          onClick={() => setState({isOpenDelete: false, focusDelete: false})}
         ></div>
       )}
       <div
         className={`${
-          state.isOpenDelete ? "bottom-3" : "bottom-[-100%]"
+          state.isOpenDelete ? (state.focusDelete ? "bottom-[30%]" : "bottom-3") : "bottom-[-100%]"
         }  z-[100] fixed transition-all rounded-[25px] bg-white px-3 py-5 right-3 left-3 flex flex-col gap-2`}
       >
         <div className='w-full h-[56px] py-[6px] px-[18px] bg-[#F2F2F7] rounded-[16px]'>
@@ -720,6 +721,7 @@ export const Task = () => {
             className='w-full h-full bg-transparent outline-none border-none'
             value={state.confirmationInput}
             onChange={(e: any) => setState({confirmationInput: e.target.value})}
+            onFocus={() => setState({focusDelete: true})}
           />
         </div>
         <p

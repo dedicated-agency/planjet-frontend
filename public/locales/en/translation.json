@@ -25,11 +25,9 @@
     "start_date": "Start date",
     "file": "File",
     "priority": "priority",
-    "priority_data": {
-        "1": "Low",
-        "2": "Medium",
-        "3": "High"
-    },
+    "priority_data_1": "Low",
+    "priority_data_2": "Medium",
+    "priority_data_3": "High",
     "comments_and_events": "Comments and events",
     "events": "events",
     "change_status": "The status of the task has been changed",
