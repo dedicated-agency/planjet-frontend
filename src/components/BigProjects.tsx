@@ -11,11 +11,27 @@ import { Link } from "react-router-dom";
 import EllipsisText from "./EllipsisText";
 import projectplus from "../assets/images/projectplus.svg";
 import useUserColor from "../common/useUserColor";
+import { IUserData } from "../common/sendData";
 import { t } from "i18next";
 
 const getGroups = async () => {
   return await fetchData("/group/selected", {});
 };
+
+interface IGroup {
+  id: number,
+  name: string,
+  groupUsers: IUser[],
+  users: IUser[],
+  tasks: number
+}
+
+interface IUser {
+  group_id: number,
+  is_selected: boolean,
+  user: IUserData,
+  user_id: number,
+}
 
 const BigProjects = () => {
   const { setContextState } = useContext(StateContext);
@@ -23,6 +39,7 @@ const BigProjects = () => {
   const [groups, setGroups] = useState<any[]>([]);
 
   const { data, error } = useQuery(["groupSelect"], () => getGroups());
+  
 
   useEffect(() => {
     setContextState({ location: "home" });
@@ -32,8 +49,8 @@ const BigProjects = () => {
   }, [data]);
 
   const getData = async () => {
-    const result = data.map(async (group: any) => {
-      const returnGroup: any = group;
+    const result = data.map(async (group: IGroup) => {
+      const returnGroup: IGroup = group;
       returnGroup.users = group.groupUsers;
       return returnGroup;
     });
@@ -83,7 +100,7 @@ const BigProjects = () => {
         </>
       )}
       <div className='flex gap-[8px] overflow-x-scroll scrollbar-hidden px-3'>
-        {groups.map((project: any, index: number) => (
+        {groups.map((project: IGroup, index: number) => (
           <div key={index} className='relative'>
             <Link
               to={"/groups/" + project.id}

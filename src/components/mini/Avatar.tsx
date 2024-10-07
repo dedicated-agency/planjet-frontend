@@ -1,7 +1,7 @@
 import useUserColor from "../../common/useUserColor";
 
 export const Avatar = (props: {
-  image: any;
+  image: string;
   alt: string;
   width?: number;
   radius?: number;

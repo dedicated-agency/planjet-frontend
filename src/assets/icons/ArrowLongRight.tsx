@@ -4,7 +4,6 @@ const ArrowLongRight = () => (
     width={20}
     height={20}
     fill="none"
-    // {...props}
   >
     <g filter="url(#a)">
       <path

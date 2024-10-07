@@ -2,7 +2,7 @@ import axios from "axios";
 import { BACKEND_URL } from "../constants/backend";
 import WebApp from "@twa-dev/sdk";
 const user: any = WebApp.initDataUnsafe?.user;
-const accessToken: any = localStorage.getItem(`accessToken_${user && user.id}`);
+const accessToken: string | null = localStorage.getItem(`accessToken_${user && user.id}`);
 // const accessToken: any = localStorage.getItem(`accessToken_${5673577167}`);
 
 const testMode: string = import.meta.env.VITE_TEST_MODE;

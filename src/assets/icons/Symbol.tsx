@@ -1,9 +1,8 @@
-export const Symbol = (props: any) => (
+export const Symbol = () => (
   <svg
     width={16}
     height={17}
     fill="none"
-    {...props}
   >
     <path
       stroke="#007AFF"

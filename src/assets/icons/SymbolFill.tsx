@@ -1,9 +1,8 @@
-const SymbolFill = (props:any) => (
+const SymbolFill = () => (
   <svg
     width={28}
     height={28}
     fill="none"
-    {...props}
   >
     <path
       fill="#5856D6"

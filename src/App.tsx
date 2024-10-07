@@ -7,7 +7,7 @@ import { Project } from "./views/Project";
 import { Projects } from "./views/Projects";
 import { Mytasks } from "./views/Mytasks";
 import { Task } from "./views/Task";
-import { sendData } from "./common/sendData";
+import { IUserData, sendData } from "./common/sendData";
 import CreateTask from "./views/CreateTask";
 import GroupSettings from "./views/GroupSettings";
 import Events from "./views/Events";
@@ -66,7 +66,7 @@ function App() {
     const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
 
     if (user && currentUser?.id !== user.id) {
-      const userData = {
+      const userData: IUserData = {
         id: user.id,
         first_name: user.first_name,
         username: user.username,
@@ -87,7 +87,7 @@ function App() {
       i18n.changeLanguage(currentUser.language_code);
       setState({ user: userData, lang: userData?.language_code });
     }
-    if(testMode  === 'true')
+    if(testMode === 'true')
     {
       const userData = {
         id: 5673577167,
@@ -127,6 +127,7 @@ function App() {
             element={<CreateTaskFromGroup />}
           />
           <Route path='/tasks/:id' element={<Task />} />
+          <Route path='/event/tasks/:id' element={<Task />} />
           <Route path='/event' element={<Events />} />
           <Route path='/onboarding' element={<Onboarding />} />
           <Route path='/onboardingcrate' element={<HowToAdd />} />

@@ -1,7 +1,7 @@
 import useUserColor from "../../common/useUserColor";
 
 export const AvatarUser = (props: {
-  image: any;
+  image: string;
   alt: string;
   width?: number;
   height?: number;
@@ -16,11 +16,15 @@ export const AvatarUser = (props: {
       alt={props.alt}
       className={`w-[${props.width ? props.width : 24}px] h-[${
         props.height ? props.height : 24
-      }px] min-w-[${props.width ? props.width : 24}px] min-h-[${
-        props.height ? props.height : 24
-      }px] rounded-full border-[2px] border-customWhite2 ${
+      }px] min-w-[${props.width ? props.width : 24}px] rounded-full border-[2px] border-customWhite2 ${
         props.mr ? "" : "mr-[-12px] "
       }`}
+      style={{
+        fontFamily: "SF Pro Display",
+        backgroundColor: lightColor,
+        color: color,
+        minHeight: `${props.width ? props.width : 24}px`
+      }}
     />
   ) : (
     <div

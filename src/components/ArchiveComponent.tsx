@@ -3,7 +3,22 @@ import { dateTimeConverter } from "../common/dateTimeConverter";
 import { Link } from "react-router-dom";
 import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
 
-const ArchiveComponent = (props: any) => {
+interface IArchive {
+  archive: IArchiveIn
+}
+
+interface IArchiveIn {
+  id: number,
+  name: string,
+  description: string,
+  created_at: string,
+  updated_at: string,
+  task_count: number,
+}
+
+
+const ArchiveComponent = (props: IArchive) => {
+  
   return (
     <Link to={`tasks/${props.archive.id}`} className='bg-white p-[16px] rounded-[16px]'>
       <p

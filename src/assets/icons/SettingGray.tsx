@@ -1,10 +1,9 @@
-export const SettingGray = (props: any) => (
+export const SettingGray = () => (
   <svg
     width={58}
     height={58}
     fill="none"
     viewBox="0 0 28 28"
-    {...props}
   >
     <g clipPath="url(#a)">
       <path

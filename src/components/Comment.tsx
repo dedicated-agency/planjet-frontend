@@ -4,10 +4,25 @@ import useUserColor from "../common/useUserColor";
 import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
 
 interface IComment {
-  comment: any;
+  comment: ICommentIn;
+}
+
+export interface ICommentIn {
+  id: number,
+  user_id: number,
+  comment: string,
+  created_at: string,
+  user: IUser,
+  image: string
+}
+
+export interface IUser {
+  telegram_id: number,
+  name: string,
 }
 
 const Comment = ({ comment }: IComment) => {
+
   const { color, lightColor } = useUserColor(comment.user_id);
   return (
     <div className='flex gap-5' key={comment.id}>

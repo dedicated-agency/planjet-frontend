@@ -1,12 +1,18 @@
-export const Setting = (props: any) => {
+interface ISetiing {
+  width?: number;
+  height?: number;
+  fill?: string;
+}
+
+export const Setting = (props: ISetiing) => {
   return (
     <svg
       width={props.width || 24}
       height={props.height || 24}
-      viewBox="0 0 24 24"
-      preserveAspectRatio="xMidYMid meet"
+      viewBox='0 0 24 24'
+      preserveAspectRatio='xMidYMid meet'
       fill={props.fill || "none"}
-      xmlns="http://www.w3.org/2000/svg"
+      xmlns='http://www.w3.org/2000/svg'
       {...props}
     >
       <path

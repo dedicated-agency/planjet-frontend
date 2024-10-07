@@ -162,7 +162,9 @@ const CreateTask = () => {
       <div className='p-3'>
         <div className='bg-white shadow-customShadow rounded-xl p-3 pb-2'>
           <div className='flex items-center gap-[8px]'>
-            <Square className={"relative top-[-4px]"} />
+            <div className={"relative top-[-4px]"}>
+              <Square />
+            </div>
             <input
               type='text'
               placeholder='Task name'

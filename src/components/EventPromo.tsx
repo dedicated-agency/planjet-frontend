@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { dateTimeConverter } from "../common/dateTimeConverter";
 import ArrowRight from "../assets/icons/ArrowRight";
 import { AvatarUser } from "./mini/AvatarUser";
@@ -10,12 +11,18 @@ import { t } from "i18next";
 
 const EventPromo = (props: any) => {
   const [isOpenDescription, setisOpenDescription] = useState<boolean>(false);
+
+  const changes = props.group.events.flatMap((el: any) => el.changes);
+
   return (
-    <div className='h-auto bg-white rounded-2xl'>
-      <Link to={'/tasks/' + props.group.task_id} className="flex flex-col px-3 pt-3">
+    <div className='h-auto bg-white rounded-2xl p-3'>
+      <Link to={"tasks/" + props.group.task_id}>
         <p
           className=' text-xs font-medium'
-          style={{ fontFamily: "SF Pro Display", color: useUserColor(props.group.id).lightColor}}
+          style={{
+            fontFamily: "SF Pro Display",
+            color: useUserColor(props.group.id).lightColor,
+          }}
         >
           {props.group.group} | {props.group.project}
         </p>
@@ -26,27 +33,111 @@ const EventPromo = (props: any) => {
           {capitalizeFirstLetter(props.group.task_name)}
         </p>
       </Link>
-      <div className=" px-3 pb-3">
       <div className='bg-customIndigo120 h-auto rounded-xl border-l-[3px] border-customIndigo100 p-3 mt-1'>
-        <div
-          className='h-5 flex justify-between items-center cursor-pointer'
-          onClick={() => setisOpenDescription(!isOpenDescription)}
-        >
-          <p
-            className='font-medium text-[13px] text-customIndigo100'
-            style={{ fontFamily: "SF Pro Display" }}
-          >
-            {t('recent_events')}
-          </p>
+        {props.group.events.map((event: any, index: number) => {
+          if (props.group.events.length === 1 && event.changes.length === 1) {
+            return (
+              <div key={index}>
+                <div className='flex gap-3 items-center'>
+                  <div className='mr-2'>
+                    <AvatarUser
+                      image={""}
+                      alt={event.user_name}
+                      width={20}
+                      height={20}
+                      size={14}
+                    />
+                  </div>
+                  <p
+                    className='font-normal text-[15px]'
+                    style={{
+                      fontFamily: "SF Pro Display",
+                      color: useUserColor(event.id).lightColor,
+                    }}
+                  >
+                    {event.user_name}
+                  </p>
+                  {event.changes.map((change: any, index: number) => (
+                    <Fragment key={index}>
+                      <p
+                        className='font-normal text-black text-xs'
+                        style={{ fontFamily: "SF Pro Display" }}
+                      >
+                        {change.type === "status"
+                          ? t("status_changed")
+                          : change.type === "priority"
+                          ? t("priority_changed")
+                          : change.type === "created"
+                          ? t("created")
+                          : change.type === "comment"
+                          ? t("comment")
+                          : change.type === "participant"
+                          ? t("participants_changed")
+                          : change.type === "archive"
+                          ? t("added_to_archive")
+                          : t("performers_assigned")}
+                      </p>
+                      <p
+                        className='font-normal text-[10px] text-customGray'
+                        style={{ fontFamily: "SF Pro Display" }}
+                      >
+                        {dateTimeConverter.convertTime(change.created_at)}
+                      </p>
+                    </Fragment>
+                  ))}
+                  {/* Time */}
+                </div>
+                <div className='flex items-center gap-1 mt-2'>
+                  {event.changes.map((change: any, index: number) => (
+                    <Fragment key={index}>
+                      <div className='w-max h-4 bg-customIndigo150 flex justify-center items-center py-1 px-[6px] rounded-2xl'>
+                        <p className='text-xs line-through text-customIndigo'>
+                          {change.old_value == 1
+                            ? t(`priority_data[${change.old_value}]`)
+                            : change.old_value == 2
+                            ? t(`priority_data[${change.old_value}]`)
+                            : change.old_value == 3
+                            ? t(`priority_data[${change.old_value}]`)
+                            : capitalizeFirstLetter(change.old_value)}
+                        </p>
+                      </div>
+                      <ArrowLongRight />
+                      <div className='w-max h-4 bg-customIndigo150 flex justify-center items-center py-1 px-[6px] rounded-2xl'>
+                        <p className='text-xs line-through text-customIndigo'>
+                          В процессе
+                        </p>
+                      </div>
+                    </Fragment>
+                  ))}
+                </div>
+              </div>
+            );
+          }
+        })}
+        {
+          // props.group.events.map((event: any) => event.changes.length)
+          changes.length > 1 && (
+            <div
+              className='h-5 flex justify-between items-center cursor-pointer'
+              onClick={() => setisOpenDescription(!isOpenDescription)}
+            >
+              <p
+                className='font-medium text-[13px] text-customIndigo100'
+                style={{ fontFamily: "SF Pro Display" }}
+              >
+                {t("recent_events")}
+              </p>
 
-          <div
-            className={`${
-              !isOpenDescription ? "rotate-90" : "rotate-[-90deg]"
-            } duration-300 transition-all`}
-          >
-            <ArrowRight stroke='#6463B0' opacity={1} />
-          </div>
-        </div>
+              <div
+                className={`${
+                  !isOpenDescription ? "rotate-90" : "rotate-[-90deg]"
+                } duration-300 transition-all`}
+              >
+                <ArrowRight stroke='#6463B0' opacity={1} />
+              </div>
+            </div>
+          )
+        }
         <div
           className={`overflow-hidden transition-all duration-300 ease-in-out scrollbar-hidden ${
             isOpenDescription ? "max-h-[350px] overflow-y-auto" : "max-h-0"
@@ -69,29 +160,32 @@ const EventPromo = (props: any) => {
                       </div>
                       <p
                         className='font-normal text-[15px]'
-                        style={{ fontFamily: "SF Pro Display", color: useUserColor(event.id).lightColor }}
+                        style={{
+                          fontFamily: "SF Pro Display",
+                          color: useUserColor(event.id).lightColor,
+                        }}
                       >
                         {event.user_name}
                       </p>
                       {event.changes.map((change: any, index: number) => (
-                        <div key={index}>
+                        <Fragment key={index}>
                           <p
                             className='font-normal text-black text-xs'
                             style={{ fontFamily: "SF Pro Display" }}
                           >
                             {change.type === "status"
-                              ? t('status_changed')
+                              ? t("status_changed")
                               : change.type === "priority"
-                              ? t('priority_changed')
+                              ? t("priority_changed")
                               : change.type === "created"
-                              ? t('created')
+                              ? "created"
                               : change.type === "comment"
-                              ? t('comment')
+                              ? t("comment")
                               : change.type === "participant"
-                              ? t('participants_changed')
+                              ? t("participants_changed")
                               : change.type === "archive"
-                              ? t('added_to_archive')
-                              : t('performers_assigned')}
+                              ? t("added_to_archive")
+                              : t("performers_assigned")}
                           </p>
                           <p
                             className='font-normal text-[10px] text-customGray'
@@ -99,31 +193,31 @@ const EventPromo = (props: any) => {
                           >
                             {dateTimeConverter.convertTime(change.created_at)}
                           </p>
-                        </div>
+                        </Fragment>
                       ))}
                       {/* Time */}
                     </div>
                     <div className='flex items-center gap-1 mt-2'>
                       {event.changes.map((change: any, index: number) => (
-                        <div key={index}>
+                        <Fragment key={index}>
                           <div className='w-max h-4 bg-customIndigo150 flex justify-center items-center py-1 px-[6px] rounded-2xl'>
                             <p className='text-xs line-through text-customIndigo'>
                               {change.old_value == 1
-                                ? t('priority_data')[change.old_value]
+                                ? t(`priority_data[${change.old_value}]`)
                                 : change.old_value == 2
-                                ? t('priority_data')[change.old_value]
+                                ? t(`priority_data[${change.old_value}]`)
                                 : change.old_value == 3
-                                ? t('priority_data')[change.old_value]
+                                ? t(`priority_data[${change.old_value}]`)
                                 : capitalizeFirstLetter(change.old_value)}
                             </p>
                           </div>
                           <ArrowLongRight />
                           <div className='w-max h-4 bg-customIndigo150 flex justify-center items-center py-1 px-[6px] rounded-2xl'>
                             <p className='text-xs line-through text-customIndigo'>
-                              {t('in_progress')}
+                              В процессе
                             </p>
                           </div>
-                        </div>
+                        </Fragment>
                       ))}
                     </div>
                   </div>
@@ -142,7 +236,10 @@ const EventPromo = (props: any) => {
                       <p
                         // Color need change
                         className='font-normal text-[15px]'
-                        style={{ fontFamily: "SF Pro Display",  color: useUserColor(event.id).lightColor }}
+                        style={{
+                          fontFamily: "SF Pro Display",
+                          color: useUserColor(event.id).lightColor,
+                        }}
                       >
                         {event.user_name}
                       </p>
@@ -158,18 +255,18 @@ const EventPromo = (props: any) => {
                                 style={{ fontFamily: "SF Pro Display" }}
                               >
                                 {change.type === "status"
-                                  ? t('status_changed')
+                                  ? t("status_changed")
                                   : change.type === "priority"
-                                  ? t('priority_changed')
+                                  ? "priority_changed"
                                   : change.type === "created"
-                                  ? t('created')
+                                  ? t("created")
                                   : change.type === "comment"
-                                  ? t('comment')
+                                  ? t("comment")
                                   : change.type === "participant"
-                                  ? t('participants_changed')
+                                  ? t("participants_changed")
                                   : change.type === "archive"
-                                  ? t('added_to_archive')
-                                  : t('performers_assigned')}
+                                  ? t("added_to_archive")
+                                  : t("performers_assigned")}
                               </p>
                               {/* Time */}
                               <p
@@ -185,17 +282,11 @@ const EventPromo = (props: any) => {
                               <div className='w-max h-4 bg-customIndigo150 flex justify-center items-center py-1 px-[6px] rounded-2xl'>
                                 <p className='text-xs line-through text-customIndigo'>
                                   {change.old_value == 1
-                                    ? t('priority_data')[
-                                        change.old_value
-                                      ]
+                                    ? t("priority_data")[change.old_value]
                                     : change.old_value == 2
-                                    ? t('priority_data')[
-                                        change.old_value
-                                      ]
+                                    ? t("priority_data")[change.old_value]
                                     : change.old_value == 3
-                                    ? t('priority_data')[
-                                        change.old_value
-                                      ]
+                                    ? t("priority_data")[change.old_value]
                                     : capitalizeFirstLetter(change.old_value)}
                                 </p>
                               </div>
@@ -203,17 +294,11 @@ const EventPromo = (props: any) => {
                               <div className='w-max h-4 bg-customIndigo150 flex justify-center items-center py-1 px-[6px] rounded-2xl'>
                                 <p className='text-xs line-through text-customIndigo'>
                                   {change.new_value == 1
-                                    ? t('priority_data')[
-                                        change.new_value
-                                      ]
+                                    ? t("priority_data")[change.new_value]
                                     : change.new_value == 2
-                                    ? t('priority_data')[
-                                        change.new_value
-                                      ]
+                                    ? t("priority_data")[change.new_value]
                                     : change.new_value == 3
-                                    ? t('priority_data')[
-                                        change.new_value
-                                      ]
+                                    ? t("priority_data")[change.new_value]
                                     : capitalizeFirstLetter(change.new_value)}
                                 </p>
                               </div>
@@ -229,7 +314,6 @@ const EventPromo = (props: any) => {
           </div>
         </div>
       </div>
-    </div>
     </div>
     // <Link
     //   to={"/tasks/" + props.group.change.task_id}
@@ -252,18 +336,18 @@ const EventPromo = (props: any) => {
     //         }}
     //       >
     //         {props.group.change.type === "status"
-    //           ? t('status_changed
+    //           ? locales[lang].status_changed
     //           : props.group.change.type === "priority"
-    //           ? t('priority_changed
+    //           ? locales[lang].priority_changed
     //           : props.group.change.type === "created"
-    //           ? t('created
+    //           ? locales[lang].created
     //           : props.group.change.type === "comment"
-    //           ? t('comment
+    //           ? locales[lang].comment
     //           : props.group.change.type === "participant"
-    //           ? t('participants_changed
+    //           ? locales[lang].participants_changed
     //           : props.group.change.type === "archive"
-    //           ? t('added_to_archive
-    //           : t('performers_assigned}
+    //           ? locales[lang].added_to_archive
+    //           : locales[lang].performers_assigned}
     //       </p>
     //     </div>
     //     <div className='flex gap-[6px]'>
@@ -289,11 +373,11 @@ const EventPromo = (props: any) => {
     //     {capitalizeFirstLetter(props.group.change.task.name)}
 
     //     {/* {capitalizeFirstLetter(props.group.change.new_value) == 1
-    //       ? t('priority_data[props.group.change.new_value]
+    //       ? locales[lang].priority_data[props.group.change.new_value]
     //       : capitalizeFirstLetter(props.group.change.new_value) == 2
-    //       ? t('priority_data[props.group.change.new_value]
+    //       ? locales[lang].priority_data[props.group.change.new_value]
     //       : capitalizeFirstLetter(props.group.change.new_value) == 3
-    //       ? t('priority_data[props.group.change.new_value]
+    //       ? locales[lang].priority_data[props.group.change.new_value]
     //       : capitalizeFirstLetter(props.group.change.new_value)} */}
     //   </p>
     // </Link>

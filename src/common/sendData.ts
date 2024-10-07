@@ -1,6 +1,13 @@
 import axiosClient from "./axiosClient";
 
-export const sendData = async (path: string, data: any, accountId: number) => {
+export interface IUserData {
+  id: number,
+  first_name: string,
+  username: string | undefined,
+  language_code: string | undefined,
+};
+
+export const sendData = async (path: string, data: IUserData, accountId: number) => {
   try {
     const response = await axiosClient.post(path, data);
     localStorage.setItem(`accessToken_${accountId}`, JSON.stringify(response?.data?.token));
