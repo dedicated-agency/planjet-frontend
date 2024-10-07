@@ -84,7 +84,7 @@ function App() {
       };
       setState({ user: userData, lang: userData?.language_code });
     }
-    if(testMode  === 'false')
+    if(testMode  === 'true')
     {
       const userData = {
         id: 5673577167,
