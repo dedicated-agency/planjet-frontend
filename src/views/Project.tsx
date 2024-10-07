@@ -8,7 +8,7 @@ import { StateContext } from "../context/StateContext";
 const BackButton = WebApp.BackButton;
 BackButton.show();
 BackButton.onClick(() => window.history.back());
-export const Project = () => {
+const Project = () => {
   const { id } = useParams();
   const { setContextState } = useContext(StateContext);
   useEffect(() => {
@@ -23,3 +23,6 @@ export const Project = () => {
     </>
   );
 };
+
+
+export default Project
