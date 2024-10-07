@@ -168,8 +168,6 @@ const CreateTaskFromGroup = () => {
     }
   };
 
-  console.log({focusStoryPoint});
-  
 
   if (isLoading) return <Loader />;
   // @ts-ignore
