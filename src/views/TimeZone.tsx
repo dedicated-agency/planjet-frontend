@@ -1,16 +1,13 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Symbol } from "../assets/icons/Symbol";
-import { StateContext } from "../context/StateContext";
-import languages from "../local/languages.json";
 import { BiSearch } from "react-icons/bi";
 import WebApp from "@twa-dev/sdk";
+import { t } from "i18next";
 
 const TimeZone = () => {
   const BackButton = WebApp.BackButton;
   BackButton.show();
   BackButton.onClick(() => window.history.back());
-  const { lang } = useContext(StateContext);
-  const locales: any = languages;
 
   const [isSelect, setIsSelect] = useState({
     Tash: true,
@@ -35,7 +32,7 @@ const TimeZone = () => {
         </div>
         <input
           type='text'
-          placeholder={locales[lang].search}
+          placeholder={t('search')}
           className='outline-none border-none pl-[4px]'
           style={{ flex: 1, background: "transparent" }}
         />
@@ -45,13 +42,13 @@ const TimeZone = () => {
           className='text-[13px] text-customGrayDark'
           style={{ fontFamily: "SF Pro Display" }}
         >
-          {locales[lang].notification_language}
+          {t('notification_language')}
         </p>
         <p
           className='text-[13px] text-customBlue'
           style={{ fontFamily: "SF Pro Display" }}
         >
-          {locales[lang].default}
+          {t('default')}
         </p>
       </div>
       <div>

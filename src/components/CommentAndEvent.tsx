@@ -8,14 +8,13 @@ import { dateTimeConverter } from "../common/dateTimeConverter";
 import { AvatarUser } from "./mini/AvatarUser";
 import { BsBarChartFill } from "react-icons/bs";
 import { IoSyncOutline } from "react-icons/io5";
-import { useContext, useRef } from "react";
-import { StateContext } from "../context/StateContext";
+import { useRef } from "react";
 import { useParams } from "react-router-dom";
-import languages from "../local/languages.json";
 import axiosClient from "../common/axiosClient";
 import Archive from "../assets/icons/Archive";
 import Comment from "./Comment";
 import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
+import { t } from "i18next";
 
 const CommentAndEvent = (props: {
   state: any;
@@ -23,9 +22,7 @@ const CommentAndEvent = (props: {
   queryClient: any;
 }) => {
   const { state, setState, queryClient } = props;
-  const locales: any = languages;
   const { id } = useParams();
-  const { lang } = useContext(StateContext);
   const textareaRef = useRef(null);
   const handleChange = (event: any) => {
     setState({ commentText: event.target.value });
@@ -68,7 +65,7 @@ const CommentAndEvent = (props: {
               value={state.commentText}
               name=''
               id=''
-              placeholder={locales[lang].enter_comment}
+              placeholder={t('enter_comment')}
               rows={1}
               style={{
                 overflow: "hidden",
@@ -147,7 +144,7 @@ const CommentAndEvent = (props: {
                         className='text-[13px] font-medium text-customBlackLight'
                         style={{ fontFamily: "SF Pro Display" }}
                       >
-                        {locales[lang].created_task}
+                        {t('created_task')}
                       </p>
                     )}
                     {eventElement.type === "archive" && (
@@ -164,7 +161,7 @@ const CommentAndEvent = (props: {
                           className='text-[13px] font-medium text-customBlackLight pb-[10px]'
                           style={{ fontFamily: "SF Pro Display" }}
                         >
-                          {locales[lang].change_status}
+                          {t('change_status')}
                         </p>
                         <div className='flex mt-2 items-center gap-2'>
                           <div
@@ -188,14 +185,14 @@ const CommentAndEvent = (props: {
                           className='text-[13px] font-medium text-customBlackLight pb-[10px]'
                           style={{ fontFamily: "SF Pro Display" }}
                         >
-                          {locales[lang].priority_change}
+                          {t('priority_change')}
                         </p>
                         <div className='flex mt-2 items-center gap-2'>
                           <div
                             className={`rounded-full text-[12px] py-[4px] px-[6px] bg-customYellowLight text-customYellow line-through`}
                           >
                             {
-                              locales[lang].priority_data[
+                              t('priority_data')[
                                 eventElement.old_value
                               ]
                             }
@@ -208,7 +205,7 @@ const CommentAndEvent = (props: {
                             className={`rounded-full text-[12px] py-[4px] px-[6px] bg-customRedLight text-customRed`}
                           >
                             {
-                              locales[lang].priority_data[
+                              t('priority_data')[
                                 eventElement.new_value
                               ]
                             }
@@ -222,7 +219,7 @@ const CommentAndEvent = (props: {
                           className='text-[13px] font-medium text-customBlackLight pb-[5px]'
                           style={{ fontFamily: "SF Pro Display" }}
                         >
-                          {locales[lang].comment}
+                          {t('comment')}
                         </p>
                         <div className='flex mt-2 items-center gap-2'>
                           <div className='rounded-tr-[12px] rounded-br-[12px] rounded-bl-[12px] bg-[#F2F2F7] text-[12px] px-3 text-customBlackLight py-1'>
@@ -237,7 +234,7 @@ const CommentAndEvent = (props: {
                           className='text-[13px] font-medium text-customBlackLight pb-[5px]'
                           style={{ fontFamily: "SF Pro Display" }}
                         >
-                          {locales[lang].participants_changed}
+                          {t('participants_changed')}
                         </p>
                         <div className='flex mt-2 items-center gap-2'>
                           <div

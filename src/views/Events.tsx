@@ -1,13 +1,12 @@
-import { useContext, useEffect } from "react";
-import { StateContext } from "../context/StateContext";
-import languages from "../local/languages.json";
+import { useEffect } from "react";
 import { fetchData } from "../common/fetchData";
 import { useQuery } from "react-query";
 import WebApp from "@twa-dev/sdk";
 import EventPromo from "../components/EventPromo";
+import { t } from "i18next";
 
 const getEvents = async () => {
-  return await fetchData("user/events?is_viewed=1", {});
+  return await fetchData("user/events", {is_viewed: 1});
 };
 
 const Events = () => {
@@ -15,11 +14,6 @@ const Events = () => {
   BackButton.show();
   BackButton.onClick(() => window.history.back());
   const { data } = useQuery(["eventsViewData"], () => getEvents());
-  console.log(data);
-
-  const { lang } = useContext(StateContext);
-  const locales: any = languages;
-
   useEffect(() => {
     WebApp.setHeaderColor("#F2F2F7");
   }, []);
@@ -33,7 +27,7 @@ const Events = () => {
           className='font-medium text-[17px] text-customDark capitalize'
           style={{ fontFamily: "SF Pro Display" }}
         >
-          {locales[lang].events}
+          {t('events')}
         </p>
         <div className='w-[60px] h-full flex justify-end items-center'></div>
       </div>
@@ -59,7 +53,7 @@ const Events = () => {
                 className='capitalize font-medium text-[15px] text-customBlack'
                 style={{ fontFamily: "SF Pro Display" }}
               >
-                {locales[lang].no_events}
+                {t('no_events')}
               </p>
             </div>
           )}

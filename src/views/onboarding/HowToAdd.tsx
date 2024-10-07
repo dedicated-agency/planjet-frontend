@@ -1,10 +1,8 @@
-// img
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import logo from "../../assets/images/logo.png";
-import languages from "../../local/languages.json";
-import { StateContext } from "../../context/StateContext";
 import WebApp from "@twa-dev/sdk";
 import { Link } from "react-router-dom";
+import { t } from "i18next";
 
 interface IFunction {
   setPage?: (page: number) => void;
@@ -14,9 +12,6 @@ const HowToAdd = ({ setPage }: IFunction) => {
   useEffect(() => {
     WebApp.setHeaderColor("#007AFF");
   }, []);
-  const { lang } = useContext(StateContext);
-
-  const locales: any = languages;
 
   return (
     <div className='bg-custom-gradient-blue p-8 h-full xsm:h-auto xxsm:h-full'>
@@ -29,7 +24,7 @@ const HowToAdd = ({ setPage }: IFunction) => {
             className='text-[32px] font-medium text-white leading-[38px]'
             style={{ fontFamily: "SF Pro Display" }}
           >
-            {locales[lang].how_to_add}
+            {t('how_to_add')}
           </p>
           <div className='flex flex-col gap-3 mt-[25px]'>
             <div className='shadow-custom border-l-[2.5px] border-customWhite bg-customWhite flex items-center gap-[16px] p-[16px] rounded-[20px]'>
@@ -45,7 +40,7 @@ const HowToAdd = ({ setPage }: IFunction) => {
                 className='font-medium text-[17px] text-white leading-[20px]'
                 style={{ fontFamily: "SF Pro Display" }}
               >
-                {locales[lang].add_bot_to_group}
+                {t('add_bot_to_group')}
               </p>
             </div>
             <div className='border-l-[2.5px] border-customWhite bg-customWhite flex items-center gap-[16px] p-[16px] rounded-[20px]'>
@@ -61,7 +56,7 @@ const HowToAdd = ({ setPage }: IFunction) => {
                 className='font-medium text-[17px] text-white leading-[20px]'
                 style={{ fontFamily: "SF Pro Display" }}
               >
-                {locales[lang].make_bot_admin}
+                {t('make_bot_admin')}
               </p>
             </div>
             <div className='border-l-[2.5px] border-customWhite bg-customWhite flex items-center gap-[16px] p-[16px] rounded-[20px]'>
@@ -77,7 +72,7 @@ const HowToAdd = ({ setPage }: IFunction) => {
                 className='font-medium text-[17px] text-white leading-[20px]'
                 style={{ fontFamily: "SF Pro Display " }}
               >
-                {locales[lang].enable_necessary_permissions}
+                {t('enable_necessary_permissions')}
               </p>
             </div>
           </div>
@@ -90,7 +85,7 @@ const HowToAdd = ({ setPage }: IFunction) => {
             onClick={() => setPage(2)}
             style={{ fontFamily: "SF Pro Display" }}
           >
-            <p className='text-gradient-blue'>{locales[lang].next}</p>
+            <p className='text-gradient-blue'>{t('next')}</p>
           </div>
         ) : (
           <Link
@@ -98,7 +93,7 @@ const HowToAdd = ({ setPage }: IFunction) => {
             className='h-[52px] flex items-center justify-center rounded-[16px] shadow-custom font-medium text-[17px] bg-white'
             style={{ fontFamily: "SF Pro Display" }}
           >
-            {locales[lang].understood}
+            {t('understood')}
           </Link>
         )}
       </div>

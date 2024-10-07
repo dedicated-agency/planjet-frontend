@@ -1,18 +1,15 @@
-// import { FaMinus, FaPlus } from "react-icons/fa6";
 import { useNavigate, useParams } from "react-router-dom";
 import { AvatarUser } from "../components/mini/AvatarUser";
 import axiosClient from "../common/axiosClient";
 import {
   useQuery,
-  // useQueryClient
 } from "react-query";
 import { Loader } from "../components/mini/Loader";
-import { useContext, useEffect, useReducer } from "react";
-import languages from "../local/languages.json";
-import { StateContext } from "../context/StateContext";
+import { useEffect, useReducer } from "react";
 import WebApp from "@twa-dev/sdk";
-import imageCacheChacker from "../common/imagesCacher";
 import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
+import getUsersData from "../common/getUsersData";
+import { t } from "i18next";
 
 const getProject = async (id: number) => {
   const response = await axiosClient.get("/project/show/" + id);
@@ -32,9 +29,7 @@ const GroupSettings = () => {
   BackButton.show();
   BackButton.onClick(() => window.history.back());
   const { id } = useParams();
-  const { lang, availableUserImages, setContextState } = useContext(StateContext);
   const navigate = useNavigate();
-  const locales: any = languages;
 
   const [state, setState] = useReducer(
     (state: any, setState: any) => ({
@@ -63,21 +58,13 @@ const GroupSettings = () => {
   }, [isLoading]);
 
   const getUsers = async () => {
-    const resultPromises = project.users.map(async (user: any) => {
-      try {
-        user.image = await imageCacheChacker(user.telegram_id, availableUserImages, setContextState);
-        return user;
-      } catch (error) {
-        console.log("Create task image error" + error);
-      }
-    });
-    const result = await Promise.all(resultPromises);
+    const users = await getUsersData(`${project.group_id}`)
     // @ts-ignore
-    setState({ users: result });
+    setState({ users: users });
   };
 
   const deleteProject = async () => {
-    if (confirm(locales[lang].confirmText)) {
+    if (confirm(t('confirmText'))) {
       try {
         const response = await axiosClient.delete("/project/" + id);
         if (response) {
@@ -113,7 +100,7 @@ const GroupSettings = () => {
       {/* status permissions */}
       <div className='px-3 flex items-center justify-between'>
         <p className='text-slate-500 uppercase text-[13px] font-normal'>
-          {locales[lang].status_settings}
+          {t('status_settings')}
         </p>
         <p
           className='font-normal text-[15px] text-customBlue'
@@ -124,7 +111,7 @@ const GroupSettings = () => {
             editNotification("completed", false)
           }}
         >
-          {locales[lang].turn_off_all}
+          {t('turn_off_all')}
         </p>
       </div>
 
@@ -135,7 +122,7 @@ const GroupSettings = () => {
               className='text-[17px] font-normal leading-6'
               style={{ fontFamily: "SF Pro Display " }}
             >
-              {locales[lang].to_do}
+              {t('to_do')}
             </p>
           </div>
           <label className='relative inline-flex cursor-pointer items-center'>
@@ -156,7 +143,7 @@ const GroupSettings = () => {
               className='text-[17px] font-normal leading-6'
               style={{ fontFamily: "SF Pro Display " }}
             >
-              {locales[lang].in_progress}
+              {t('in_progress')}
             </p>
           </div>
           <label className='relative inline-flex cursor-pointer items-center'>
@@ -178,7 +165,7 @@ const GroupSettings = () => {
               className='text-[17px] font-normal leading-6'
               style={{ fontFamily: "SF Pro Display " }}
             >
-              {locales[lang].testing}
+              {t('testing')}
             </p>
           </div>
           <label className='relative inline-flex cursor-pointer items-center'>
@@ -199,7 +186,7 @@ const GroupSettings = () => {
               className='text-[17px] font-normal leading-6 capitalize'
               style={{ fontFamily: "SF Pro Display " }}
             >
-              {locales[lang].completed}
+              {t('completed')}
             </p>
           </div>
           <label className='relative inline-flex cursor-pointer items-center'>
@@ -216,12 +203,12 @@ const GroupSettings = () => {
         </label>
       </div>
       <p className='text-[13px] font-normal text-customGrayDark px-3 mt-2'>
-        {locales[lang].noti_text}
+        {t('noti_text')}
       </p>
 
       <div className='px-3 flex items-center justify-between mt-5'>
         <p className='text-slate-500 uppercase text-[13px] font-normal'>
-          {locales[lang].notifications_in_chat}
+          {t('notifications_in_chat')}
         </p>
         <p
           className='font-normal text-[15px] text-customBlue'
@@ -232,7 +219,7 @@ const GroupSettings = () => {
             editNotification("delete", false)
           }}
         >
-          {locales[lang].turn_off_all}
+          {t('turn_off_all')}
         </p>
       </div>
       <div className='mt-2 flex flex-col bg-white rounded-[16px] overflow-hidden'>
@@ -242,7 +229,7 @@ const GroupSettings = () => {
               className='text-[17px] font-normal leading-6'
               style={{ fontFamily: "SF Pro Display " }}
             >
-              {locales[lang].create_task}
+              {t('create_task')}
             </p>
             <p
               className='font-normal text-[13px] text-customBlack leading-3'
@@ -269,7 +256,7 @@ const GroupSettings = () => {
               className='text-[17px] font-normal leading-6'
               style={{ fontFamily: "SF Pro Display " }}
             >
-              {locales[lang].edit_task}
+              {t('edit_task')}
             </p>
             <p
               className='font-normal text-[13px] text-customBlack leading-3'
@@ -297,7 +284,7 @@ const GroupSettings = () => {
               className='text-[17px] font-normal leading-6'
               style={{ fontFamily: "SF Pro Display " }}
             >
-              {locales[lang].add_task_to_archive}
+              {t('add_task_to_archive')}
             </p>
             <p
               className='font-normal text-[13px] text-customBlack leading-3'
@@ -324,7 +311,7 @@ const GroupSettings = () => {
               className='text-[17px] font-normal leading-6'
               style={{ fontFamily: "SF Pro Display " }}
             >
-              {locales[lang].delete_task}
+              {t('delete_task')}
             </p>
             <p
               className='font-normal text-[13px] text-customBlack leading-3'
@@ -347,7 +334,7 @@ const GroupSettings = () => {
         </label>
       </div>
       <p className='text-[13px] font-normal text-customGrayDark px-3 mt-2'>
-        {locales[lang].noti_text}
+        {t('noti_text')}
       </p>
 
       <div className='flex flex-col gap-[7px] bg-white rounded-[16px] overflow-hidden mt-4'>
@@ -357,7 +344,7 @@ const GroupSettings = () => {
               className='text-[17px] font-normal leading-6'
               style={{ fontFamily: "SF Pro Display" }}
             >
-              {locales[lang].show_comments}
+              {t('show_comments')}
             </p>
           </div>
           <label className='relative inline-flex cursor-pointer items-center'>
@@ -375,7 +362,7 @@ const GroupSettings = () => {
       </div>
 
       <p className='px-3 text-slate-500 uppercase text-[12px] mt-4'>
-        {locales[lang].group_members}
+        {t('group_members')}
       </p>
       <div className='mt-2 p-1 bg-white rounded-xl'>
         {state.users.length ? (
@@ -411,7 +398,7 @@ const GroupSettings = () => {
         className='h-[50px] flex items-center justify-center mt-4 mb-[42px] rounded-xl bg-gray-300 text-customRed text-[17px] font-medium'
         style={{ fontFamily: "SF Pro Display" }}
       >
-        {capitalizeFirstLetter(locales[lang].delete + " " + locales[lang].project)}
+        {capitalizeFirstLetter(t('delete') + " " + t('project'))}
       </div>
     </div>
   );

@@ -1,9 +1,7 @@
 import WebApp from "@twa-dev/sdk";
-import { useContext, useEffect, useReducer, useRef, useState } from "react";
+import { useEffect, useReducer, useRef, useState } from "react";
 import "../components/carusel.css";
 import { useSwipeable } from "react-swipeable";
-import { StateContext } from "../context/StateContext";
-import languages from "../local/languages.json";
 import MyTask from "../components/MyTask";
 import axiosClient from "../common/axiosClient";
 import ArrowRight from "../assets/icons/ArrowRight";
@@ -12,6 +10,7 @@ import { Avatar } from "../components/mini/Avatar";
 import { useQuery } from "react-query";
 import { fetchData } from "../common/fetchData";
 import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
+import { t } from "i18next";
 
 const getGroups = async () => {
   return await fetchData("/user/groups", {});
@@ -42,12 +41,7 @@ export const Mytasks = () => {
     name: string;
   }>();
 
-  console.log(selectedProjectId);
-
   const { data: groups } = useQuery(["groupsData"], () => getGroups());
-
-  const { lang } = useContext(StateContext);
-  const locales: any = languages;
 
   const [state, setState] = useReducer(
     (state: any, setState: any) => ({
@@ -98,7 +92,7 @@ export const Mytasks = () => {
   });
 
   useEffect(() => {
-    setState({ name: locales[lang].my_tasks });
+    setState({ name: t('my_tasks') });
     getStatuses();
   }, [selectedProjectId]);
 
@@ -167,7 +161,7 @@ export const Mytasks = () => {
               className='text-[17px] font-medium text-black leading-5'
               style={{ fontFamily: "SF Pro Display" }}
             >
-              {locales[lang].my_tasks}
+              {t('my_tasks')}
             </p>
           </div>
         </div>
@@ -181,7 +175,7 @@ export const Mytasks = () => {
           >
             {selectedProject
               ? selectedProject?.name
-              : capitalizeFirstLetter(locales[lang].project)}
+              : capitalizeFirstLetter(t('project'))}
           </p>
           <div className={"rotate-90"}>
             <ArrowRight />
@@ -246,7 +240,7 @@ export const Mytasks = () => {
               ))
             ) : (
               <div className='mt-5 text-gray-400'>
-                {locales[lang].no_task_yet}
+                {t('no_task_yet')}
               </div>
             )}
           </div>
@@ -344,22 +338,6 @@ export const Mytasks = () => {
             )}
           </div>
         ))}
-
-        {/* <div>
-          {isOpenProjectFilter && (
-            <div className='bg-white rounded-b-[25px] h-[30px] fixed bottom-3 left-3 right-3'>
-              <div
-                className=' fixed left-6 right-6 bottom-6 bg-custom-gradient-blue text-white flex justify-center items-center py-4 rounded-xl mt-3'
-                onClick={() => {
-                  // setTempSelectedProject(selectedProject);
-                  // setOpenProject(false);
-                }}
-              >
-                {locales[lang].choose}
-              </div>
-            </div>
-          )}
-        </div> */}
       </div>
     </>
   );

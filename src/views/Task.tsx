@@ -1,6 +1,5 @@
 import { FaRegComment } from "react-icons/fa6";
 import { Avatar } from "../components/mini/Avatar";
-import languages from "../local/languages.json";
 import { useContext, useEffect, useReducer } from "react";
 import { StateContext } from "../context/StateContext";
 import { dateTimeConverter } from "../common/dateTimeConverter";
@@ -25,6 +24,7 @@ import Square from "../assets/icons/Square";
 
 import imageCacheChacker from "../common/imagesCacher";
 import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
+import { t } from "i18next";
 
 const getTask = async (id: number) => {
   try {
@@ -70,9 +70,8 @@ export const Task = () => {
     WebApp.setHeaderColor("#FFFFFF");
   }, []);
 
-  const locales: any = languages;
   const { id } = useParams();
-  const { lang, user, availableUserImages, setContextState } = useContext(StateContext);
+  const { lang, user } = useContext(StateContext);
   const navigate = useNavigate();
 
   const setParticipants = (user: any) => {
@@ -115,14 +114,14 @@ export const Task = () => {
     const getUserImages = async (usersArray: any[]) => {
       return await Promise.all(
         usersArray.map(async (user: any) => {
-          user.image = await imageCacheChacker(user.telegram_id, availableUserImages, setContextState);
+          user.image = await imageCacheChacker(user.telegram_id);
           return user;
         })
       );
     };
 
     const user = { ...task.user };
-    user.image = await imageCacheChacker(task.user.telegram_id, availableUserImages, setContextState);
+    user.image = await imageCacheChacker(task.user.telegram_id);
   
     const selectedUsersPromise = task.taskUser.length
     ? getUserImages(task.taskUser.map((taskUser: any) => taskUser.user))
@@ -206,9 +205,9 @@ export const Task = () => {
   };
 
   const archiveTask = async () => {
-    let text = locales[lang].send_archive;
+    let text = t('send_archive');
     if (task.is_archive) {
-      text = locales[lang].de_archiving;
+      text = t('de_archiving');
     }
     if (confirm(text)) {
       try {
@@ -315,7 +314,7 @@ export const Task = () => {
                 className='text-black font-normal text-[16px]'
                 style={{ fontFamily: "SF Pro Display " }}
               >
-                {locales[lang].created_at}
+                {t('created_at')}
               </p>
             </div>
             <p
@@ -335,7 +334,7 @@ export const Task = () => {
                 className='text-black font-normal text-[16px]'
                 style={{ fontFamily: "SF Pro Display " }}
               >
-                {locales[lang].author}
+                {t('author')}
               </p>
             </div>
             <div className='pr-3'>
@@ -358,7 +357,7 @@ export const Task = () => {
                 className='text-black font-normal text-[16px] ml-[-5px]'
                 style={{ fontFamily: "SF Pro Display " }}
               >
-                {capitalizeFirstLetter(locales[lang].participant)}
+                {capitalizeFirstLetter(t('participant'))}
               </p>
             </div>
             <div className='flex items-center gap-[8px]'>
@@ -395,7 +394,7 @@ export const Task = () => {
                   className='text-black font-normal text-[16px]'
                   style={{ fontFamily: "SF Pro Display " }}
                 >
-                  {locales[lang].story_point}
+                  {t('story_point')}
                 </p>
               </div>
               <div className='pr-3'>
@@ -410,7 +409,7 @@ export const Task = () => {
                         <div className="text-gray-400">
                             <BsCalendar3 />
                         </div>
-                        <p className="text-gray-400 font-bold font-sans">{locales[lang].deadline}</p>
+                        <p className="text-gray-400 font-bold font-sans">{t('deadline}</p>
                     </div>
                     <p className="font-bold font-sans">{ task.created_at && dateTimeConverter.convert(task.created_at)}</p>
                 </div> */}
@@ -419,7 +418,7 @@ export const Task = () => {
                         <div className="text-gray-400">
                             <FaLink />
                         </div>
-                        <p className="text-gray-400 font-bold font-sans">{locales[lang].file}</p>
+                        <p className="text-gray-400 font-bold font-sans">{t('file}</p>
                     </div>
                     <div className="flex items-center gap-2">
                         <div className="w-5 h-5 rounded-full bg-gray-300 text-white flex justify-center items-center text-sm">0</div>
@@ -439,7 +438,7 @@ export const Task = () => {
                 className='text-black font-normal text-[16px]'
                 style={{ fontFamily: "SF Pro Display" }}
               >
-                {capitalizeFirstLetter(locales[lang].priority)}
+                {capitalizeFirstLetter(t('priority'))}
               </p>
             </div>
             <div
@@ -452,7 +451,7 @@ export const Task = () => {
                   : "bg-[#AFF4C6]"
               } rounded-[8px] px-[12px] py-[4px]`}
             >
-              {locales[lang].priority_data[task.priority]}
+              {t('priority_data')[task.priority]}
               <ArrowRight />
             </div>
           </div>
@@ -465,7 +464,7 @@ export const Task = () => {
                 className='text-black font-normal text-[16px]'
                 style={{ fontFamily: "SF Pro Display " }}
               >
-                {locales[lang].status}
+                {t('status')}
               </div>
             </div>
             <div
@@ -507,7 +506,7 @@ export const Task = () => {
                 <FaRegComment />
               </div>
               <p className='text-gray-400 font-bold font-sans'>
-                {locales[lang].comments_and_events}
+                {t('comments_and_events')}
               </p>
             </div>
             <div className='transition-all flex items-center gap-3'>
@@ -539,7 +538,7 @@ export const Task = () => {
                       : "text-gray-400"
                   } transition w-[50%] capitalize rounded-full text-center text-sm font-sans font-bold py-1 cursor-pointer`}
                 >
-                  {locales[lang].comments} {task.taskComment.length}
+                  {t('comments')} {task.taskComment.length}
                 </div>
                 <div
                   onClick={() => setState({ selector: "event" })}
@@ -549,7 +548,7 @@ export const Task = () => {
                       : "text-gray-400"
                   } transition w-[50%] capitalize  rounded-full text-center text-sm font-sans font-bold py-1 cursor-pointer`}
                 >
-                  {locales[lang].events} {task.taskChange.length}
+                  {t('events')} {task.taskChange.length}
                 </div>
               </div>
               <CommentAndEvent
@@ -570,7 +569,7 @@ export const Task = () => {
               <div>
                 <IoTrash size={20} />
               </div>
-              <p className='text-[12px]'>{locales[lang].delete}</p>
+              <p className='text-[12px]'>{t('delete')}</p>
             </div>
             <div
               onClick={archiveTask}
@@ -579,7 +578,7 @@ export const Task = () => {
               <div>
                 <TbArrowBarUp size={20} />
               </div>
-              <p className='text-[12px]'>{locales[lang].archive}</p>
+              <p className='text-[12px]'>{t('archive')}</p>
             </div>
           </div>
         )}
@@ -697,7 +696,7 @@ export const Task = () => {
                 className=' fixed left-6 right-6 bottom-6 bg-custom-gradient-blue text-white flex justify-center items-center py-4 rounded-xl mt-3'
                 onClick={() => updateParticipants()}
               >
-                {locales[lang].choose}
+                {t('choose')}
               </div>
             </div>
           )}
@@ -727,7 +726,7 @@ export const Task = () => {
           className='text-[16px] font-normal text-customGrayDark px-3 mt-2 leading-4'
           style={{ fontFamily: "SF Pro Display" }}
         >
-          {locales[lang].delete_confirmation}
+          {t('delete_confirmation')}
         </p>
         <div>
           {state.isOpenDelete && (
@@ -738,7 +737,7 @@ export const Task = () => {
                   setState({confirmationInput: '', isOpenDelete: false})
                 }}
               >
-                {locales[lang].cancel}
+                {t('cancel')}
               </div>
 
               {state.confirmationInput === "I'm Sure" ? (
@@ -746,22 +745,13 @@ export const Task = () => {
                   className='w-[50%] bottom-[22px] bg-[#FF3B30] text-white flex justify-center items-center py-4 left-6 right-6 rounded-xl mt-3 cursor-pointer'
                   onClick={() => deleteTask()}
                 >
-                  {locales[lang].delete}
+                  {t('delete')}
                 </div>
               ) : (
                 <div className='w-[50%] bottom-[22px] bg-[#FDD3D0] text-white flex justify-center items-center py-4 left-6 right-6 rounded-xl mt-3 cursor-pointer'>
-                  {locales[lang].delete}
+                  {t('delete')}
                 </div>
               )}
-              {/* <div
-                className='w-[50%] bottom-[22px] bg-[#FF3B30] text-white flex justify-center items-center py-4 left-6 right-6 rounded-xl mt-3'
-                // onClick={() => {
-                //   setSelectStoryPoint(storyPoint);
-                //   setOpenStoryPoint(false);
-                // }}
-              >
-                {locales[lang].delete}
-              </div> */}
             </div>
           )}
         </div>

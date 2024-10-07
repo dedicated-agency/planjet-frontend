@@ -4,6 +4,7 @@ import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import WebApp from "@twa-dev/sdk";
 import { QueryClient, QueryClientProvider } from "react-query";
+import './i18n'; 
 
 const queryClient = new QueryClient();
 

@@ -1,14 +1,13 @@
-import { useContext, useEffect, useReducer, useRef } from "react";
+import { useEffect, useReducer, useRef } from "react";
 import "./carusel.css";
 import { useSwipeable } from "react-swipeable";
-import { StateContext } from "../context/StateContext";
 import { useParams } from "react-router-dom";
 import { TopProjectBar } from "./TopProjectBar";
-import languages from "../local/languages.json";
 import { fetchData } from "../common/fetchData";
 import ProjectCaruselItem from "./ProjectCaruselItem";
 import { useGetTasks } from "../common/fetchTasks";
 import { Loader } from "./mini/Loader";
+import { t } from "i18next";
 
 const initialState = {
   statuses: [],
@@ -25,9 +24,7 @@ const initialState = {
 };
 
 export const ProjectCarusel = () => {
-  const { lang } = useContext(StateContext);
   const { id } = useParams();
-  const locales: any = languages;
   const [state, setState] = useReducer(
     (state: any, setState: any) => ({
       ...state,
@@ -152,7 +149,7 @@ export const ProjectCarusel = () => {
 
   return (
     <>
-      <TopProjectBar state={state} setState={setState} id={id} />
+      <TopProjectBar state={state} setState={setState} id={id} group_id={project?.group_id} />
       <div
         ref={tabContainerRef}
         className='flex h-[44px] max-w-[700px] w-full overflow-x-scroll border-b bg-white px-2 transition scroll-smooth status-list fixed top-[56px] z-[19]'
@@ -220,7 +217,7 @@ export const ProjectCarusel = () => {
               ))
             ) : (
               <div className='mt-5 text-gray-400'>
-                {locales[lang].no_task_yet}
+                {t('no_task_yet')}
               </div>
             )}
           </div>

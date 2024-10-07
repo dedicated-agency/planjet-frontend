@@ -1,16 +1,10 @@
 import { useContext, useEffect, useRef, useState } from "react";
-// import { useQuery } from "react-query";
-// import { fetchData } from "../common/fetchData";
-import languages from "../local/languages.json";
 import { StateContext } from "../context/StateContext";
 import { AvatarUser } from "../components/mini/AvatarUser";
 import { useGetTasks } from "../common/fetchTasks";
 import { Loader } from "../components/mini/Loader";
 import { useNavigate, useParams } from "react-router-dom";
 import axiosClient from "../common/axiosClient";
-// import { dateTimeConverter } from "../common/dateTimeConverter";
-// import { fetchData } from "../common/fetchData";
-// import { useQuery } from "react-query";
 import WebApp from "@twa-dev/sdk";
 import ArrowRight from "../assets/icons/ArrowRight";
 import Calendar from "../assets/icons/Calendar";
@@ -19,7 +13,8 @@ import Prioritet from "../assets/icons/Prioritet";
 import Square from "../assets/icons/Square";
 import File from "../assets/icons/File";
 import { Avatar } from "../components/mini/Avatar";
-import imageCacheChacker from "../common/imagesCacher";
+import getUsersData from "../common/getUsersData";
+import { t } from "i18next";
 
 const priorities = [
   {
@@ -58,7 +53,7 @@ const statusses = [
   {
     uz: "Tayyor",
     ru: "Готово",
-    en: "Ready",
+    en: "Completed",
   },
 ];
 
@@ -75,8 +70,7 @@ const CreateTaskFromGroup = () => {
   }, []);
   const navigate = useNavigate();
   const { project_id } = useParams();
-  const locales: any = languages;
-  const { lang, user, availableUserImages, setContextState } =
+  const { lang, user } =
     useContext(StateContext);
   const [text, setText] = useState("");
   const textareaRef = useRef(null);
@@ -135,19 +129,8 @@ const CreateTaskFromGroup = () => {
   }, [project, project_id]);
 
   const getUsers = async () => {
-    const resultPromises = project.users.map(async (user: any) => {
-      try {
-        user.image = await imageCacheChacker(
-          user.telegram_id,
-          availableUserImages,
-          setContextState,
-        );
-        return user;
-      } catch (error) {
-        console.log("Create task image error" + error);
-      }
-    });
-    const result = await Promise.all(resultPromises);
+    const result = await getUsersData(project.group_id);
+    console.log({result});
     // @ts-ignore
     setUsers(result);
   };
@@ -218,7 +201,7 @@ const CreateTaskFromGroup = () => {
               className='text-black tex-[16px] font-normal font-sans capitalize'
               style={{ fontFamily: "SF Pro Display" }}
             >
-              {locales[lang].project}
+              {t('project')}
             </p>
           </div>
 
@@ -251,7 +234,7 @@ const CreateTaskFromGroup = () => {
                   className='text-black tex-[16px] font-normal font-sans capitalize'
                   style={{ fontFamily: "SF Pro Display" }}
                 >
-                  {locales[lang].participant}
+                  {t('participant')}
                 </p>
               </div>
 
@@ -273,7 +256,7 @@ const CreateTaskFromGroup = () => {
                     className='font-normal text-[16px] text-customBlack mr-[-10px]'
                     style={{ fontFamily: "SF Pro Display" }}
                   >
-                    {locales[lang].appoint}
+                    {t('appoint')}
                   </p>
                 )}
                 <div className='ml-3'>
@@ -294,7 +277,7 @@ const CreateTaskFromGroup = () => {
                   className='text-black tex-[16px] font-normal font-sans capitalize'
                   style={{ fontFamily: "SF Pro Display" }}
                 >
-                  {locales[lang].priority}
+                  {t('priority')}
                 </p>
               </div>
               <div className='flex items-center gap-1 text-gray-400'>
@@ -302,7 +285,7 @@ const CreateTaskFromGroup = () => {
                   className='font-normal text-[16px] text-customBlack'
                   style={{ fontFamily: "SF Pro Display" }}
                 >
-                  {locales[lang].priority_data[selectPriority]}
+                  {t('priority_data')[selectPriority]}
                 </p>
                 <ArrowRight />
               </div>
@@ -320,7 +303,7 @@ const CreateTaskFromGroup = () => {
                   className='text-black tex-[16px] font-normal font-sans capitalize'
                   style={{ fontFamily: "SF Pro Display" }}
                 >
-                  {locales[lang].story_point}
+                  {t('story_point')}
                 </p>
               </div>
               <div className='flex items-center gap-1 text-gray-400'>
@@ -344,7 +327,7 @@ const CreateTaskFromGroup = () => {
         {name === "" ? (
           <div className='fixed bottom-[42px] w-[94%] bg-gray-300 text-gray-400 flex justify-center items-center py-4 rounded-xl'>
             {" "}
-            {locales[lang].create}
+            {t('create')}
           </div>
         ) : (
           <div
@@ -352,7 +335,7 @@ const CreateTaskFromGroup = () => {
             className='fixed bottom-[42px] w-[94%] bg-custom-gradient-blue text-white flex justify-center items-center py-4 rounded-xl'
           >
             {" "}
-            {locales[lang].create}
+            {t('create')}
           </div>
         )}
       </div>
@@ -456,7 +439,7 @@ const CreateTaskFromGroup = () => {
               className=' fixed bottom-5 bg-blue-500 text-white flex justify-center items-center py-4 left-6 right-6 rounded-xl mt-3'
               onClick={() => setOpenParticipant(false)}
             >
-              {locales[lang].choose}
+              {t('choose')}
             </div>
           )}
         </div>
@@ -472,7 +455,7 @@ const CreateTaskFromGroup = () => {
       )}
       <div
         className={`${
-          openStoryPoint ? (focusStoryPoint ? "bottom-[40%]" : "bottom-3") : "bottom-[-100%]"
+          openStoryPoint ? (focusStoryPoint ? "bottom-[30%]" : "bottom-3") : "bottom-[-100%]"
         }  z-[100] fixed transition-all rounded-[25px] bg-white px-3 py-5 left-3 pb-[80px] right-3 flex flex-wrap gap-2 justify-between`}
       >
         <div className='w-full h-[56px] py-[6px] px-[18px] bg-[#F2F2F7] rounded-[16px]'>
@@ -494,7 +477,7 @@ const CreateTaskFromGroup = () => {
                 setOpenStoryPoint(false);
               }}
             >
-              {locales[lang].save}
+              {t('save')}
             </div>
           )}
         </div>

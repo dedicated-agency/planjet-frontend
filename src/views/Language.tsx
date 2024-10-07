@@ -2,8 +2,8 @@ import { useContext, useState } from "react";
 import { StateContext } from "../context/StateContext";
 import { Symbol } from "../assets/icons/Symbol";
 import WebApp from "@twa-dev/sdk";
-
-import languages from "../local/languages.json";
+import { t } from "i18next";
+import i18n from "../i18n";
 
 const Language = () => {
   const BackButton = WebApp.BackButton;
@@ -15,9 +15,8 @@ const Language = () => {
   const handleLanguageChange = (language: string) => {
     setSelectedLanguage(language);
     setContextState({ lang: language });
+    i18n.changeLanguage(language);
   };
-
-  const locales: any = languages;
 
   return (
     <div className='px-3 my-2'>
@@ -26,13 +25,13 @@ const Language = () => {
           className='text-[13px] text-customGrayDark'
           style={{ fontFamily: "SF Pro Display" }}
         >
-          {locales[lang].notification_language}
+          {t('notification_language')}
         </p>
         <p
           className='text-[13px] text-customBlue'
           style={{ fontFamily: "SF Pro Display" }}
         >
-          {locales[lang].default}
+          {t('default')}
         </p>
       </div>
       <div>
@@ -108,7 +107,7 @@ const Language = () => {
           className='text-[13px] font-normal text-customGrayDark px-3 mt-2'
           style={{ fontFamily: "SF Pro Display" }}
         >
-          {locales[lang].select_notification_language}
+          {t('select_notification_language')}
         </p>
       </div>
     </div>

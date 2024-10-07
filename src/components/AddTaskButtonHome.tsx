@@ -1,14 +1,11 @@
 import { Link } from "react-router-dom";
 import Plus from "../assets/icons/Plus";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import CopyIcon from "../assets/icons/CopyIcon";
 import FileIcon from "../assets/icons/FileIcon";
-import { StateContext } from "../context/StateContext";
-import languages from "../local/languages.json";
+import { t } from "i18next";
 
 export const AddTaskButtonHome = () => {
-  const { lang } = useContext(StateContext);
-  const locales: any = languages;
   const [openParticipant, setOpenParticipant] = useState(false);
   return (
     <>
@@ -44,13 +41,13 @@ export const AddTaskButtonHome = () => {
               className='text-[17px] font-normal text-black leading-6'
               style={{ fontFamily: "SF Pro Display" }}
             >
-              {locales[lang].new_task}
+              {t('new_task')}
             </span>
             <span
               className='text-[15px] font-[400] text-[#000000] leading-4 opacity-[50%]'
               style={{ fontFamily: "SF Pro Display" }}
             >
-              {locales[lang].create_task_in_selected_project}
+              {t('create_task_in_selected_project')}
             </span>
           </div>
         </Link>
@@ -64,13 +61,13 @@ export const AddTaskButtonHome = () => {
               className='text-[17px] font-normal text-black leading-6'
               style={{ fontFamily: "SF Pro Display" }}
             >
-              {locales[lang].add_project}
+              {t('add_project')}
             </span>
             <span
               className='text-[15px] font-[400] text-[#000000] leading-4 opacity-[50%]'
               style={{ fontFamily: "SF Pro Display" }}
             >
-              {locales[lang].add_bot_to_project_chat}
+              {t('add_bot_to_project_chat')}
             </span>
           </div>
         </Link>

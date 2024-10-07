@@ -22,6 +22,7 @@ import NotTelegram from "./components/mini/NotTelegram";
 import Profile from "./views/Profile";
 import Settings from "./views/Settings";
 import TimeZone from "./views/TimeZone";
+import i18n from "./i18n";
 
 const testMode: string = import.meta.env.VITE_TEST_MODE;
 
@@ -73,6 +74,7 @@ function App() {
       };
       setState({ user: user, lang: user?.language_code });
       await sendData("user/init", userData, user.id);
+      i18n.changeLanguage(user?.language_code);
       localStorage.setItem("currentUser", JSON.stringify(userData));
     } 
     else if(testMode === 'false') {
@@ -82,6 +84,7 @@ function App() {
         username: currentUser.username,
         language_code: currentUser.language_code,
       };
+      i18n.changeLanguage(currentUser.language_code);
       setState({ user: userData, lang: userData?.language_code });
     }
     if(testMode  === 'true')

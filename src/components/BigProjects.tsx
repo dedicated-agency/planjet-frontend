@@ -5,22 +5,21 @@ import {
   useState,
 } from "react";
 import { StateContext } from "../context/StateContext";
-import languages from "../local/languages.json";
 import { useQuery } from "react-query";
 import { fetchData } from "../common/fetchData";
 import { Link } from "react-router-dom";
 import EllipsisText from "./EllipsisText";
 import projectplus from "../assets/images/projectplus.svg";
 import useUserColor from "../common/useUserColor";
+import { t } from "i18next";
 
 const getGroups = async () => {
   return await fetchData("/group/selected", {});
 };
 
 const BigProjects = () => {
-  const { lang, setContextState } = useContext(StateContext);
+  const { setContextState } = useContext(StateContext);
 
-  const locales: any = languages;
   const [groups, setGroups] = useState<any[]>([]);
 
   const { data, error } = useQuery(["groupSelect"], () => getGroups());
@@ -36,8 +35,6 @@ const BigProjects = () => {
     const result = data.map(async (group: any) => {
       const returnGroup: any = group;
       returnGroup.users = group.groupUsers;
-      //  await getUsers(group.groupUsers);
-
       return returnGroup;
     });
 
@@ -55,14 +52,14 @@ const BigProjects = () => {
           className='font-normal text-[13px] text-customGrayDark uppercase'
           style={{ fontFamily: "SF Pro Display" }}
         >
-          {locales[lang].project}
+          {t('project')}
         </p>
         <Link
           to={"/settingsprojects"}
           className='text-gradient-blue text-[15px] font-normal h-full items-center flex'
           style={{ fontFamily: "SF Pro Display" }}
         >
-          {locales[lang].configure}
+          {t('configure')}
         </Link>
       </div>
       {groups.length === 0 && (
@@ -73,14 +70,14 @@ const BigProjects = () => {
               style={{ fontFamily: "SF Pro Display" }}
             >
               <img src={projectplus} alt='projectplus' />
-              {/* {locales[lang].no_projects} */}
+              {/* {t('no_projects} */}
             </p>
             <Link
               to={"/settingsprojects"}
               className='text-gradient-blue text-[15px] font-normal h-full items-center flex'
               style={{ fontFamily: "SF Pro Display" }}
             >
-              {locales[lang].add} {locales[lang].project}
+              {t('add')} {t('project')}
             </Link>
           </div>
         </>
@@ -110,7 +107,7 @@ const BigProjects = () => {
                         className='text-[12px] font-normal leading-3	text-customWhite1'
                         style={{ fontFamily: "SF Pro Display" }}
                       >
-                        {project.users.length} {locales[lang].participant}
+                        {project.users.length} {t('participant')}
                       </p>
                     </div>
                   </div>
@@ -121,7 +118,7 @@ const BigProjects = () => {
                   className='text-[15px] text-white font-medium'
                   style={{ fontFamily: "SF Pro Display" }}
                 >
-                  {locales[lang].active_tasks}
+                  {t('active_tasks')}
                 </p>
                 <p
                   className='text-[15px] text-white font-semibold'

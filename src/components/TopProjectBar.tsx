@@ -1,6 +1,4 @@
-import { useContext, useEffect, useReducer } from "react";
-import { StateContext } from "../context/StateContext";
-import languages from "../local/languages.json";
+import { useEffect, useReducer } from "react";
 
 import { AvatarUser } from "./mini/AvatarUser";
 import { Avatar } from "./mini/Avatar";
@@ -8,7 +6,8 @@ import { Link } from "react-router-dom";
 import Archive from "../assets/icons/Archive";
 import { Setting } from "../assets/icons/Setting";
 import ArrowDown from "../assets/icons/ArrowDown";
-import imageCacheChacker from "../common/imagesCacher";
+import getUsersData from "../common/getUsersData";
+import { t } from "i18next";
 
 const initialState = {
   users: [],
@@ -16,12 +15,8 @@ const initialState = {
   openParticipant: false,
 };
 
-
 export const TopProjectBar = (props: any) => {
-  const { state, setState, id } = props;
-  const { lang, availableUserImages, setContextState } = useContext(StateContext);
-  const locales: any = languages;
-
+  const { state, setState, id, group_id } = props;
   const [barState, setBarState] = useReducer(
     (state: any, setState: any) => ({
       ...state,
@@ -42,18 +37,13 @@ export const TopProjectBar = (props: any) => {
   };
 
   useEffect(() => {
-    if(state.users.length) getUsers();
-  }, [state.users.length]);
+    group_id && getUsers();
+  }, [group_id]);
 
   const getUsers = async () => {
-    const result = await Promise.all(
-      state.users.map(async (user: any) => {
-        const image = await imageCacheChacker(user.telegram_id, availableUserImages, setContextState);
-        return { ...user, image }
-    })
-  );
+    const users = await getUsersData(group_id)
     // @ts-ignore
-    setBarState({users: result});
+    setBarState({users: users});
   };
   const updateParticipants = async () => {
     setState({
@@ -83,7 +73,7 @@ export const TopProjectBar = (props: any) => {
                 className='text-[13px] text-customGrayDark leading-3'
                 style={{ fontFamily: "SF Pro Display" }}
               >
-                {state.users && state.users.length} {locales[lang].participant}
+                {state.users && state.users.length} {t('participant')}
               </p>
             )}
           </div>
@@ -242,7 +232,7 @@ export const TopProjectBar = (props: any) => {
                 className=' fixed left-6 right-6 bottom-6 bg-custom-gradient-blue text-white flex justify-center items-center py-4 rounded-xl mt-3'
                 onClick={() => updateParticipants()}
               >
-                {locales[lang].choose}
+                {t('choose')}
               </div>
             </div>
           )}
