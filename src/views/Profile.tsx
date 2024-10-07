@@ -16,7 +16,7 @@ const Profile = () => {
 
   useEffect(() => {
     getInitial();
-  }, [currentUser]);
+  }, [user]);
 
   const getInitial = async () => {
     if (user && user.first_name) {
