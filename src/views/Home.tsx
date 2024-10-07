@@ -1,25 +1,23 @@
-import languages from "../local/languages.json";
-
 import { useEffect, useState } from "react";
 import BigProjects from "../components/BigProjects";
 import Command from "../components/Command";
 import EventsPromo from "../components/EventsPromo";
-import { useContext } from "react";
-import { StateContext } from "../context/StateContext";
 import WebApp from "@twa-dev/sdk";
 import { Link } from "react-router-dom";
 import SymbolFill from "../assets/icons/SymbolFill";
 import ArrowRight from "../assets/icons/ArrowRight";
 import { AddTaskButtonHome } from "../components/AddTaskButtonHome";
 import UserNavbar from "../components/UserNavbar";
+import { t } from "i18next";
+import axiosClient from "../common/axiosClient";
 
 
 const Home = () => {
   const BackButton = WebApp.BackButton;
   BackButton.hide();
-  const { lang } = useContext(StateContext);
-  const locales: any = languages;
   const [isOpenCommand, setIsOpenCommand] = useState(false);
+  const [myTasks, setMyTasks] = useState(0)
+  
 
   useEffect(() => {
     WebApp.setHeaderColor("#F2F2F7");
@@ -27,7 +25,23 @@ const Home = () => {
     if (!onboardingCompleted) {
       setIsOpenCommand(true);
     }
+    getTasks();
   }, []);
+
+
+  const getTasks = async () => {
+    try {
+      const response: any = await axiosClient.get("/user/tasks");
+      if (response && response.data) {
+        setMyTasks(response.data.length);
+      } else {
+        setMyTasks(response.data.length);
+      }
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+      setMyTasks(0);
+    }
+  };
 
   const handleOnboardingClose = () => {
     localStorage.setItem("onboardingCompleted", "true");
@@ -57,13 +71,13 @@ const Home = () => {
               className='h-full flex items-center text-[17px] text-black font-medium'
               style={{ fontFamily: "SF Pro Display" }}
             >
-              {locales[lang].my_tasks}
+              {t('my_tasks')}
             </p>
           </div>
           <div className='flex items-center'>
             <div className='w-[32px]'>
               <div className='flex items-center justify-center text-[12px] w-[20px] h-[20px] border rounded-full bg-customPurpleLight text-customPurple p-0'>
-                0
+                {myTasks}
               </div>
             </div>
             <ArrowRight />
@@ -74,7 +88,6 @@ const Home = () => {
       <div className='py-3 px-4 w-full flex flex-col gap-3'>
         <EventsPromo />
         <AddTaskButtonHome />
-       
       </div> 
     </div>
   );

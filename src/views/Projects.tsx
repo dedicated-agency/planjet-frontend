@@ -3,17 +3,17 @@ import { useContext, useEffect, useState } from "react";
 import { Avatar } from "../components/mini/Avatar";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { StateContext } from "../context/StateContext";
-import languages from "../local/languages.json";
 import { FaAngleRight } from "react-icons/fa6";
 import { useQuery } from "react-query";
 import { fetchData } from "../common/fetchData";
 import { Loader } from "../components/mini/Loader";
 import { AvatarUser } from "../components/mini/AvatarUser";
+import getUsersData from "../common/getUsersData";
+import { t } from "i18next";
 
 const getGroup = async (id: number) => {
   return await fetchData("/group/" + id, {});
 };
-import imageCacheChacker from "../common/imagesCacher";
 
 export const Projects = () => {
   const BackButton = WebApp.BackButton;
@@ -21,8 +21,7 @@ export const Projects = () => {
   BackButton.onClick(() => window.history.back());
 
   const { id } = useParams();
-  const { lang, location,  availableUserImages, setContextState } = useContext(StateContext);
-  const locales: any = languages;
+  const { location } = useContext(StateContext);
   const navigate = useNavigate();
   const [groups, setGroups] = useState<any[]>([]);
   const [openParticipant, setOpenParticipant] = useState(false);
@@ -31,19 +30,8 @@ export const Projects = () => {
     getGroup(Number(id)),
   );
 
-  console.log(data);
-
-  const getUsers = async (users: any[]) => {
-    const resultPromises = users.map(async (user: any) => {
-      user.image = await imageCacheChacker(user.user_id, availableUserImages, setContextState)
-      return user;
-    });
-    return await Promise.all(resultPromises);
-  };
-
   const getData = async () => {
-    const returnGroup = await getUsers(data.groupUsers);
-
+    const returnGroup = await getUsersData(`${id}`);
     setGroups(returnGroup);
   };
 
@@ -64,9 +52,6 @@ export const Projects = () => {
   // @ts-ignore
   if (error) return <div>An error occurred: {error.message}</div>;
 
-  console.log(data);
-  console.log(groups);
-
   return (
     <div>
       <nav className='fixed h-[80px] mt-[12px] w-full top-0 max-w-[700px] mx-auto flex justify-between items-center px-3'>
@@ -84,7 +69,7 @@ export const Projects = () => {
                 className='text-[12px] text-gray-300'
                 style={{ fontFamily: "SF Pro Display " }}
               >
-                {data.groupUsers.length} {locales[lang].participant}
+                {data.groupUsers.length} {t('participant')}
               </p>
             </div>
           </div>

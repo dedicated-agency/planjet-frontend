@@ -20,7 +20,7 @@ const initialState = {
 
 const ProjectCaruselItem = (props: any) => {
   const navigate = useNavigate();
-  const { user, availableUserImages, setContextState } = useContext(StateContext);
+  const { user } = useContext(StateContext);
   const { project, statuses, setProjectState, getStatuses, selectedStatus } = props;
 
   const [state, setState] = useReducer(
@@ -56,12 +56,12 @@ const ProjectCaruselItem = (props: any) => {
   }, []);
 
   const getPhoto = async () => {
-    const result = await imageCacheChacker(project.user_id, availableUserImages, setContextState);
+    const result = await imageCacheChacker(project.user_id);
     const results: any = [];
     if(project.taskUser.length)
     {
       for (const taskUser of project.taskUser) {
-        const img = await imageCacheChacker(taskUser.user_id, availableUserImages, setContextState);
+        const img = await imageCacheChacker(taskUser.user_id);
         results.push({...taskUser, img})
       }
     }

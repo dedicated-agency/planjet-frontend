@@ -1,11 +1,9 @@
 import { Link } from "react-router-dom";
 import EventPromo from "./EventPromo";
-import languages from "../local/languages.json";
-import { useContext } from "react";
-import { StateContext } from "../context/StateContext";
 import { fetchData } from "../common/fetchData";
 import { useQuery } from "react-query";
 import calendar from '../assets/images/calendar.svg';
+import { t } from "i18next";
 
 const getEventsNew = async () => {
   return await fetchData("/user/events", {});
@@ -13,8 +11,6 @@ const getEventsNew = async () => {
 
 const EventsPromo = () => {
   const { data } = useQuery(["eventsNewData"], () => getEventsNew());
-  const { lang } = useContext(StateContext);
-  const locales: any = languages;
 
   return (
     <div className='flex flex-col gap-[10px]'>
@@ -23,14 +19,14 @@ const EventsPromo = () => {
             className='text-[13px] font-normal text_gray uppercase'
             style={{ fontFamily: "SF Pro Display" }}
           >
-            {locales[lang].events}
+            {t('events')}
           </p>
           <Link
             to={"/event"}
             className='text-gradient-blue text-[15px] font-normal'
             style={{ fontFamily: "SF Pro Display" }}
           >
-            {locales[lang].view_all}
+            {t('view_all')}
           </Link>
         </div>
       <>
@@ -41,7 +37,7 @@ const EventsPromo = () => {
               <img src={calendar} alt="calendar" />
               <p 
                style={{ fontFamily: "SF Pro Display" }}
-              className='text-gradient-blue text-[15px] font-normal h-full items-center flex'>{locales[lang].no_new_events}</p>
+              className='text-gradient-blue text-[15px] font-normal h-full items-center flex'>{t('no_new_events')}</p>
             </div>
           }
       </>

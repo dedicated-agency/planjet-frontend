@@ -1,12 +1,11 @@
-import { StateContext } from "../context/StateContext";
-import languages from "../local/languages.json";
 import { useNavigate } from "react-router-dom";
 import SettingsComponent from "../components/SettingsComponent";
 import { useQuery } from "react-query";
 import { fetchData } from "../common/fetchData";
 import WebApp from "@twa-dev/sdk";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axiosClient from "../common/axiosClient";
+import { t } from "i18next";
 
 const getGroups = async () => {
   return await fetchData("/user/groups", {});
@@ -17,8 +16,6 @@ const SettingsProjects = () => {
   const BackButton = WebApp.BackButton;
   BackButton.show();
   BackButton.onClick(() => window.history.back());
-  const { lang } = useContext(StateContext);
-  const locales: any = languages;
   const { data } = useQuery(["groupsData"], () => getGroups());
   const navigate = useNavigate();
 
@@ -26,16 +23,13 @@ const SettingsProjects = () => {
     WebApp.setHeaderColor("#F2F2F7");
   }, []);
 
-  const [selectedGroups, setSelectedGroups] = useState<Record<number, boolean>>(
-    {},
-  );
+  const [selectedGroups, setSelectedGroups] = useState<Record<number, boolean>>({});
 
   const handleUpdateGroup = (id: number, isSelected: boolean) => {
     setSelectedGroups((prev) => ({ ...prev, [id]: isSelected }));
   };
 
   const handleSave = async () => {
-    console.log(selectedGroups);
     await axiosClient.post("/group/selector", Object.entries(selectedGroups).map(([group_id, is_selected]) => ({
       group_id: Number(group_id),
       is_selected
@@ -52,7 +46,7 @@ const SettingsProjects = () => {
           className='font-medium text-[17px] text-customDark capitalize'
           style={{ fontFamily: "Sf Pro Display" }}
         >
-          {locales[lang].project_settings}
+          {t('project_settings')}
         </p>
         <div
           className='w-[60px] h-full flex justify-end items-center'
@@ -74,7 +68,7 @@ const SettingsProjects = () => {
           className='  w-[94%] bg-custom-gradient-blue text-white flex justify-center items-center py-4 rounded-xl'
           onClick={handleSave}
         >
-          {locales[lang].save}
+          {t('save')}
         </div>
       </div>
     </div>

@@ -1,10 +1,8 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import languages from "../local/languages.json";
 import { StateContext } from "../context/StateContext";
 import { AvatarUser } from "../components/mini/AvatarUser";
 import { useGetTasks } from "../common/fetchTasks";
 import { Loader } from "../components/mini/Loader";
-// import { fetchImage } from "../common/fetchImage";
 import { useNavigate } from "react-router-dom";
 import axiosClient from "../common/axiosClient";
 import File from "../assets/icons/File";
@@ -19,6 +17,7 @@ import Calendar from "../assets/icons/Calendar";
 import Square from "../assets/icons/Square";
 import imageCacheChacker from "../common/imagesCacher";
 import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
+import { t } from "i18next";
 
 const priorities = [
   {
@@ -50,12 +49,9 @@ const CreateTask = () => {
     WebApp.setHeaderColor("#F2F2F7");
   }, []);
   const navigate = useNavigate();
-  const locales: any = languages;
   const {
     lang,
     user,
-    availableUserImages,
-    setContextState,
   } = useContext(StateContext);
   const [text, setText] = useState("");
   const textareaRef = useRef(null);
@@ -85,7 +81,6 @@ const CreateTask = () => {
   const projectid = tempSelectedProject ? tempSelectedProject.id : null;
 
   const { data: groups } = useQuery(["groupsData"], () => getGroups());
-  console.log(groups);
 
   const adjustTextareaHeight = () => {
     const textarea: any = textareaRef.current;
@@ -125,11 +120,7 @@ const CreateTask = () => {
   const getUsers = async () => {
     const resultPromises = project.users.map(async (user: any) => {
       try {
-        user.image = await imageCacheChacker(
-          user.telegram_id,
-          availableUserImages,
-          setContextState,
-        );
+        user.image = await imageCacheChacker(user.telegram_id);
         return user;
       } catch (error) {
         console.log("Create task image error" + error);
@@ -155,9 +146,6 @@ const CreateTask = () => {
       navigate("/tasks/" + response.data.id);
     }
   };
-
-  console.log({focusStoryPoint});
-  
 
   if (isLoading) return <Loader />;
   // @ts-ignore
@@ -210,7 +198,7 @@ const CreateTask = () => {
                   className='text-black tex-[16px] font-normal font-sans capitalize'
                   style={{ fontFamily: "SF Pro Display" }}
                 >
-                  {locales[lang].project}
+                  {t('project')}
                 </p>
               </div>
 
@@ -223,7 +211,7 @@ const CreateTask = () => {
                     className='font-normal text-[16px] text-customBlack'
                     style={{ fontFamily: "SF Pro Display" }}
                   >
-                    {locales[lang].choose}
+                    {t('choose')}
                   </p>
                 ) : (
                   <Avatar
@@ -247,7 +235,7 @@ const CreateTask = () => {
                   className='text-black tex-[16px] font-normal font-sans capitalize'
                   style={{ fontFamily: "SF Pro Display" }}
                 >
-                  {locales[lang].participant}
+                  {t('participant')}
                 </p>
               </div>
 
@@ -272,7 +260,7 @@ const CreateTask = () => {
                     className='font-normal text-[16px] text-customBlack mr-[-10px]'
                     style={{ fontFamily: "SF Pro Display" }}
                   >
-                    {locales[lang].appoint}
+                    {t('appoint')}
                   </p>
                 )}
                 <div className='ml-3'>
@@ -293,7 +281,7 @@ const CreateTask = () => {
                   className='text-black tex-[16px] font-normal font-sans capitalize'
                   style={{ fontFamily: "SF Pro Display" }}
                 >
-                  {locales[lang].priority}
+                  {t('priority')}
                 </p>
               </div>
               <div className='flex items-center gap-1 text-gray-400'>
@@ -301,7 +289,7 @@ const CreateTask = () => {
                   className='font-normal text-[16px] text-customBlack'
                   style={{ fontFamily: "SF Pro Display" }}
                 >
-                  {locales[lang].priority_data[selectPriority]}
+                  {t('priority_data')[selectPriority]}
                 </p>
                 <ArrowRight />
               </div>
@@ -321,7 +309,7 @@ const CreateTask = () => {
                   className='text-black tex-[16px] font-normal font-sans capitalize'
                   style={{ fontFamily: "SF Pro Display" }}
                 >
-                  {locales[lang].story_point}
+                  {t('story_point')}
                 </p>
               </div>
               <div className='flex items-center gap-1 text-gray-400'>
@@ -345,7 +333,7 @@ const CreateTask = () => {
         {name === "" ? (
           <div className='fixed bottom-[42px] w-[94%] bg-gray-300 text-gray-400 flex justify-center items-center py-4 rounded-xl'>
             {" "}
-            {locales[lang].create}
+            {t('create')}
           </div>
         ) : (
           <div
@@ -353,7 +341,7 @@ const CreateTask = () => {
             className='fixed bottom-[42px] w-[94%] bg-custom-gradient-blue text-white flex justify-center items-center py-4 rounded-xl'
           >
             {" "}
-            {locales[lang].create}
+            {t('create')}
           </div>
         )}
       </div>
@@ -457,7 +445,7 @@ const CreateTask = () => {
                   setOpenProject(false);
                 }}
               >
-                {locales[lang].choose}
+                {t('choose')}
               </div>
             </div>
           )}
@@ -567,7 +555,7 @@ const CreateTask = () => {
               className=' fixed bottom-[22px] bg-custom-gradient-blue text-white flex justify-center items-center py-4 left-6 right-6 rounded-xl mt-3'
               onClick={() => setOpenParticipant(false)}
             >
-              {locales[lang].choose}
+              {t('choose')}
             </div>
           )}
         </div>
@@ -602,7 +590,7 @@ const CreateTask = () => {
                 setOpenStoryPoint(false);
               }}
             >
-              {locales[lang].save}
+              {t('save')}
             </div>
           )}
         </div>

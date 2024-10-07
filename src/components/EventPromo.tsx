@@ -1,33 +1,32 @@
-import { useContext } from "react";
 import { dateTimeConverter } from "../common/dateTimeConverter";
-import { StateContext } from "../context/StateContext";
-import languages from "../local/languages.json";
 import ArrowRight from "../assets/icons/ArrowRight";
 import { AvatarUser } from "./mini/AvatarUser";
 import ArrowLongRight from "../assets/icons/ArrowLongRight";
 import { useState } from "react";
 import useUserColor from "../common/useUserColor";
 import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
+import { Link } from "react-router-dom";
+import { t } from "i18next";
 
 const EventPromo = (props: any) => {
-  const { lang } = useContext(StateContext);
-  const locales: any = languages;
   const [isOpenDescription, setisOpenDescription] = useState<boolean>(false);
-
   return (
-    <div className='h-auto bg-white rounded-2xl p-3'>
-      <p
-        className=' text-xs font-medium'
-        style={{ fontFamily: "SF Pro Display", color: useUserColor(props.group.id).lightColor}}
-      >
-        {props.group.group} | {props.group.project}
-      </p>
-      <p
-        className='font-medium text-base leading-5 mt-1 duo-line-ellipsis'
-        style={{ fontFamily: "SF Pro Display" }}
-      >
-        {capitalizeFirstLetter(props.group.task_name)}
-      </p>
+    <div className='h-auto bg-white rounded-2xl'>
+      <Link to={'/tasks/' + props.group.task_id} className="flex flex-col px-3 pt-3">
+        <p
+          className=' text-xs font-medium'
+          style={{ fontFamily: "SF Pro Display", color: useUserColor(props.group.id).lightColor}}
+        >
+          {props.group.group} | {props.group.project}
+        </p>
+        <p
+          className='font-medium text-base leading-5 mt-1 duo-line-ellipsis'
+          style={{ fontFamily: "SF Pro Display" }}
+        >
+          {capitalizeFirstLetter(props.group.task_name)}
+        </p>
+      </Link>
+      <div className=" px-3 pb-3">
       <div className='bg-customIndigo120 h-auto rounded-xl border-l-[3px] border-customIndigo100 p-3 mt-1'>
         <div
           className='h-5 flex justify-between items-center cursor-pointer'
@@ -37,7 +36,7 @@ const EventPromo = (props: any) => {
             className='font-medium text-[13px] text-customIndigo100'
             style={{ fontFamily: "SF Pro Display" }}
           >
-            {locales[lang].recent_events}
+            {t('recent_events')}
           </p>
 
           <div
@@ -81,18 +80,18 @@ const EventPromo = (props: any) => {
                             style={{ fontFamily: "SF Pro Display" }}
                           >
                             {change.type === "status"
-                              ? locales[lang].status_changed
+                              ? t('status_changed')
                               : change.type === "priority"
-                              ? locales[lang].priority_changed
+                              ? t('priority_changed')
                               : change.type === "created"
-                              ? locales[lang].created
+                              ? t('created')
                               : change.type === "comment"
-                              ? locales[lang].comment
+                              ? t('comment')
                               : change.type === "participant"
-                              ? locales[lang].participants_changed
+                              ? t('participants_changed')
                               : change.type === "archive"
-                              ? locales[lang].added_to_archive
-                              : locales[lang].performers_assigned}
+                              ? t('added_to_archive')
+                              : t('performers_assigned')}
                           </p>
                           <p
                             className='font-normal text-[10px] text-customGray'
@@ -110,18 +109,18 @@ const EventPromo = (props: any) => {
                           <div className='w-max h-4 bg-customIndigo150 flex justify-center items-center py-1 px-[6px] rounded-2xl'>
                             <p className='text-xs line-through text-customIndigo'>
                               {change.old_value == 1
-                                ? locales[lang].priority_data[change.old_value]
+                                ? t('priority_data')[change.old_value]
                                 : change.old_value == 2
-                                ? locales[lang].priority_data[change.old_value]
+                                ? t('priority_data')[change.old_value]
                                 : change.old_value == 3
-                                ? locales[lang].priority_data[change.old_value]
+                                ? t('priority_data')[change.old_value]
                                 : capitalizeFirstLetter(change.old_value)}
                             </p>
                           </div>
                           <ArrowLongRight />
                           <div className='w-max h-4 bg-customIndigo150 flex justify-center items-center py-1 px-[6px] rounded-2xl'>
                             <p className='text-xs line-through text-customIndigo'>
-                              В процессе
+                              {t('in_progress')}
                             </p>
                           </div>
                         </div>
@@ -159,18 +158,18 @@ const EventPromo = (props: any) => {
                                 style={{ fontFamily: "SF Pro Display" }}
                               >
                                 {change.type === "status"
-                                  ? locales[lang].status_changed
+                                  ? t('status_changed')
                                   : change.type === "priority"
-                                  ? locales[lang].priority_changed
+                                  ? t('priority_changed')
                                   : change.type === "created"
-                                  ? locales[lang].created
+                                  ? t('created')
                                   : change.type === "comment"
-                                  ? locales[lang].comment
+                                  ? t('comment')
                                   : change.type === "participant"
-                                  ? locales[lang].participants_changed
+                                  ? t('participants_changed')
                                   : change.type === "archive"
-                                  ? locales[lang].added_to_archive
-                                  : locales[lang].performers_assigned}
+                                  ? t('added_to_archive')
+                                  : t('performers_assigned')}
                               </p>
                               {/* Time */}
                               <p
@@ -186,15 +185,15 @@ const EventPromo = (props: any) => {
                               <div className='w-max h-4 bg-customIndigo150 flex justify-center items-center py-1 px-[6px] rounded-2xl'>
                                 <p className='text-xs line-through text-customIndigo'>
                                   {change.old_value == 1
-                                    ? locales[lang].priority_data[
+                                    ? t('priority_data')[
                                         change.old_value
                                       ]
                                     : change.old_value == 2
-                                    ? locales[lang].priority_data[
+                                    ? t('priority_data')[
                                         change.old_value
                                       ]
                                     : change.old_value == 3
-                                    ? locales[lang].priority_data[
+                                    ? t('priority_data')[
                                         change.old_value
                                       ]
                                     : capitalizeFirstLetter(change.old_value)}
@@ -204,15 +203,15 @@ const EventPromo = (props: any) => {
                               <div className='w-max h-4 bg-customIndigo150 flex justify-center items-center py-1 px-[6px] rounded-2xl'>
                                 <p className='text-xs line-through text-customIndigo'>
                                   {change.new_value == 1
-                                    ? locales[lang].priority_data[
+                                    ? t('priority_data')[
                                         change.new_value
                                       ]
                                     : change.new_value == 2
-                                    ? locales[lang].priority_data[
+                                    ? t('priority_data')[
                                         change.new_value
                                       ]
                                     : change.new_value == 3
-                                    ? locales[lang].priority_data[
+                                    ? t('priority_data')[
                                         change.new_value
                                       ]
                                     : capitalizeFirstLetter(change.new_value)}
@@ -230,6 +229,7 @@ const EventPromo = (props: any) => {
           </div>
         </div>
       </div>
+    </div>
     </div>
     // <Link
     //   to={"/tasks/" + props.group.change.task_id}
@@ -252,18 +252,18 @@ const EventPromo = (props: any) => {
     //         }}
     //       >
     //         {props.group.change.type === "status"
-    //           ? locales[lang].status_changed
+    //           ? t('status_changed
     //           : props.group.change.type === "priority"
-    //           ? locales[lang].priority_changed
+    //           ? t('priority_changed
     //           : props.group.change.type === "created"
-    //           ? locales[lang].created
+    //           ? t('created
     //           : props.group.change.type === "comment"
-    //           ? locales[lang].comment
+    //           ? t('comment
     //           : props.group.change.type === "participant"
-    //           ? locales[lang].participants_changed
+    //           ? t('participants_changed
     //           : props.group.change.type === "archive"
-    //           ? locales[lang].added_to_archive
-    //           : locales[lang].performers_assigned}
+    //           ? t('added_to_archive
+    //           : t('performers_assigned}
     //       </p>
     //     </div>
     //     <div className='flex gap-[6px]'>
@@ -289,11 +289,11 @@ const EventPromo = (props: any) => {
     //     {capitalizeFirstLetter(props.group.change.task.name)}
 
     //     {/* {capitalizeFirstLetter(props.group.change.new_value) == 1
-    //       ? locales[lang].priority_data[props.group.change.new_value]
+    //       ? t('priority_data[props.group.change.new_value]
     //       : capitalizeFirstLetter(props.group.change.new_value) == 2
-    //       ? locales[lang].priority_data[props.group.change.new_value]
+    //       ? t('priority_data[props.group.change.new_value]
     //       : capitalizeFirstLetter(props.group.change.new_value) == 3
-    //       ? locales[lang].priority_data[props.group.change.new_value]
+    //       ? t('priority_data[props.group.change.new_value]
     //       : capitalizeFirstLetter(props.group.change.new_value)} */}
     //   </p>
     // </Link>

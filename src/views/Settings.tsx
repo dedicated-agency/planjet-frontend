@@ -1,17 +1,13 @@
-import { useContext } from "react";
-import { StateContext } from "../context/StateContext";
-import languages from "../local/languages.json";
 import ArrowRight from "../assets/icons/ArrowRight";
 import { Link } from "react-router-dom";
 import WebApp from "@twa-dev/sdk";
+import { t } from "i18next";
 
 const Settings = () => {
   const BackButton = WebApp.BackButton;
   BackButton.show();
   BackButton.onClick(() => window.history.back());
-  const { lang } = useContext(StateContext);
 
-  const locales: any = languages;
   return (
     <div className='px-3 mt-2'>
       <div className="h-[40px] w-full px-[16px] py-[11px]">
@@ -19,7 +15,7 @@ const Settings = () => {
           className='text-[13px] text-customGrayDark'
           style={{ fontFamily: "SF Pro Display" }}
         >
-          {locales[lang].app_settings}
+          {t('app_settings')}
         </p>
       </div>
       <div className='bg-white rounded-[12px] overflow-hidden'>
@@ -31,7 +27,7 @@ const Settings = () => {
             className='text-[17px] font-normal text-black'
             style={{ fontFamily: "SF Pro Display" }}
           >
-            {locales[lang].notification_language}
+            {t('notification_language')}
           </p>
           <ArrowRight />
         </Link>
@@ -40,7 +36,7 @@ const Settings = () => {
             className='text-[17px] font-normal text-black'
             style={{ fontFamily: "SF Pro Display" }}
           >
-            {locales[lang].time_zone}
+            {t('time_zone}
           </p>
           <ArrowRight />
         </Link> */}

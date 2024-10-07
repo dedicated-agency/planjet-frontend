@@ -1,16 +1,12 @@
 import { Link } from "react-router-dom";
 // images
 import ArrowRight from "../assets/icons/ArrowRight";
-import { useContext } from "react";
-import { StateContext } from "../context/StateContext";
 import { dateTimeConverter } from "../common/dateTimeConverter";
 import { Avatar } from "./mini/Avatar";
-import languages from "../local/languages.json";
 import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
+import { t } from "i18next";
 
 const EventComponent = (props: any) => {
-  const { lang } = useContext(StateContext);
-  const locales: any = languages;
   
   return (
     <Link to={"/tasks/" + props.group.change.task_id} className='bg-white shadow-custom py-3 px-4 rounded-[14px]'>
@@ -45,13 +41,13 @@ const EventComponent = (props: any) => {
           className='text-customBlue font-normal text-[13px]'
           style={{ fontFamily: "SF Pro Display" }}
         >
-          {props.group.change.type === "status" && locales[lang].status_changed}
+          {props.group.change.type === "status" && t('status_changed')}
           {props.group.change.type === "priority" &&
-            locales[lang].priority_changed}
-          {props.group.change.type === "created" && locales[lang].created}
-          {props.group.change.type === "comment" && locales[lang].comment}
+            t('priority_changed')}
+          {props.group.change.type === "created" && t('created')}
+          {props.group.change.type === "comment" && t('comment')}
           {props.group.change.type === "participant" &&
-            locales[lang].performers_assigned}
+            t('performers_assigned')}
         </Link>
       </div>
     </Link>

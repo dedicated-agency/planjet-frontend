@@ -1,18 +1,17 @@
 import { useContext, useEffect, useState } from "react";
 import { StateContext } from "../context/StateContext";
 import { AvatarUser } from "../components/mini/AvatarUser";
-
-import languages from "../local/languages.json";
 import ArrowRight from "../assets/icons/ArrowRight";
 import { Link } from "react-router-dom";
 import WebApp from "@twa-dev/sdk";
 import imageCacheChacker from "../common/imagesCacher";
+import { t } from "i18next";
 
 const Profile = () => {
   const BackButton = WebApp.BackButton;
   BackButton.show();
   BackButton.onClick(() => window.history.back());
-  const { user, lang,  availableUserImages, setContextState } = useContext(StateContext);
+  const { user } = useContext(StateContext);
   const [currentUser, setCurrentUser] = useState<any>(user);
 
   useEffect(() => {
@@ -22,13 +21,12 @@ const Profile = () => {
   const getInitial = async () => {
     if (user && user.first_name) {
       setCurrentUser({
-        image: await imageCacheChacker(user.id, availableUserImages, setContextState),
+        image: await imageCacheChacker(user.id),
         first_name: user.first_name.charAt(0).toUpperCase(),
       });
     }
   };
 
-  const locales: any = languages;
 
   return (
     <div className='px-3 mt-2 flex flex-col gap-[32px]'>
@@ -62,7 +60,7 @@ const Profile = () => {
             className='text-[17px] font-normal text-black'
             style={{ fontFamily: "SF Pro Display" }}
           >
-            {locales[lang].settings}
+            {t('settings')}
           </p>
           <ArrowRight />
         </Link>
@@ -72,7 +70,7 @@ const Profile = () => {
               className='text-[17px] font-normal text-black'
               style={{ fontFamily: "SF Pro Display" }}
             >
-              {locales[lang].documentation}
+              {t('documentation')}
             </p>
             <ArrowRight />
           </div>
@@ -81,7 +79,7 @@ const Profile = () => {
               className='text-[17px] font-normal text-black'
               style={{ fontFamily: "SF Pro Display" }}
             >
-              {locales[lang].support}
+              {t('support')}
             </p>
             <ArrowRight />
           </div>
@@ -92,7 +90,7 @@ const Profile = () => {
               className='text-[17px] font-normal text-black'
               style={{ fontFamily: "SF Pro Display" }}
             >
-              {locales[lang].user_agreement}
+              {t('user_agreement')}
             </p>
             <ArrowRight />
           </div>
@@ -101,7 +99,7 @@ const Profile = () => {
               className='text-[17px] font-normal text-black'
               style={{ fontFamily: "SF Pro Display" }}
             >
-              {locales[lang].privacy_policy}
+              {t('privacy_policy')}
             </p>
             <ArrowRight />
           </div>
