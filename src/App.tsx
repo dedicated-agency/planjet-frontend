@@ -23,7 +23,7 @@ import Profile from "./views/Profile";
 import Settings from "./views/Settings";
 import TimeZone from "./views/TimeZone";
 
-const testMode: boolean = import.meta.env.VITE_TEST_MODE;
+const testMode: string = import.meta.env.VITE_TEST_MODE;
 
 function App() {
   const [state, setState] = useReducer(
@@ -75,7 +75,7 @@ function App() {
       await sendData("user/init", userData, user.id);
       localStorage.setItem("currentUser", JSON.stringify(userData));
     } 
-    else if(!testMode) {
+    else if(testMode === 'false') {
       const userData = {
         id: currentUser.id,
         first_name: currentUser.first_name,
@@ -84,7 +84,7 @@ function App() {
       };
       setState({ user: userData, lang: userData?.language_code });
     }
-    if(testMode)
+    if(testMode  === 'false')
     {
       const userData = {
         id: 5673577167,
@@ -97,7 +97,7 @@ function App() {
     }
   };
 
-  if (!isTelegramWebApp && !testMode) {
+  if (!isTelegramWebApp && testMode  === 'false') {
     return <NotTelegram/>
   }
 
