@@ -23,7 +23,7 @@ import Profile from "./views/Profile";
 import Settings from "./views/Settings";
 import TimeZone from "./views/TimeZone";
 
-const testMode: boolean = false;
+const testMode: boolean = import.meta.env.VITE_TEST_MODE;
 
 function App() {
   const [state, setState] = useReducer(

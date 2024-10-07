@@ -57,8 +57,6 @@ const CommentAndEvent = (props: {
     return text.replace(/,\s*$/, "");
   };
 
-  console.log(state);
-
   return (
     <>
       {state.selector === "comment" && (

@@ -74,6 +74,7 @@ const CreateTask = () => {
   const [users, setUsers] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState<any>([]);
   const [name, setName] = useState("");
+  const [focusStoryPoint, setFocusStoryPoint] = useState(false);
 
   const [selectedProject, setSelectedProject] = useState<{
     id: number;
@@ -154,6 +155,9 @@ const CreateTask = () => {
       navigate("/tasks/" + response.data.id);
     }
   };
+
+  console.log({focusStoryPoint});
+  
 
   if (isLoading) return <Loader />;
   // @ts-ignore
@@ -305,7 +309,9 @@ const CreateTask = () => {
 
             <div
               className='h-[44px] flex justify-between items-center px-[16px]'
-              onClick={() => setOpenStoryPoint(true)}
+              onClick={() => {
+                setOpenStoryPoint(true)
+              }}
             >
               <div className='flex justify-between items-center gap-2'>
                 <div className='flex gap-[1px] items-end justify-center text-gray-400'>
@@ -574,7 +580,7 @@ const CreateTask = () => {
       )}
       <div
         className={`${
-          openStoryPoint ? "bottom-3" : "bottom-[-100%]"
+          openStoryPoint ? (focusStoryPoint ? "bottom-[200px]" : "bottom-3") : "bottom-[-100%]"
         }  z-[100] fixed transition-all rounded-[25px] bg-white px-3 py-5 left-3 pb-[80px] right-3 flex flex-wrap gap-2 justify-between`}
       >
         <div className='w-full h-[56px] py-[6px] px-[18px] bg-[#F2F2F7] rounded-[16px]'>
@@ -583,41 +589,10 @@ const CreateTask = () => {
             placeholder='0'
             className='w-full h-full bg-transparent outline-none border-none'
             onChange={(e: any) => setStoryPoint(e.target.value)}
+            onFocus={() => setFocusStoryPoint(true)}
           />
         </div>
-        {/* {storyPoints.map((storyPoint: any, index: number) => (
-          <div
-            onClick={() => {
-              setSelectStoryPoint(index + 1);
-              setOpenStoryPoint(false);
-            }}
-            key={index}
-            className={`${
-              index + 1 === selectStoryPoint ? "bg-gray-100" : ""
-            }  p-4 rounded-xl flex justify-between items-center border w-[48%]`}
-          >
-            <div className='flex gap-4'>
-              <div
-                className={
-                  index + 1 === selectStoryPoint ? "text-blue-600" : ""
-                }
-              >
-                {storyPoint.value}
-              </div>
-            </div>
-            <div
-              className={`${
-                index + 1 === selectStoryPoint
-                  ? "border-blue-500"
-                  : "border-gray-400"
-              } flex justify-center items-center rounded border w-5 h-5`}
-            >
-              {index + 1 === selectStoryPoint && (
-                <div className='bg-blue-500 w-3 h-3 rounded-sm'></div>
-              )}
-            </div>
-          </div>
-        ))} */}
+      
         <div>
           {openStoryPoint && (
             <div

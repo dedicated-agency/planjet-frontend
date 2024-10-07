@@ -9,8 +9,8 @@ import { Loader } from "../components/mini/Loader";
 import { useNavigate, useParams } from "react-router-dom";
 import axiosClient from "../common/axiosClient";
 // import { dateTimeConverter } from "../common/dateTimeConverter";
-import { fetchData } from "../common/fetchData";
-import { useQuery } from "react-query";
+// import { fetchData } from "../common/fetchData";
+// import { useQuery } from "react-query";
 import WebApp from "@twa-dev/sdk";
 import ArrowRight from "../assets/icons/ArrowRight";
 import Calendar from "../assets/icons/Calendar";
@@ -62,9 +62,9 @@ const statusses = [
   },
 ];
 
-const getGroups = async () => {
-  return await fetchData("/user/groups", {});
-};
+// const getGroups = async () => {
+//   return await fetchData("/user/groups", {});
+// };
 
 const CreateTaskFromGroup = () => {
   const BackButton = WebApp.BackButton;
@@ -95,9 +95,9 @@ const CreateTaskFromGroup = () => {
   const [users, setUsers] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState<any>([]);
   const [name, setName] = useState("");
+  const [focusStoryPoint, setFocusStoryPoint] = useState(false);
 
-  const { data: groups } = useQuery(["groupsData"], () => getGroups());
-  console.log(groups);
+  // const { data: groups } = useQuery(["groupsData"], () => getGroups());
 
   const adjustTextareaHeight = () => {
     const textarea: any = textareaRef.current;
@@ -134,8 +134,6 @@ const CreateTaskFromGroup = () => {
     }
   }, [project, project_id]);
 
-  console.log(project);
-
   const getUsers = async () => {
     const resultPromises = project.users.map(async (user: any) => {
       try {
@@ -169,6 +167,9 @@ const CreateTaskFromGroup = () => {
       navigate("/tasks/" + response.data.id);
     }
   };
+
+  console.log({focusStoryPoint});
+  
 
   if (isLoading) return <Loader />;
   // @ts-ignore
@@ -224,6 +225,12 @@ const CreateTaskFromGroup = () => {
           </div>
 
           <div className='flex items-center gap-1 text-gray-400'>
+            <p
+              className='text-[16px] font-normal text-[#1B1F26]'
+              style={{ fontFamily: "SF Pro Display" }}
+            >
+              {project.name}
+            </p>
             <Avatar
               image={""}
               alt={project.name}
@@ -231,12 +238,6 @@ const CreateTaskFromGroup = () => {
               radius={4}
               id={project.id}
             />
-            <p
-              className='text-[16px] font-normal text-[#1B1F26]'
-              style={{ fontFamily: "SF Pro Display" }}
-            >
-              {project.name}
-            </p>
           </div>
         </div>
 
@@ -465,12 +466,15 @@ const CreateTaskFromGroup = () => {
       {openStoryPoint && (
         <div
           className='bg-black opacity-45 z-10 fixed top-0 w-full h-full'
-          onClick={() => setOpenStoryPoint(false)}
+          onClick={() => {
+            setOpenStoryPoint(false)
+            setFocusStoryPoint(false)
+          }}
         ></div>
       )}
       <div
         className={`${
-          openStoryPoint ? "bottom-3" : "bottom-[-100%]"
+          openStoryPoint ? (focusStoryPoint ? "bottom-[40%]" : "bottom-3") : "bottom-[-100%]"
         }  z-[100] fixed transition-all rounded-[25px] bg-white px-3 py-5 left-3 pb-[80px] right-3 flex flex-wrap gap-2 justify-between`}
       >
         <div className='w-full h-[56px] py-[6px] px-[18px] bg-[#F2F2F7] rounded-[16px]'>
@@ -479,46 +483,15 @@ const CreateTaskFromGroup = () => {
             placeholder='0'
             className='w-full h-full bg-transparent outline-none border-none'
             onChange={(e: any) => setStoryPoint(e.target.value)}
+            onFocus={() => setFocusStoryPoint(true)}
           />
         </div>
-        {/* {storyPoints.map((storyPoint: any, index: number) => (
-          <div
-            onClick={() => {
-              setSelectStoryPoint(index + 1);
-              setOpenStoryPoint(false);
-            }}
-            key={index}
-            className={`${
-              index + 1 === selectStoryPoint ? "bg-gray-100" : ""
-            }  p-4 rounded-xl flex justify-between items-center border w-[48%]`}
-          >
-            <div className='flex gap-4'>
-              <div
-                className={
-                  index + 1 === selectStoryPoint ? "text-blue-600" : ""
-                }
-              >
-                {storyPoint.value}
-              </div>
-            </div>
-            <div
-              className={`${
-                index + 1 === selectStoryPoint
-                  ? "border-blue-500"
-                  : "border-gray-400"
-              } flex justify-center items-center rounded border w-5 h-5`}
-            >
-              {index + 1 === selectStoryPoint && (
-                <div className='bg-blue-500 w-3 h-3 rounded-sm'></div>
-              )}
-            </div>
-          </div>
-        ))} */}
         <div>
           {openStoryPoint && (
             <div
-              className=' fixed bottom-[22px] bg-custom-gradient-blue text-white flex justify-center items-center py-4 left-6 right-6 rounded-xl mt-3'
+              className=' absolute bottom-[22px] bg-custom-gradient-blue text-white flex justify-center items-center py-4 left-6 right-6 rounded-xl mt-3'
               onClick={() => {
+                setFocusStoryPoint(false)
                 setSelectStoryPoint(storyPoint);
                 setOpenStoryPoint(false);
               }}
