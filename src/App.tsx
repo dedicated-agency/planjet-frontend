@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import WebApp from "@twa-dev/sdk";
 import { useEffect, useReducer, useState } from "react";
 import { StateContext } from "./context/StateContext";
-import { sendData } from "./common/sendData";
+import { IUserData, sendData } from "./common/sendData";
 import NotTelegram from "./components/mini/NotTelegram";
 import i18n from "./i18n";
 import AppRoutes from "./AppRoutes";
@@ -49,7 +49,7 @@ function App() {
     const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
 
     if (user && currentUser?.id !== user.id) {
-      const userData = {
+      const userData: IUserData = {
         id: user.id,
         first_name: user.first_name,
         username: user.username,
@@ -70,7 +70,7 @@ function App() {
       i18n.changeLanguage(currentUser.language_code);
       setState({ user: userData, lang: userData?.language_code });
     }
-    if(testMode  === 'true')
+    if(testMode === 'true')
     {
       const userData = {
         id: 5673577167,

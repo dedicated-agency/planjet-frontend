@@ -76,9 +76,9 @@ const TimeZone = () => {
               >
                 +5:00
               </p>
-              <Symbol
-                className={`text-gray-500 ${isSelect.Tash ? "flex" : "hidden"}`}
-              />
+              <div className={`${isSelect.Lon ? "flex" : "hidden"}`}>
+                <Symbol />
+              </div>
             </div>
           </label>
           {/* Ashgabat */}
@@ -104,9 +104,9 @@ const TimeZone = () => {
               >
                 +5:00
               </p>
-              <Symbol
-                className={`text-gray-500 ${isSelect.Ash ? "flex" : "hidden"}`}
-              />
+              <div className={`${isSelect.Lon ? "flex" : "hidden"}`}>
+                <Symbol />
+              </div>
             </div>
           </label>
           {/* London */}
@@ -132,9 +132,9 @@ const TimeZone = () => {
               >
                 +5:00
               </p>
-              <Symbol
-                className={`text-gray-500 ${isSelect.Lon ? "flex" : "hidden"}`}
-              />
+              <div className={`${isSelect.Lon ? "flex" : "hidden"}`}>
+                <Symbol />
+              </div>
             </div>
           </label>
         </div>

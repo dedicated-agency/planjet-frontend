@@ -21,7 +21,9 @@ const Notification = () => {
               <p className='font-normal text-[13px] text-customBlack'>/add</p>
             </div>
             <input type='checkbox' className='hidden peer' />
-            <Symbol className='hidden peer-checked:flex' />
+            <div className='hidden peer-checked:flex'>
+              <Symbol />
+            </div>
           </label>
           <label className='flex justify-between px-4 py-1 items-center'>
             <div>
@@ -29,7 +31,9 @@ const Notification = () => {
               <p className='font-normal text-[13px] text-customBlack'>/edit</p>
             </div>
             <input type='checkbox' className='hidden peer' />
-            <Symbol className='hidden peer-checked:flex' />
+            <div className='hidden peer-checked:flex'>
+              <Symbol />
+            </div>
           </label>
           <label className='flex justify-between px-4 py-1 items-center '>
             <div>
@@ -39,7 +43,9 @@ const Notification = () => {
               </p>
             </div>
             <input type='checkbox' className='hidden peer' />
-            <Symbol className='hidden peer-checked:flex' />
+            <div className='hidden peer-checked:flex'>
+              <Symbol />
+            </div>
           </label>
           <label className='flex justify-between px-4 py-1 items-center '>
             <div>
@@ -51,7 +57,9 @@ const Notification = () => {
               </p>
             </div>
             <input type='checkbox' className='hidden peer' />
-            <Symbol className='hidden peer-checked:flex' />
+            <div className='hidden peer-checked:flex'>
+              <Symbol />
+            </div>
           </label>
           <label className='flex justify-between px-4 py-1 items-center '>
             <div>
@@ -61,7 +69,9 @@ const Notification = () => {
               </p>
             </div>
             <input type='checkbox' className='hidden peer' />
-            <Symbol className='hidden peer-checked:flex' />
+            <div className='hidden peer-checked:flex'>
+              <Symbol />
+            </div>
           </label>
         </div>
         <p className='text-[13px] font-normal text-customGrayDark px-3 mt-2'>

@@ -1,4 +1,9 @@
-const Archive = (props: any) => (
+interface IArchive {
+  width?: number,
+  height?: number
+}
+
+const Archive = (props: IArchive) => (
   <svg
     width={24}
     height={24}

@@ -52,11 +52,13 @@ const Language = () => {
               checked={selectedLanguage === "en"}
               onChange={() => handleLanguageChange("en")}
             />
-            <Symbol
+            <div
               className={`text-gray-500 ${
-                selectedLanguage === "en" ? "flex" : "hidden"
+                selectedLanguage === "uz" ? "flex" : "hidden"
               }`}
-            />
+            >
+              <Symbol />
+            </div>
           </label>
           {/* Русский */}
           <label className='flex justify-between px-4 py-2 items-center'>
@@ -74,11 +76,13 @@ const Language = () => {
               checked={selectedLanguage === "ru"}
               onChange={() => handleLanguageChange("ru")}
             />
-            <Symbol
+            <div
               className={`text-gray-500 ${
-                selectedLanguage === "ru" ? "flex" : "hidden"
+                selectedLanguage === "uz" ? "flex" : "hidden"
               }`}
-            />
+            >
+              <Symbol />
+            </div>
           </label>
           {/* O’zbek */}
           <label className='flex justify-between px-4 py-2 items-center'>
@@ -96,11 +100,13 @@ const Language = () => {
               checked={selectedLanguage === "uz"}
               onChange={() => handleLanguageChange("uz")}
             />
-            <Symbol
+            <div
               className={`text-gray-500 ${
                 selectedLanguage === "uz" ? "flex" : "hidden"
               }`}
-            />
+            >
+              <Symbol />
+            </div>
           </label>
         </div>
         <p

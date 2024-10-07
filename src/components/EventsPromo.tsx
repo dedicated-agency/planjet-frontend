@@ -6,11 +6,12 @@ import calendar from '../assets/images/calendar.svg';
 import { t } from "i18next";
 
 const getEventsNew = async () => {
-  return await fetchData("/user/events", {});
+  return await fetchData("user/events", {});
 };
 
 const EventsPromo = () => {
-  const { data } = useQuery(["eventsNewData"], () => getEventsNew());
+  const { data } = useQuery(["eventsNewData"], getEventsNew);
+
 
   return (
     <div className='flex flex-col gap-[10px]'>
@@ -33,13 +34,17 @@ const EventsPromo = () => {
         {data && data.length > 0 ?
           data.map((group: any, index: number) => (
             <EventPromo key={index} group={group} />
-          )): <div className="flex flex-col justify-center items-center">
+          )) : (
+            <div className="flex flex-col justify-center items-center">
               <img src={calendar} alt="calendar" />
               <p 
                style={{ fontFamily: "SF Pro Display" }}
-              className='text-gradient-blue text-[15px] font-normal h-full items-center flex'>{t('no_new_events')}</p>
+              className='text-gradient-blue text-[15px] font-normal h-full items-center flex'>
+                {t('no_new_events')}
+              </p>
             </div>
-          }
+          )
+        }
       </>
     </div>
   );

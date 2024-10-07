@@ -1,9 +1,8 @@
-const Comment = (props: any) => (
+const Comment = () => (
   <svg
     width={20}
     height={20}
     fill="none"
-    {...props}
   >
     <path
       fill="#000"

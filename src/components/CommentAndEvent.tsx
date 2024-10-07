@@ -12,26 +12,48 @@ import { useRef } from "react";
 import { useParams } from "react-router-dom";
 import axiosClient from "../common/axiosClient";
 import Archive from "../assets/icons/Archive";
-import Comment from "./Comment";
+import Comment, { ICommentIn, IUser } from "./Comment";
 import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
 import { t } from "i18next";
+import { QueryClient } from "react-query";
+
+interface IEvent {
+  id: number;
+  type: string;
+  user: IUser;
+  image: string;
+  created_at: string;
+  new_value: string;
+  old_value: string;
+}
+
+interface IState {
+  commentInput: boolean;
+  commentText: string;
+  selector: string;
+  comments: ICommentIn[];
+  events: IEvent[];
+}
 
 const CommentAndEvent = (props: {
-  state: any;
-  setState: any;
-  queryClient: any;
+  state: IState;
+  setState: React.Dispatch<React.SetStateAction<IState>>;
+  queryClient: QueryClient;
 }) => {
   const { state, setState, queryClient } = props;
   const { id } = useParams();
-  const textareaRef = useRef(null);
-  const handleChange = (event: any) => {
-    setState({ commentText: event.target.value });
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setState({ ...state, commentText: e.target.value });
     adjustTextareaHeight();
   };
+
   const adjustTextareaHeight = () => {
-    const textarea: any = textareaRef.current;
-    textarea.style.height = "auto"; // Reset height
-    textarea.style.height = `${textarea.scrollHeight}px`; // Set new height
+    const textarea = textareaRef.current;
+    if (textarea) {
+      textarea.style.height = "auto"; // Reset height
+      textarea.style.height = `${textarea.scrollHeight}px`; // Set new height
+    }
   };
 
   const createComment = async () => {
@@ -43,7 +65,7 @@ const CommentAndEvent = (props: {
         queryClient.invalidateQueries({
           queryKey: ["taskData"],
         });
-        setState({ commentText: "" });
+        setState({ ...state, commentText: "" });
       }
     } catch (error) {
       console.log("create comment: " + error);
@@ -65,15 +87,15 @@ const CommentAndEvent = (props: {
               value={state.commentText}
               name=''
               id=''
-              placeholder={t('enter_comment')}
+              placeholder={t("enter_comment")}
               rows={1}
               style={{
                 overflow: "hidden",
                 resize: "none",
                 width: "calc(100% - 30px)",
               }}
-              onFocus={() => setState({ commentInput: true })}
-              onMouseLeave={() => setState({ commentInput: false })}
+              onFocus={() => setState({ ...state, commentInput: true })}
+              onMouseLeave={() => setState({ ...state, commentInput: false })}
               className='outline-none bg-gray-100 px-3 py-2 text-sm rounded-lg'
             />
             {state.commentText === "" ? (
@@ -91,10 +113,8 @@ const CommentAndEvent = (props: {
           </div>
           <div className='transition-all flex flex-col gap-2 mt-5'>
             {state.comments.length > 0 &&
-              state.comments.map((comment: any, index: number) => {
-                return (
-                  <Comment comment={comment} key={index} />
-                );
+              state.comments.map((comment: ICommentIn, index: number) => {
+                return <Comment comment={comment} key={index} />;
               })}
           </div>
         </>
@@ -144,7 +164,7 @@ const CommentAndEvent = (props: {
                         className='text-[13px] font-medium text-customBlackLight'
                         style={{ fontFamily: "SF Pro Display" }}
                       >
-                        {t('created_task')}
+                        {t("created_task")}
                       </p>
                     )}
                     {eventElement.type === "archive" && (
@@ -161,7 +181,7 @@ const CommentAndEvent = (props: {
                           className='text-[13px] font-medium text-customBlackLight pb-[10px]'
                           style={{ fontFamily: "SF Pro Display" }}
                         >
-                          {t('change_status')}
+                          {t("change_status")}
                         </p>
                         <div className='flex mt-2 items-center gap-2'>
                           <div
@@ -185,17 +205,13 @@ const CommentAndEvent = (props: {
                           className='text-[13px] font-medium text-customBlackLight pb-[10px]'
                           style={{ fontFamily: "SF Pro Display" }}
                         >
-                          {t('priority_change')}
+                          {t("priority_change")}
                         </p>
                         <div className='flex mt-2 items-center gap-2'>
                           <div
                             className={`rounded-full text-[12px] py-[4px] px-[6px] bg-customYellowLight text-customYellow line-through`}
                           >
-                            {
-                              t('priority_data')[
-                                eventElement.old_value
-                              ]
-                            }
+                            {t("priority_data")[eventElement.old_value]}
                           </div>
                           <div className='h-[20px] w-[20px] rounded-full flex justify-center items-center bg-gray-200 text-gray-500'>
                             {" "}
@@ -204,11 +220,7 @@ const CommentAndEvent = (props: {
                           <div
                             className={`rounded-full text-[12px] py-[4px] px-[6px] bg-customRedLight text-customRed`}
                           >
-                            {
-                              t('priority_data')[
-                                eventElement.new_value
-                              ]
-                            }
+                            {t("priority_data")[eventElement.new_value]}
                           </div>
                         </div>
                       </>
@@ -219,7 +231,7 @@ const CommentAndEvent = (props: {
                           className='text-[13px] font-medium text-customBlackLight pb-[5px]'
                           style={{ fontFamily: "SF Pro Display" }}
                         >
-                          {t('comment')}
+                          {t("comment")}
                         </p>
                         <div className='flex mt-2 items-center gap-2'>
                           <div className='rounded-tr-[12px] rounded-br-[12px] rounded-bl-[12px] bg-[#F2F2F7] text-[12px] px-3 text-customBlackLight py-1'>
@@ -234,7 +246,7 @@ const CommentAndEvent = (props: {
                           className='text-[13px] font-medium text-customBlackLight pb-[5px]'
                           style={{ fontFamily: "SF Pro Display" }}
                         >
-                          {t('participants_changed')}
+                          {t("participants_changed")}
                         </p>
                         <div className='flex mt-2 items-center gap-2'>
                           <div

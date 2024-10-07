@@ -1,9 +1,8 @@
-const ArrowLeft = (props: any) => (
+const ArrowLeft = () => (
   <svg
     width={32}
     height={32}
     fill="none"
-    {...props}
   >
     <path
       fill="#000"

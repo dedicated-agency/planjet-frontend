@@ -167,7 +167,9 @@ const CreateTaskFromGroup = () => {
       <div className='p-3'>
         <div className='bg-white shadow-customShadow rounded-xl p-3 pb-2'>
           <div className='flex items-center gap-[8px]'>
-            <Square className={"relative top-[-4px]"} />
+            <div className={"relative top-[-4px]"}>
+              <Square />
+            </div>
             <input
               type='text'
               placeholder='Task name'
@@ -214,10 +216,10 @@ const CreateTaskFromGroup = () => {
             </p>
             <Avatar
               image={""}
-              alt={project.name}
+              alt={project?.name}
               width={24}
               radius={4}
-              id={project.id}
+              id={project?.id}
             />
           </div>
         </div>

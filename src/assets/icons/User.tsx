@@ -1,9 +1,8 @@
-const User = (props: any) => (
+const User = () => (
   <svg
     width={16}
     height={16}
     fill='none'
-    {...props}
   >
     <g>
       <path

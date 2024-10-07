@@ -250,7 +250,7 @@ const Task = () => {
 
   return (
     <>
-      <div className='fixed z-20 top-0 left-0 right-0 flex justify-between h-[56px] items-center bg-white p-3 shadow-custom'>
+      <div className='fixed z-10 top-0 left-0 right-0 flex justify-between h-[56px] items-center bg-white p-3 shadow-custom'>
         <Link to={"/projects/" + task.project_id} className='w-[60px] flex'>
           <Avatar image={""} alt={task.project?.name} radius={8} width={36} id={task.project?.id} />
         </Link>
