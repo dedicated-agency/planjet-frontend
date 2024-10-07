@@ -63,7 +63,7 @@ const initialState = {
   focusDelete: false,
 };
 
-export const Task = () => {
+const Task = () => {
   const BackButton = WebApp.BackButton;
   BackButton.show();
   BackButton.onClick(() => window.history.back());
@@ -761,6 +761,8 @@ export const Task = () => {
     </>
   );
 };
+
+export default Task;
 
 export const priorities = [
   {

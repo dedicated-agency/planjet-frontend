@@ -28,7 +28,7 @@ const initialState = {
   selectedStatus: null,
 };
 
-export const Mytasks = () => {
+const Mytasks = () => {
   const BackButton = WebApp.BackButton;
   BackButton.show();
   BackButton.onClick(() => window.history.back());
@@ -342,3 +342,5 @@ export const Mytasks = () => {
     </>
   );
 };
+
+export default Mytasks;

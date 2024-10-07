@@ -15,7 +15,7 @@ const getGroup = async (id: number) => {
   return await fetchData("/group/" + id, {});
 };
 
-export const Projects = () => {
+const Projects = () => {
   const BackButton = WebApp.BackButton;
   BackButton.show();
   BackButton.onClick(() => window.history.back());
@@ -246,3 +246,6 @@ export const Projects = () => {
     </div>
   );
 };
+
+
+export default Projects;
