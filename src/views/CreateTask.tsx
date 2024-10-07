@@ -289,7 +289,7 @@ const CreateTask = () => {
                   className='font-normal text-[16px] text-customBlack'
                   style={{ fontFamily: "SF Pro Display" }}
                 >
-                  {t('priority_data')[selectPriority]}
+                  {t(`priority_data_${selectPriority}`)}
                 </p>
                 <ArrowRight />
               </div>

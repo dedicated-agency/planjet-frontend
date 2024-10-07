@@ -25,11 +25,9 @@
     "start_date": "Дата начала",
     "file": "Файлы",
     "priority": "Приоритет",
-    "priority_data": {
-        "1": "Низкий",
-        "2": "Средний",
-        "3": "Высокий"
-    },
+    "priority_data_1": "Низкий",
+    "priority_data_2": "Средний",
+    "priority_data_3": "Высокий",
     "comments_and_events": "Комментарии и события",
     "events": "События",
     "change_status": "Изменен статус задачи",

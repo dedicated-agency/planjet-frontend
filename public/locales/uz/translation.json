@@ -25,11 +25,9 @@
     "start_date": "Boshlanish sanasi",
     "file": "Fayl",
     "priority": "ustuvorlik",
-    "priority_data": {
-        "1": "Past",
-        "2": "O'rta",
-        "3": "Yuqori"
-    },
+    "priority_data_1": "Past",
+    "priority_data_2": "O'rta",
+    "priority_data_3": "Yuqori",
     "comments_and_events": "Sharhlar va o'zgarishlar",
     "events": "o'zgarishlar",
     "change_status": "Vazifa holati o'zgartirildi",
