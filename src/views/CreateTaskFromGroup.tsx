@@ -1,5 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import { StateContext } from "../context/StateContext";
+import { useEffect, useRef, useState } from "react";
 import { AvatarUser } from "../components/mini/AvatarUser";
 import { useGetTasks } from "../common/fetchTasks";
 import { Loader } from "../components/mini/Loader";
@@ -15,6 +14,7 @@ import File from "../assets/icons/File";
 import { Avatar } from "../components/mini/Avatar";
 import getUsersData from "../common/getUsersData";
 import { t } from "i18next";
+import { useUserContext } from "../context/UserContext";
 import { IUser } from "../components/Comment";
 import { useForm } from "react-hook-form";
 
@@ -60,6 +60,13 @@ const CreateTaskFromGroup = () => {
   }, []);
   const navigate = useNavigate();
   const { project_id } = useParams();
+  const {user} = useUserContext();
+  const lang = user.lang;
+  const [text, setText] = useState("");
+  const textareaRef = useRef(null);
+  const handleChange = (event: any) => {
+    setText(event.target.value);
+  }
   const { lang, user } = useContext(StateContext);
   // const [text, setText] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);

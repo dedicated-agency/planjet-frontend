@@ -1,10 +1,7 @@
 import {
-  // Fragment,
-  useContext,
   useEffect,
   useState,
 } from "react";
-import { StateContext } from "../context/StateContext";
 import { useQuery } from "react-query";
 import { fetchData } from "../common/fetchData";
 import { Link } from "react-router-dom";
@@ -13,6 +10,7 @@ import projectplus from "../assets/images/projectplus.svg";
 import useUserColor from "../common/useUserColor";
 import { IUserData } from "../common/sendData";
 import { t } from "i18next";
+import { useUserContext } from "../context/UserContext";
 
 const getGroups = async () => {
   return await fetchData("/group/selected", {});
@@ -34,16 +32,12 @@ interface IUser {
 }
 
 const BigProjects = () => {
-  const { setContextState } = useContext(StateContext);
-
+  const context = useUserContext()
   const [groups, setGroups] = useState<IGroup[]>([]);
-  
-
   const { data, error } = useQuery(["groupSelect"], () => getGroups());
-  
 
   useEffect(() => {
-    setContextState({ location: "home" });
+    context.updateUserState({location: "home" });
     if (data?.length) {
       getData();
     }

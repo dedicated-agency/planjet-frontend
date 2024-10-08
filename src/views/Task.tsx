@@ -1,7 +1,6 @@
 import { FaRegComment } from "react-icons/fa6";
 import { Avatar } from "../components/mini/Avatar";
-import { useContext, useEffect, useReducer } from "react";
-import { StateContext } from "../context/StateContext";
+import { useEffect, useReducer } from "react";
 import { dateTimeConverter } from "../common/dateTimeConverter";
 import { AvatarUser } from "../components/mini/AvatarUser";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -25,6 +24,7 @@ import Square from "../assets/icons/Square";
 import imageCacheChacker from "../common/imagesCacher";
 import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
 import { t } from "i18next";
+import { useUserContext } from "../context/UserContext";
 import { IUser } from "../components/Comment";
 import { IPriority } from "./CreateTaskFromGroup";
 import { IProjectTaskUser } from "../components/ProjectCaruselItem";
@@ -81,7 +81,8 @@ const Task = () => {
   }, []);
 
   const { id } = useParams();
-  const { lang, user } = useContext(StateContext);
+  const { user } = useUserContext()
+  const lang = user.lang;
   const navigate = useNavigate();
 
   const setParticipants = (user: IUser) => {
@@ -506,7 +507,7 @@ const Task = () => {
           className='shadow-customShadow rounded-[16px] bg-white py-[14px] px-4'
           style={
             state.commentInput
-              ? Number(user.id) === Number(task.user_id)
+              ? Number(user.telegram_id) === Number(task.user_id)
                 ? { paddingBottom: "300px" }
                 : { paddingBottom: "350px" }
               : {}
@@ -575,7 +576,7 @@ const Task = () => {
           )}
         </div>
 
-        {Number(user.id) === Number(task.user_id) && (
+        {Number(user.telegram_id) === Number(task.user_id) && (
           <div className='flex mt-5 gap-3'>
             <div
               onClick={() => setState({isOpenDelete: true})}

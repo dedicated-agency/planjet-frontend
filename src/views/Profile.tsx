@@ -1,18 +1,18 @@
-import { useContext, useEffect, useState } from "react";
-import { StateContext } from "../context/StateContext";
+import { useEffect, useState } from "react";
 import { AvatarUser } from "../components/mini/AvatarUser";
 import ArrowRight from "../assets/icons/ArrowRight";
 import { Link } from "react-router-dom";
 import WebApp from "@twa-dev/sdk";
 import imageCacheChacker from "../common/imagesCacher";
 import { t } from "i18next";
+import { useUserContext } from "../context/UserContext";
 
 const Profile = () => {
   const BackButton = WebApp.BackButton;
   BackButton.show();
   BackButton.onClick(() => window.history.back());
-  const { user } = useContext(StateContext);
-  const [currentUser, setCurrentUser] = useState(user);
+  const {user} = useUserContext();
+  const [currentUser, setCurrentUser] = useState<any>(user);
 
   useEffect(() => {
     getInitial();
@@ -21,7 +21,7 @@ const Profile = () => {
   const getInitial = async () => {
     if (user && user.first_name) {
       setCurrentUser({
-        image: await imageCacheChacker(user.id),
+        image: await imageCacheChacker(String(user.telegram_id)),
         first_name: user.first_name.charAt(0).toUpperCase(),
       });
     }
@@ -38,7 +38,7 @@ const Profile = () => {
             height={48}
             alt={currentUser.first_name}
             image={currentUser.image}
-            id={user.id}
+            id={user.telegram_id}
           />
         </div>
         <p

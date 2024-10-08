@@ -11,6 +11,9 @@ const getArchiveById = async (id: number) => {
   return await fetchData(`project/${id}/archive`, {});
 };
 
+import languages from "../local/languages.json";
+import { useUserContext } from "../context/UserContext";
+
 
 const Archive = () => {
   const BackButton = WebApp.BackButton;
@@ -18,18 +21,15 @@ const Archive = () => {
   BackButton.onClick(() => window.history.back());
   const { id } = useParams();
 
-  const { data: project } = useGetTasks(
-    {
-      // status: state.selectedStatus,
-      // user_ids: state.selectedUsers,
-      // user_id: state.currectUser !== 0 ? state.currectUser.telegram_id : null
-    },
-    Number(id),
-  );
+  const { data: project } = useGetTasks( {}, Number(id) );
 
   const { data: archiveById } = useQuery(["EventsById"], () =>
     getArchiveById(Number(id)),
   );
+
+  const { user } = useUserContext();
+  const lang = user.lang
+  const locale: any = languages;
 
 
   const { t } = useTranslation();

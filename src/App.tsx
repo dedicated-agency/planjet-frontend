@@ -95,7 +95,6 @@ function App() {
     lang: state.lang,
     location: state.location,
     setContextState: setState,
-    availableUserImages: state.availableUserImages,
   };
 
   return (
@@ -114,13 +113,11 @@ const initialState: IInitState = {
     location: "",
   },
   lang: "en",
-  availableUserImages: {}
 };
 
 interface IInitState {
   user: IInitStateUser,
   lang: string,
-  availableUserImages: Record<string, unknown>,
 }
 
 interface IInitStateUser {
