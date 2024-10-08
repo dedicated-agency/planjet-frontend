@@ -62,13 +62,6 @@ const CreateTaskFromGroup = () => {
   const { project_id } = useParams();
   const {user} = useUserContext();
   const lang = user.lang;
-  const [text, setText] = useState("");
-  const textareaRef = useRef(null);
-  const handleChange = (event: any) => {
-    setText(event.target.value);
-  }
-  const { lang, user } = useContext(StateContext);
-  // const [text, setText] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const handleChange = () => {
     adjustTextareaHeight();

@@ -1,11 +1,9 @@
 // img
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
-import languages from "../../local/languages.json";
 import { useEffect } from "react";
 import WebApp from "@twa-dev/sdk";
-import { useUserContext } from "../../context/UserContext";
-import { useTranslation } from "react-i18next";
+import { t } from "i18next";
 
 interface IFunction {
   setPage?: (page: number) => void;
@@ -15,10 +13,6 @@ const HowToCreate = ({ setPage }: IFunction) => {
   useEffect(() => {
     WebApp.setHeaderColor("#007AFF");
   }, []);
-  const {user} = useUserContext();
-  const lang = user.lang;
-  const locale: any = languages;
-  const { t } = useTranslation();
   return (
     <div className='bg-custom-gradient-blue p-8 h-full xsm:h-auto xxsm:h-full'>
       <div>
