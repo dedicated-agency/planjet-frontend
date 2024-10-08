@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { fetchData } from "../common/fetchData";
 import { useQuery } from "react-query";
 import WebApp from "@twa-dev/sdk";
-import EventPromo from "../components/EventPromo";
+import EventPromo, { IEventGroup } from "../components/EventPromo";
 import { t } from "i18next";
 
 const getEvents = async () => {
@@ -14,6 +14,8 @@ const Events = () => {
   BackButton.show();
   BackButton.onClick(() => window.history.back());
   const { data } = useQuery(["eventsViewData"], () => getEvents());
+  console.log(data);
+  
   useEffect(() => {
     WebApp.setHeaderColor("#F2F2F7");
   }, []);
@@ -44,7 +46,7 @@ const Events = () => {
         )}
         <>
           {data?.length !== 0 ? (
-            data?.map((group: any, index: number) => (
+            data?.map((group: IEventGroup, index: number) => (
               <EventPromo key={index} group={group} />
             ))
           ) : (

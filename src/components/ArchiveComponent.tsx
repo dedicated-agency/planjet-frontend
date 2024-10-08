@@ -7,7 +7,7 @@ interface IArchive {
   archive: IArchiveIn
 }
 
-interface IArchiveIn {
+export interface IArchiveIn {
   id: number,
   name: string,
   description: string,

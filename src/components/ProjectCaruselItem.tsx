@@ -11,25 +11,73 @@ import Comment from "../assets/icons/Comment";
 import { StateContext } from "../context/StateContext";
 import imageCacheChacker from "../common/imagesCacher";
 import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
+import { ICommentIn, IUser } from "./Comment";
+import { IState, IStatus } from "./ProjectCarusel";
 
-const initialState = {
+interface IStateItem {
+  userPhoto: string;
+  selectStatus: number | string | null;
+  participants: IParticipant[];
+}
+
+const initialState: IStateItem = {
   userPhoto: '',
   selectStatus: null,
   participants: []
 };
 
-const ProjectCaruselItem = (props: any) => {
+
+interface IProps {
+  project: IProject,
+  statuses: IStatus[],
+  setProjectState: React.Dispatch<Partial<IState>>,
+  getStatuses: () => Promise<void>,
+  selectedStatus: number | string | null,
+  index: number,
+}
+
+interface IProject {
+  id: number,
+  status_id: number,
+  taskUser: IProjectTaskUser[],
+  user_id: string,
+  name: string;
+  description: string;
+  created_at: string;
+  priority: number;
+  taskComment: ICommentIn[];
+  user: IUser
+}
+
+export interface IProjectTaskUser {
+  task_id: number;
+  user: IUser;
+  user_id: string;
+}
+
+interface IParticipant {
+  img: string;
+  user: IUser;
+  task_id: number;
+  user_id: number | string;
+}
+
+
+const ProjectCaruselItem = (props: IProps) => {
   const navigate = useNavigate();
   const { user } = useContext(StateContext);
   const { project, statuses, setProjectState, getStatuses, selectedStatus } = props;
 
   const [state, setState] = useReducer(
-    (state: any, setState: any) => ({
+    (state: IStateItem, setState: Partial<IStateItem>) => ({
       ...state,
       ...setState,
     }),
     initialState,
   );
+
+  console.log(state);
+  
 
   const queryClient = useQueryClient();
 
@@ -57,7 +105,7 @@ const ProjectCaruselItem = (props: any) => {
 
   const getPhoto = async () => {
     const result = await imageCacheChacker(project.user_id);
-    const results: any = [];
+    const results: IParticipant[] = [];
     if(project.taskUser.length)
     {
       for (const taskUser of project.taskUser) {
@@ -75,7 +123,7 @@ const ProjectCaruselItem = (props: any) => {
 
   return (
     <>
-      <div id={project.id} className='task-carusel-item w-full mt-2 relative'>
+      <div id={`${project.id}`} className='task-carusel-item w-full mt-2 relative'>
         <p
           className='absolute z-10 right-[16px] top-[12px] text-2xl text-gray-400'
           onClick={() => setState({selectStatus: project.status_id})}
@@ -144,14 +192,14 @@ const ProjectCaruselItem = (props: any) => {
               )}
               <div className='text-blue-500 pr-1 flex'>
                 {
-                  state.participants.length ? state.participants.map((taskUser: any) => (
+                  state.participants.length ? state.participants.map((taskUser: IParticipant) => (
                     <AvatarUser
                     image={taskUser.img}
                     alt={taskUser.user.name || "N"}
                     width={28}
                     height={28}
                     key={taskUser.user_id}
-                    id={taskUser.user_id}
+                    id={Number(taskUser.user_id)}
                   />
                   )):
                   <AvatarUser

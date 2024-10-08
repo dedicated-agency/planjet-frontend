@@ -8,29 +8,52 @@ import { Setting } from "../assets/icons/Setting";
 import ArrowDown from "../assets/icons/ArrowDown";
 import getUsersData from "../common/getUsersData";
 import { t } from "i18next";
+import { IUser } from "./Comment";
+import { IState } from "./ProjectCarusel";
 
-const initialState = {
+const initialState: IInitState = {
   users: [],
   selectedUsers: [],
   openParticipant: false,
 };
 
-export const TopProjectBar = (props: any) => {
+interface IInitState {
+  users: IUser[];
+  selectedUsers: IUser[];
+  openParticipant: boolean;
+}
+
+interface IStateProp {
+  name: string;
+  mytasks?: number;
+  users: IUser[];
+}
+
+interface IProps {
+  state: IStateProp;
+  setState: React.Dispatch<Partial<IState>>;
+  id: number;
+  group_id: number;
+}
+
+export const TopProjectBar = (props: IProps) => {
   const { state, setState, id, group_id } = props;
   const [barState, setBarState] = useReducer(
-    (state: any, setState: any) => ({
+    (state: IInitState, setState: Partial<IInitState>) => ({
       ...state,
       ...setState,
     }),
     initialState,
   );
+  console.log(state);
+  
 
-  const setParticipants = (user: any) => {
+  const setParticipants = (user: IUser) => {
     const check = barState.selectedUsers.some(
-      (u: any) => u.telegram_id === user.telegram_id,
+      (u: IUser) => u.telegram_id === user.telegram_id,
     );
     if (check) {
-      setBarState({selectedUsers: barState.selectedUsers.filter((u: any) => u.telegram_id !== user.telegram_id)})
+      setBarState({selectedUsers: barState.selectedUsers.filter((u: IUser) => u.telegram_id !== user.telegram_id)})
     } else {
       setBarState({selectedUsers: [user, ...barState.selectedUsers]});
     }
@@ -41,14 +64,14 @@ export const TopProjectBar = (props: any) => {
   }, [group_id]);
 
   const getUsers = async () => {
-    const users = await getUsersData(group_id)
+    const users = await getUsersData(group_id.toString())
     // @ts-ignore
     setBarState({users: users});
   };
   const updateParticipants = async () => {
     setState({
       selectedUsers: barState.selectedUsers
-        .map((user: any) => user.telegram_id)
+        .map((user: IUser) => user.telegram_id)
         .join(","),
     });
     setBarState({openParticipant: false});
@@ -92,7 +115,7 @@ export const TopProjectBar = (props: any) => {
                   <>
                     {barState.users.length > 3 ? (
                       <>
-                        {barState.users.slice(0, 3).map((user: any, index: number) => (
+                        {barState.users.slice(0, 3).map((user: IUser, index: number) => (
                           <AvatarUser
                             key={index}
                             image={user.image ? user.image : ""}
@@ -110,7 +133,7 @@ export const TopProjectBar = (props: any) => {
                       </>
                     ) : (
                       <>
-                        {barState.users.map((user: any, index: number) => (
+                        {barState.users.map((user: IUser, index: number) => (
                           <AvatarUser
                             key={index}
                             image={user.image ? user.image : ""}
@@ -127,7 +150,7 @@ export const TopProjectBar = (props: any) => {
                       <>
                         {barState.selectedUsers
                           .slice(0, 3)
-                          .map((user: any, index: number) => (
+                          .map((user: IUser, index: number) => (
                             <AvatarUser
                               key={index}
                               image={user.image ? user.image : ""}
@@ -143,7 +166,7 @@ export const TopProjectBar = (props: any) => {
                       </>
                     ) : (
                       <>
-                        {barState.selectedUsers.map((user: any, index: number) => (
+                        {barState.selectedUsers.map((user: IUser, index: number) => (
                           <AvatarUser
                             key={index}
                             image={user.image ? user.image : ""}
@@ -189,21 +212,21 @@ export const TopProjectBar = (props: any) => {
           barState.openParticipant ? "bottom-3" : "bottom-[-100%]"
         } overflow-y-scroll max-h-[70%] z-[100] fixed left-3 right-3 scrollbar-hidden transition-all rounded-[25px] bg-white px-3 py-5 pb-[72px] flex flex-col gap-2`}
       >
-        {barState.users.map((user: any, index: number) => (
+        {barState.users.map((user: IUser, index: number) => (
           <div
             key={index}
             onClick={() => {
               setParticipants(user);
             }}
             className={`${
-              barState.selectedUsers.some((u: any) => u.telegram_id === user.telegram_id)
+              barState.selectedUsers.some((u: IUser) => u.telegram_id === user.telegram_id)
                 ? "bg-gray-100"
                 : ""
             }  p-4 rounded-xl flex justify-between items-center`}
           >
             <div className='flex gap-4'>
               <AvatarUser
-                image={user.image}
+                image={user.image || ""}
                 alt={user.name}
                 id={user.telegram_id}
               />
@@ -212,7 +235,7 @@ export const TopProjectBar = (props: any) => {
             <div
               className={`${
                 barState.selectedUsers.some(
-                  (u: any) => u.telegram_id === user.telegram_id,
+                  (u: IUser) => u.telegram_id === user.telegram_id,
                 )
                   ? "border-blue-500"
                   : "border-gray-400"
@@ -220,7 +243,7 @@ export const TopProjectBar = (props: any) => {
             >
               {
               barState.selectedUsers.some(
-                (u: any) => u.telegram_id === user.telegram_id,
+                (u: IUser) => u.telegram_id === user.telegram_id,
               ) && <div className='bg-blue-500 w-3 h-3 rounded-sm'></div>}
             </div>
           </div>
