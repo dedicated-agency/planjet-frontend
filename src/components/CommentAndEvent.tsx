@@ -41,6 +41,8 @@ const CommentAndEvent = (props: {
   queryClient: QueryClient;
 }) => {
   const { state, setState, queryClient } = props;
+  console.log(state.events);
+  
   const { id } = useParams();
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -123,7 +125,7 @@ const CommentAndEvent = (props: {
       {state.selector === "event" && (
         <div className='transition-all flex flex-col gap-2 mt-5'>
           {state.events.length > 0 &&
-            state.events.map((eventElement: any, index: number) => (
+            state.events.map((eventElement: IEvent, index: number) => (
               <div key={index} className='flex gap-2 '>
                 <div className='flex flex-col justify-center items-center gap-2'>
                   <div className='min-w-[24px] w-[24px] min-h-[24px] h-[24px] flex justify-center items-center rounded-full bg-gray-200 text-gray-600'>
@@ -211,7 +213,7 @@ const CommentAndEvent = (props: {
                           <div
                             className={`rounded-full text-[12px] py-[4px] px-[6px] bg-customYellowLight text-customYellow line-through`}
                           >
-                            {t("priority_data")[eventElement.old_value]}
+                            {t("priority_data")[Number(eventElement.old_value)]}
                           </div>
                           <div className='h-[20px] w-[20px] rounded-full flex justify-center items-center bg-gray-200 text-gray-500'>
                             {" "}
@@ -220,7 +222,7 @@ const CommentAndEvent = (props: {
                           <div
                             className={`rounded-full text-[12px] py-[4px] px-[6px] bg-customRedLight text-customRed`}
                           >
-                            {t("priority_data")[eventElement.new_value]}
+                            {t("priority_data")[Number(eventElement.new_value)]}
                           </div>
                         </div>
                       </>

@@ -2,7 +2,7 @@ import WebApp from "@twa-dev/sdk";
 import { useEffect, useReducer, useRef, useState } from "react";
 import "../components/carusel.css";
 import { useSwipeable } from "react-swipeable";
-import MyTask from "../components/MyTask";
+import MyTask, { IProject } from "../components/MyTask";
 import axiosClient from "../common/axiosClient";
 import ArrowRight from "../assets/icons/ArrowRight";
 import SymbolBorder from "../assets/icons/SymbolBorder";
@@ -11,12 +11,25 @@ import { useQuery } from "react-query";
 import { fetchData } from "../common/fetchData";
 import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
 import { t } from "i18next";
+import { IUser } from "../components/Comment";
 
 const getGroups = async () => {
   return await fetchData("/user/groups", {});
 };
 
-const initialState = {
+interface IMyTasksState {
+  statuses: IStatus[];
+  tasks: IProject[];
+  index: number;
+  name: string;
+  users: IUser[];
+  currectUser: number;
+  selector: boolean;
+  mytasks: boolean;
+  selectedStatus: number | string | null;
+}
+
+const initialState: IMyTasksState = {
   statuses: [],
   tasks: [],
   index: 0,
@@ -28,30 +41,45 @@ const initialState = {
   selectedStatus: null,
 };
 
+interface IStatus {
+  id: number;
+  name: string;
+  count: number;
+}
+
+interface IGroup {
+  id: number;
+  name: string;
+  is_selected: boolean;
+  projects: IGroupProject[];
+}
+
+interface IGroupProject {
+  id: number;
+  name: string;
+}
+
 const Mytasks = () => {
   const BackButton = WebApp.BackButton;
   BackButton.show();
   BackButton.onClick(() => window.history.back());
 
   const [isOpenProjectFilter, setIsOpenProjectFilter] = useState(false);
-  const [isOpenProject, setIsOpenProject] = useState();
+  const [isOpenProject, setIsOpenProject] = useState<number>();
   const [selectedProjectId, setSelectedProjectId] = useState("");
-  const [selectedProject, setSelectedProject] = useState<{
-    id: number;
-    name: string;
-  }>();
+  const [selectedProject, setSelectedProject] = useState<IGroupProject>();
 
   const { data: groups } = useQuery(["groupsData"], () => getGroups());
 
   const [state, setState] = useReducer(
-    (state: any, setState: any) => ({
+    (state: IMyTasksState, setState: Partial<IMyTasksState>) => ({
       ...state,
       ...setState,
     }),
     initialState,
   );
 
-  const handleSwipe = (direction: any) => {
+  const handleSwipe = (direction: "LEFT" | "RIGHT") => {
     if (direction === "LEFT" && state.index < state.statuses.length - 1) {
       const newIndex = state.index + 1;
       setState({ index: newIndex });
@@ -92,7 +120,7 @@ const Mytasks = () => {
   });
 
   useEffect(() => {
-    setState({ name: t('my_tasks') });
+    setState({ name: t("my_tasks") });
     getStatuses();
   }, [selectedProjectId]);
 
@@ -118,7 +146,7 @@ const Mytasks = () => {
 
   const getTasks = async (statusName: string) => {
     try {
-      const response: any = await axiosClient.get(
+      const response = await axiosClient.get(
         `/user/tasks?status=${statusName}&project_id=${selectedProject?.id}`,
       );
       if (response && response.data) {
@@ -161,7 +189,7 @@ const Mytasks = () => {
               className='text-[17px] font-medium text-black leading-5'
               style={{ fontFamily: "SF Pro Display" }}
             >
-              {t('my_tasks')}
+              {t("my_tasks")}
             </p>
           </div>
         </div>
@@ -175,7 +203,7 @@ const Mytasks = () => {
           >
             {selectedProject
               ? selectedProject?.name
-              : capitalizeFirstLetter(t('project'))}
+              : capitalizeFirstLetter(t("project"))}
           </p>
           <div className={"rotate-90"}>
             <ArrowRight />
@@ -188,7 +216,7 @@ const Mytasks = () => {
             ref={tabContainerRef}
             className='flex h-[44px] w-full overflow-x-scroll border-b border-t bg-white px-2 scroll-smooth status-list fixed top-[72px] z-10'
           >
-            {state.statuses.map((status: any, index: number) => (
+            {state.statuses.map((status: IStatus, index: number) => (
               <div
                 key={index}
                 className={`flex h-full  items-center gap-2 px-4 relative cursor-pointer`}
@@ -235,13 +263,11 @@ const Mytasks = () => {
         >
           <div className='flex flex-col px-4 pb-12 items-center justify-start'>
             {state.tasks.length > 0 ? (
-              state.tasks.map((task: any) => (
+              state.tasks.map((task: IProject) => (
                 <MyTask key={task?.id} project={task} /> // Render individual task components
               ))
             ) : (
-              <div className='mt-5 text-gray-400'>
-                {t('no_task_yet')}
-              </div>
+              <div className='mt-5 text-gray-400'>{t("no_task_yet")}</div>
             )}
           </div>
         </div>
@@ -257,7 +283,7 @@ const Mytasks = () => {
           isOpenProjectFilter ? "bottom-3" : "bottom-[-100%]"
         } overflow-y-scroll scrollbar-hidden max-h-[70%] z-[100] fixed transition-all rounded-[25px] bg-white p-3 mb-2 left-3 right-3 flex flex-col gap-2`}
       >
-        {groups?.map((group: any, index: number) => (
+        {groups?.map((group: IGroup, index: number) => (
           <div
             onClick={() => {
               // setSelectPriority(index + 1);
@@ -303,15 +329,15 @@ const Mytasks = () => {
                   // setSelectPriority(index + 1);
                 }}
               >
-                {group.projects?.map((project: any, i: number) => (
+                {group.projects?.map((project: IGroupProject, i: number) => (
                   <div
                     onClick={() => {
-                      setSelectedProjectId(project.id);
+                      setSelectedProjectId(project.id.toString());
                       setSelectedProject(project);
                       setIsOpenProjectFilter(false);
                     }}
                     key={i}
-                    className='flex items-center justify-between h-[44px] transition-all duration-500 ease-in-out'
+                    className='flex items-center justify-between h-[44px] transition-all duration-500 ease-in-out cursor-pointer'
                   >
                     <p
                       className='font-normal text-[17px] text-black'
@@ -321,12 +347,12 @@ const Mytasks = () => {
                     </p>
                     <div
                       className={`${
-                        project.id === selectedProjectId
+                        project.id.toString() === selectedProjectId
                           ? "border-blue-500"
                           : "border-gray-400"
                       } flex justify-center items-center rounded border w-[16px] h-[16px]`}
                     >
-                      {project.id === selectedProjectId && (
+                      {project.id.toString() === selectedProjectId && (
                         <div className='bg-blue-500 w-[10px] h-[10px] rounded-sm'></div>
                       )}
                     </div>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const NotificationListItem = (props: {title: string, subtitle?: string, checked: boolean, type: string, editNotification: any }) => {
+const NotificationListItem = (props: {title: string, subtitle?: string, checked: boolean, type: string, editNotification: (type: string, checked: boolean) => void }) => {
     const {title, subtitle, checked, type, editNotification} = props;
     const [checker, setChecker] = useState(checked);
     const updateNotification = () => {
@@ -8,7 +8,6 @@ const NotificationListItem = (props: {title: string, subtitle?: string, checked:
         setChecker(!checked);
     }
 
-    console.log({checker, checked, props});
     
 
     return <label className='flex justify-between items-center py-[12px] px-[16px] bg-white'>

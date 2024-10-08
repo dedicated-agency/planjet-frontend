@@ -1,10 +1,21 @@
-const StatusSelector = (props: {selectStatus: any, setSelectStatus: any, statuses: any, updateStatus: any}) => {
+import { IStatus } from "./ProjectCarusel";
+
+interface IProps {
+    selectStatus: number | string | null;
+    setSelectStatus: React.Dispatch<{ selectStatus: number | null }>;
+    statuses: IStatus[];
+    updateStatus: (statusId: number) => Promise<void>;
+}
+
+
+const StatusSelector = (props: IProps) => {
     const {selectStatus, setSelectStatus, statuses, updateStatus} = props;
+    
     return <>
         {selectStatus && <div className="bg-black opacity-45 z-20 fixed top-0 w-full h-full" onClick={() =>  setSelectStatus({selectStatus: null})}></div>}
         <div className={`${selectStatus ? "bottom-3" : "bottom-[-100%]"}  z-[100] fixed transition-all rounded-[25px] bg-white p-[12px] left-3 right-3 flex flex-col gap-2`}>
             {
-                statuses?.length > 0 && statuses.map((status: any) => (
+                statuses?.length > 0 && statuses.map((status: IStatus) => (
                     <div
                     onClick={() => {
                         updateStatus(status.id)

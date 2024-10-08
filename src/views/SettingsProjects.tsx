@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import SettingsComponent from "../components/SettingsComponent";
+import SettingsComponent, { IPropsGroup } from "../components/SettingsComponent";
 import { useQuery } from "react-query";
 import { fetchData } from "../common/fetchData";
 import WebApp from "@twa-dev/sdk";
@@ -54,7 +54,7 @@ const SettingsProjects = () => {
         ></div>
       </div>
       <div className='flex flex-col gap-[7px] bg-white rounded-[16px] overflow-hidden'>
-        {data?.map((group: any, index: number) => (
+        {data?.map((group: IPropsGroup, index: number) => (
           <SettingsComponent
             key={index}
             group={group}

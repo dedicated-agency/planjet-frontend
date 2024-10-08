@@ -3,7 +3,25 @@ import { dateTimeConverter } from "../common/dateTimeConverter";
 import { Avatar } from "./mini/Avatar";
 import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
 
-const ProjectCaruselItem = (props: any) => {
+interface IProjectProps {
+  project: IProject;
+}
+
+export interface IProject {
+  id: number;
+  name: string;
+  description: string;
+  created_at: string;
+  priority: number;
+  project: IProjectIn;
+}
+
+interface IProjectIn {
+  id: number;
+  name: string;
+}
+
+const ProjectCaruselItem = (props: IProjectProps) => {
   const { project } = props;
   return (
     <>
@@ -63,7 +81,9 @@ const ProjectCaruselItem = (props: any) => {
               </div>
             </div>
             <div className='flex justify-between items-center gap-3 relative'>
-              <p className="">{capitalizeFirstLetter(project?.project?.name)}</p>
+              <p className=''>
+                {capitalizeFirstLetter(project?.project?.name)}
+              </p>
               <div className='text-blue-500'>
                 <Avatar
                   image={""}

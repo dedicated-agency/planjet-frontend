@@ -9,10 +9,35 @@ import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
 import { Link } from "react-router-dom";
 import { t } from "i18next";
 
-const EventPromo = (props: any) => {
+interface IEventProps {
+  group: IEventGroup,
+}
+
+export interface IEventGroup {
+  events: IEvent[];
+  task_id: number;
+  project: string;
+  task_name: string;
+  group: string;
+}
+
+interface IEvent {
+  changes: IEventChange[];
+  user_name: string;
+  user_id: number;
+}
+
+interface IEventChange{
+  type: string;
+  created_at: string;
+  old_value: string;
+  new_value: string;
+}
+
+const EventPromo = (props: IEventProps) => {
   const [isOpenDescription, setisOpenDescription] = useState<boolean>(false);
 
-  const changes = props.group.events.flatMap((el: any) => el.changes);
+  const changes = props.group.events.flatMap((el: IEvent) => el.changes);
 
   return (
     <div className='h-auto bg-white rounded-2xl p-3'>
@@ -21,7 +46,7 @@ const EventPromo = (props: any) => {
           className=' text-xs font-medium'
           style={{
             fontFamily: "SF Pro Display",
-            color: useUserColor(props.group.id).lightColor,
+            color: useUserColor(props.group.task_id).lightColor,
           }}
         >
           {props.group.group} | {props.group.project}
@@ -34,7 +59,7 @@ const EventPromo = (props: any) => {
         </p>
       </Link>
       <div className='bg-customIndigo120 h-auto rounded-xl border-l-[3px] border-customIndigo100 p-3 mt-1'>
-        {props.group.events.map((event: any, index: number) => {
+        {props.group.events.map((event: IEvent, index: number) => {
           if (props.group.events.length === 1 && event.changes.length === 1) {
             return (
               <div key={index}>
@@ -52,12 +77,12 @@ const EventPromo = (props: any) => {
                     className='font-normal text-[15px]'
                     style={{
                       fontFamily: "SF Pro Display",
-                      color: useUserColor(event.id).lightColor,
+                      color: useUserColor(event.user_id).lightColor,
                     }}
                   >
                     {event.user_name}
                   </p>
-                  {event.changes.map((change: any, index: number) => (
+                  {event.changes.map((change: IEventChange, index: number) => (
                     <Fragment key={index}>
                       <p
                         className='font-normal text-black text-xs'
@@ -88,15 +113,15 @@ const EventPromo = (props: any) => {
                   {/* Time */}
                 </div>
                 <div className='flex items-center gap-1 mt-2'>
-                  {event.changes.map((change: any, index: number) => (
+                  {event.changes.map((change: IEventChange, index: number) => (
                     <Fragment key={index}>
                       <div className='w-max h-4 bg-customIndigo150 flex justify-center items-center py-1 px-[6px] rounded-2xl'>
                         <p className='text-xs line-through text-customIndigo'>
-                          {change.old_value == 1
+                          {Number(change.old_value) == 1
                             ? t(`priority_data[${change.old_value}]`)
-                            : change.old_value == 2
+                            : Number(change.old_value) == 2
                             ? t(`priority_data[${change.old_value}]`)
-                            : change.old_value == 3
+                            : Number(change.old_value) == 3
                             ? t(`priority_data[${change.old_value}]`)
                             : capitalizeFirstLetter(change.old_value)}
                         </p>
@@ -115,7 +140,6 @@ const EventPromo = (props: any) => {
           }
         })}
         {
-          // props.group.events.map((event: any) => event.changes.length)
           changes.length > 1 && (
             <div
               className='h-5 flex justify-between items-center cursor-pointer'
@@ -144,7 +168,7 @@ const EventPromo = (props: any) => {
           }`}
         >
           <div className='mt-3'>
-            {props.group.events.map((event: any, index: number) => (
+            {props.group.events.map((event: IEvent, index: number) => (
               <div key={index}>
                 {event.changes.length === 1 ? (
                   <div className='mt-3'>
@@ -162,12 +186,12 @@ const EventPromo = (props: any) => {
                         className='font-normal text-[15px]'
                         style={{
                           fontFamily: "SF Pro Display",
-                          color: useUserColor(event.id).lightColor,
+                          color: useUserColor(event.user_id).lightColor,
                         }}
                       >
                         {event.user_name}
                       </p>
-                      {event.changes.map((change: any, index: number) => (
+                      {event.changes.map((change: IEventChange, index: number) => (
                         <Fragment key={index}>
                           <p
                             className='font-normal text-black text-xs'
@@ -198,15 +222,15 @@ const EventPromo = (props: any) => {
                       {/* Time */}
                     </div>
                     <div className='flex items-center gap-1 mt-2'>
-                      {event.changes.map((change: any, index: number) => (
+                      {event.changes.map((change: IEventChange, index: number) => (
                         <Fragment key={index}>
                           <div className='w-max h-4 bg-customIndigo150 flex justify-center items-center py-1 px-[6px] rounded-2xl'>
                             <p className='text-xs line-through text-customIndigo'>
-                              {change.old_value == 1
+                              {Number(change.old_value) == 1
                                 ? t(`priority_data[${change.old_value}]`)
-                                : change.old_value == 2
+                                : Number(change.old_value) == 2
                                 ? t(`priority_data[${change.old_value}]`)
-                                : change.old_value == 3
+                                : Number(change.old_value) == 3
                                 ? t(`priority_data[${change.old_value}]`)
                                 : capitalizeFirstLetter(change.old_value)}
                             </p>
@@ -231,6 +255,7 @@ const EventPromo = (props: any) => {
                           width={20}
                           height={20}
                           size={14}
+                          id={event.user_id}
                         />
                       </div>
                       <p
@@ -238,7 +263,7 @@ const EventPromo = (props: any) => {
                         className='font-normal text-[15px]'
                         style={{
                           fontFamily: "SF Pro Display",
-                          color: useUserColor(event.id).lightColor,
+                          color: useUserColor(event.user_id).lightColor,
                         }}
                       >
                         {event.user_name}
@@ -247,7 +272,7 @@ const EventPromo = (props: any) => {
                     <div className='flex gap-2 mt-1'>
                       <div className='w-[3px] h-auto bg-customIndigo500 rounded-full ml-2' />
                       <div className='p-2 flex flex-col gap-3'>
-                        {event.changes.map((change: any, index: number) => (
+                        {event.changes.map((change: IEventChange, index: number) => (
                           <div key={index} className='flex flex-col gap-2'>
                             <div className='flex gap-3 items-center'>
                               <p
@@ -281,24 +306,24 @@ const EventPromo = (props: any) => {
                             <div className='flex items-center gap-1'>
                               <div className='w-max h-4 bg-customIndigo150 flex justify-center items-center py-1 px-[6px] rounded-2xl'>
                                 <p className='text-xs line-through text-customIndigo'>
-                                  {change.old_value == 1
-                                    ? t("priority_data")[change.old_value]
-                                    : change.old_value == 2
-                                    ? t("priority_data")[change.old_value]
-                                    : change.old_value == 3
-                                    ? t("priority_data")[change.old_value]
+                                  {Number(change.old_value) == 1
+                                    ? t("priority_data")[Number(change.old_value)]
+                                    : Number(change.old_value) == 2
+                                    ? t("priority_data")[Number(change.old_value)]
+                                    : Number(change.old_value) == 3
+                                    ? t("priority_data")[Number(change.old_value)]
                                     : capitalizeFirstLetter(change.old_value)}
                                 </p>
                               </div>
                               <ArrowLongRight />
                               <div className='w-max h-4 bg-customIndigo150 flex justify-center items-center py-1 px-[6px] rounded-2xl'>
                                 <p className='text-xs line-through text-customIndigo'>
-                                  {change.new_value == 1
-                                    ? t("priority_data")[change.new_value]
-                                    : change.new_value == 2
-                                    ? t("priority_data")[change.new_value]
-                                    : change.new_value == 3
-                                    ? t("priority_data")[change.new_value]
+                                  {Number(change.new_value) == 1
+                                    ? t("priority_data")[Number(change.new_value)]
+                                    : Number(change.new_value) == 2
+                                    ? t("priority_data")[Number(change.new_value)]
+                                    : Number(change.new_value) == 3
+                                    ? t("priority_data")[Number(change.new_value)]
                                     : capitalizeFirstLetter(change.new_value)}
                                 </p>
                               </div>

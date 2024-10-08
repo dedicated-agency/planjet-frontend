@@ -12,7 +12,7 @@ const Profile = () => {
   BackButton.show();
   BackButton.onClick(() => window.history.back());
   const { user } = useContext(StateContext);
-  const [currentUser, setCurrentUser] = useState<any>(user);
+  const [currentUser, setCurrentUser] = useState(user);
 
   useEffect(() => {
     getInitial();

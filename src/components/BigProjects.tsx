@@ -36,7 +36,8 @@ interface IUser {
 const BigProjects = () => {
   const { setContextState } = useContext(StateContext);
 
-  const [groups, setGroups] = useState<any[]>([]);
+  const [groups, setGroups] = useState<IGroup[]>([]);
+  
 
   const { data, error } = useQuery(["groupSelect"], () => getGroups());
   

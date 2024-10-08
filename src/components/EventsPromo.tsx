@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
-import EventPromo from "./EventPromo";
+import EventPromo, { IEventGroup } from "./EventPromo";
 import { fetchData } from "../common/fetchData";
 import { useQuery } from "react-query";
 import calendar from '../assets/images/calendar.svg';
 import { t } from "i18next";
+
 
 const getEventsNew = async () => {
   return await fetchData("user/events", {});
@@ -11,7 +12,6 @@ const getEventsNew = async () => {
 
 const EventsPromo = () => {
   const { data } = useQuery(["eventsNewData"], getEventsNew);
-
 
   return (
     <div className='flex flex-col gap-[10px]'>
@@ -32,7 +32,7 @@ const EventsPromo = () => {
         </div>
       <>
         {data && data.length > 0 ?
-          data.map((group: any, index: number) => (
+          data.map((group: IEventGroup, index: number) => (
             <EventPromo key={index} group={group} />
           )) : (
             <div className="flex flex-col justify-center items-center">
