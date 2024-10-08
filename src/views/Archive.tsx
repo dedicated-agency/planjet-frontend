@@ -5,14 +5,11 @@ import { useQuery } from "react-query";
 import { useGetTasks } from "../common/fetchTasks";
 import { Avatar } from "../components/mini/Avatar";
 import WebApp from "@twa-dev/sdk";
-import { useTranslation } from "react-i18next";
+import { t } from "i18next";
 
 const getArchiveById = async (id: number) => {
   return await fetchData(`project/${id}/archive`, {});
 };
-
-import languages from "../local/languages.json";
-import { useUserContext } from "../context/UserContext";
 
 
 const Archive = () => {
@@ -27,12 +24,7 @@ const Archive = () => {
     getArchiveById(Number(id)),
   );
 
-  const { user } = useUserContext();
-  const lang = user.lang
-  const locale: any = languages;
 
-
-  const { t } = useTranslation();
   return (
     <div>
       <div className='h-[56px]' />
