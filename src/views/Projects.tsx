@@ -10,10 +10,23 @@ import { AvatarUser } from "../components/mini/AvatarUser";
 import getUsersData from "../common/getUsersData";
 import { t } from "i18next";
 import { useUserContext } from "../context/UserContext";
+import { IUser } from "../components/Comment";
 
 const getGroup = async (id: number) => {
   return await fetchData("/group/" + id, {});
 };
+
+interface IGroup { 
+  image: string;
+  user: IUser;
+}
+
+interface IProject {
+  id: number;
+  name: string;
+  tasks: [],
+  topic_id: number;
+}
 
 const Projects = () => {
   const BackButton = WebApp.BackButton;
@@ -23,12 +36,15 @@ const Projects = () => {
   const { id } = useParams();
   const { location } = useUserContext()
   const navigate = useNavigate();
-  const [groups, setGroups] = useState<any[]>([]);
+  const [groups, setGroups] = useState<IGroup[]>([]);
   const [openParticipant, setOpenParticipant] = useState(false);
 
   const { data, error, isLoading } = useQuery(["groupData", id], () =>
     getGroup(Number(id)),
   );
+
+  console.log(data);
+  
 
   const getData = async () => {
     const returnGroup = await getUsersData(`${id}`);
@@ -85,7 +101,7 @@ const Projects = () => {
                 <div className='flex'>
                   {groups.length > 3 ? (
                     <>
-                      {groups.slice(0, 3).map((user: any, index: number) => (
+                      {groups.slice(0, 3).map((user: IGroup, index: number) => (
                         <AvatarUser
                           alt={user?.user?.name || " "}
                           image={user?.image}
@@ -105,7 +121,7 @@ const Projects = () => {
                     </>
                   ) : (
                     <>
-                      {groups.map((user: any, index: number) => (
+                      {groups.map((user: IGroup, index: number) => (
                         <AvatarUser
                           alt={user?.user?.name || " "}
                           image={user?.image}
@@ -126,8 +142,8 @@ const Projects = () => {
       <div className='p-3 mt-[16px]'>
         {data.projects.length > 0 &&
           data.projects
-            .filter((el: any) => el.topic_id == 1)
-            .map((item: any) => (
+            .filter((el: IProject) => el.topic_id == 1)
+            .map((item: IProject) => (
               <Link
                 to={"/projects/" + item.id}
                 key={item.id}
@@ -159,8 +175,8 @@ const Projects = () => {
           <div className='flex flex-col w-full'>
             {data.projects.length > 0 &&
               data.projects
-                .filter((el: any) => el.topic_id != 1)
-                .map((item: any) => (
+                .filter((el: IProject) => el.topic_id != 1)
+                .map((item: IProject) => (
                   <Link
                     to={"/projects/" + item.id}
                     key={item.id}
@@ -211,7 +227,7 @@ const Projects = () => {
           openParticipant ? "bottom-3" : "bottom-[-100%]"
         } overflow-y-scroll max-h-[70%] z-[100] fixed left-3 right-3 transition-all scrollbar-hidden rounded-[25px] bg-white px-3 py-5 flex flex-col gap-2`}
       >
-        {groups.map((user: any, index: number) => (
+        {groups.map((user: IGroup, index: number) => (
           <div
             key={index}
             // onClick={() => {

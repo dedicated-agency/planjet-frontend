@@ -19,6 +19,8 @@ export interface ICommentIn {
 export interface IUser {
   telegram_id: number,
   name: string,
+  image?: string | undefined;
+  username?: string;
 }
 
 const Comment = ({ comment }: IComment) => {

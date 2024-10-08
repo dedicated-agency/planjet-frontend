@@ -11,12 +11,15 @@ const testMode: string = import.meta.env.VITE_TEST_MODE;
 
 function App() {
   const [state, setState] = useReducer(
-    (state: any, setState: any) => ({
+    (state: IInitState, setState: any) => ({
       ...state,
       ...setState,
     }),
     initialState,
   );
+
+  console.log(state);
+  
   const navigate = useNavigate();
 
   const [isTelegramWebApp, setIsTelegramWebApp] = useState(true);
@@ -36,12 +39,14 @@ function App() {
 
     if (dataUnsafe?.start_param) {
       const variable = dataUnsafe?.start_param;
-      const match: any = variable.match(/^(.*?)_(\d+)$/);
-      const path = match[1];
-      const id = match[2];
+      const match = variable.match(/^(.*?)_(\d+)$/);
+      if (match) {
+        const path = match[1];
+        const id = match[2];
 
-      if (path && id) {
-        navigate("/" + path + "/" + id);
+        if (path && id) {
+          navigate("/" + path + "/" + id);
+        }
       }
     }
 
@@ -59,8 +64,7 @@ function App() {
       await sendData("user/init", userData, user.id);
       i18n.changeLanguage(user?.language_code);
       localStorage.setItem("currentUser", JSON.stringify(userData));
-    } 
-    else if(testMode === 'false') {
+    } else if (testMode === "false") {
       const userData = {
         id: currentUser.id,
         first_name: currentUser.first_name,
@@ -70,8 +74,7 @@ function App() {
       i18n.changeLanguage(currentUser.language_code);
       setState({ user: userData, lang: userData?.language_code });
     }
-    if(testMode === 'true')
-    {
+    if (testMode === "true") {
       const userData = {
         id: 5673577167,
         first_name: "Muhammad",
@@ -83,7 +86,7 @@ function App() {
     }
   };
 
-  if (!isTelegramWebApp && testMode === 'false') {
+  if (!isTelegramWebApp && testMode  === 'false') {
     return <NotTelegram/>
   }
 
@@ -103,7 +106,7 @@ function App() {
 
 export default App;
 
-const initialState = {
+const initialState: IInitState = {
   user: {
     id: 0,
     first_name: "no name",
@@ -111,3 +114,14 @@ const initialState = {
   },
   lang: "en",
 };
+
+interface IInitState {
+  user: IInitStateUser,
+  lang: string,
+}
+
+interface IInitStateUser {
+  id: number,
+  first_name: string,
+  location: string,
+}

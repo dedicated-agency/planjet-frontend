@@ -31,7 +31,7 @@ const Home = () => {
 
   const getTasks = async () => {
     try {
-      const response: any = await axiosClient.get("/user/tasks");
+      const response = await axiosClient.get("/user/tasks");
       if (response && response.data) {
         setMyTasks(response.data.length);
       } else {

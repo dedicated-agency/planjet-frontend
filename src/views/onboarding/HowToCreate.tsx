@@ -1,23 +1,24 @@
 // img
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
+import languages from "../../local/languages.json";
+import { useEffect } from "react";
+import WebApp from "@twa-dev/sdk";
+import { useUserContext } from "../../context/UserContext";
+import { useTranslation } from "react-i18next";
 
 interface IFunction {
   setPage?: (page: number) => void;
 }
 
-import languages from "../../local/languages.json";
-import { useEffect } from "react";
-import WebApp from "@twa-dev/sdk";
-import { useUserContext } from "../../context/UserContext";
-
-const HowToCreate = ({ setPage }: IFunction) => {
+const HowToCreate = ({ setPage }: IFunction) => {  
   useEffect(() => {
     WebApp.setHeaderColor("#007AFF");
   }, []);
   const {user} = useUserContext();
   const lang = user.lang;
   const locale: any = languages;
+  const { t } = useTranslation();
   return (
     <div className='bg-custom-gradient-blue p-8 h-full xsm:h-auto xxsm:h-full'>
       <div>
@@ -29,7 +30,7 @@ const HowToCreate = ({ setPage }: IFunction) => {
             className='text-[32px] font-medium text-white leading-[38px]'
             style={{ fontFamily: "SF Pro Display" }}
           >
-            {locale[lang].create_task_with_commands}
+            {t("create_task_with_commands")}
           </p>
           <div className='flex flex-col gap-3 mt-[25px]'>
             <div className='shadow-custom border-l-[2.5px] border-customWhite bg-customWhite flex items-center gap-[16px] p-[16px] rounded-[20px]'>
@@ -45,7 +46,7 @@ const HowToCreate = ({ setPage }: IFunction) => {
                 className='font-medium text-[17px] text-white leading-[20px]'
                 style={{ fontFamily: "SF Pro Display" }}
               >
-                {locale[lang].write_task_in_chat}
+                {t("write_task_in_chat")}
               </p>
             </div>
             <div className='border-l-[2.5px] border-customWhite bg-customWhite flex items-center gap-[16px] p-[16px] rounded-[20px]'>
@@ -61,7 +62,7 @@ const HowToCreate = ({ setPage }: IFunction) => {
                 className='font-medium text-[17px] text-white leading-[23px]'
                 style={{ fontFamily: "SF Pro Display " }}
               >
-                {locale[lang].reply_with_command}{" "}
+                {t("reply_with_command")}{" "}
                 <span className='bg-customBlue py-[3px] px-[6px] rounded-[8px] font-normal text-[17px]'>
                   /add
                 </span>
@@ -80,7 +81,7 @@ const HowToCreate = ({ setPage }: IFunction) => {
                 className='font-medium text-[17px] text-white leading-[20px]'
                 style={{ fontFamily: "SF Pro Display " }}
               >
-                {locale[lang].go_to_mini_app_for_changes}
+                {t("go_to_mini_app_for_changes")}
               </p>
             </div>
           </div>
@@ -93,7 +94,7 @@ const HowToCreate = ({ setPage }: IFunction) => {
             style={{ fontFamily: "SF Pro Display " }}
             onClick={() => setPage(3)}
           >
-            <p className='text-gradient-blue'>{locale[lang].next}</p>
+            <p className='text-gradient-blue'>{t("next")}</p>
           </div>
         ) : (
           <Link
@@ -101,7 +102,7 @@ const HowToCreate = ({ setPage }: IFunction) => {
             className='h-[52px] flex items-center justify-center rounded-[16px] shadow-custom font-medium text-[17px] bg-white'
             style={{ fontFamily: "SF Pro Display " }}
           >
-            {locale[lang].understood}
+            {t("understood")}
           </Link>
         )}
       </div>

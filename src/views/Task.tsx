@@ -25,6 +25,9 @@ import imageCacheChacker from "../common/imagesCacher";
 import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
 import { t } from "i18next";
 import { useUserContext } from "../context/UserContext";
+import { IUser } from "../components/Comment";
+import { IPriority } from "./CreateTaskFromGroup";
+import { IProjectTaskUser } from "../components/ProjectCaruselItem";
 
 const getTask = async (id: number) => {
   try {
@@ -41,6 +44,8 @@ const getStatuses = async (id: number) => {
     console.log("getStatuses error: " + error);
   }
 };
+
+
 
 const initialState = {
   users: [],
@@ -63,6 +68,10 @@ const initialState = {
   focusDelete: false,
 };
 
+interface ITaskChange {
+  user_id: number;
+}
+
 const Task = () => {
   const BackButton = WebApp.BackButton;
   BackButton.show();
@@ -76,12 +85,12 @@ const Task = () => {
   const lang = user.lang;
   const navigate = useNavigate();
 
-  const setParticipants = (user: any) => {
+  const setParticipants = (user: IUser) => {
     const check = state.selectedUsers.some(
-      (u: any) => u.telegram_id === user.telegram_id,
+      (u: IUser) => u.telegram_id === user.telegram_id,
     );
     if (check) {
-      setState({selectedUsers: state.selectedUsers.filter((u: any) => u.telegram_id !== user.telegram_id)})
+      setState({selectedUsers: state.selectedUsers.filter((u: IUser) => u.telegram_id !== user.telegram_id)})
     } else {
       setState({selectedUsers: [user, ...state.selectedUsers]});
     }
@@ -95,6 +104,8 @@ const Task = () => {
     initialState,
   );
 
+  
+
   const {
     data: task,
     error,
@@ -106,6 +117,9 @@ const Task = () => {
     () => getStatuses(Number(task?.project_id)),
   );
 
+  console.log(task);
+  
+
   useEffect(() => {
     if (task) getUsers();
   }, [task]);
@@ -113,10 +127,10 @@ const Task = () => {
   const getUsers = async () => {
     if (!task) return;
 
-    const getUserImages = async (usersArray: any[]) => {
+    const getUserImages = async (usersArray: IUser[]) => {
       return await Promise.all(
-        usersArray.map(async (user: any) => {
-          user.image = await imageCacheChacker(user.telegram_id);
+        usersArray.map(async (user: IUser) => {
+          user.image = await imageCacheChacker((user.telegram_id).toString());
           return user;
         })
       );
@@ -126,7 +140,7 @@ const Task = () => {
     user.image = await imageCacheChacker(task.user.telegram_id);
   
     const selectedUsersPromise = task.taskUser.length
-    ? getUserImages(task.taskUser.map((taskUser: any) => taskUser.user))
+    ? getUserImages(task.taskUser.map((taskUser: IProjectTaskUser) => taskUser.user))
     : Promise.resolve([]);
 
   const participantsPromise = task.users.length
@@ -138,7 +152,7 @@ const Task = () => {
     : Promise.resolve([]);
 
   const eventsPromise = task.taskChange.length
-    ? getUserImages(task.taskChange.map((taskChange: any) => ({ ...taskChange, telegram_id: taskChange.user_id })))
+    ? getUserImages(task.taskChange.map((taskChange: ITaskChange) => ({ ...taskChange, telegram_id: taskChange.user_id })))
     : Promise.resolve([]);
 
     const [selectedUsers, participants, comments, events] = await Promise.all([
@@ -229,7 +243,7 @@ const Task = () => {
 
   const updateParticipants = async () => {
     const response = await axiosClient.put("/task/" + id + "/participant", {
-      participant: state.selectedUsers.map((user: any) => user.telegram_id),
+      participant: state.selectedUsers.map((user: IUser) => user.telegram_id),
     });
 
     if (response) {
@@ -341,7 +355,7 @@ const Task = () => {
             </div>
             <div className='pr-3'>
               <AvatarUser
-                image={state.user && state.user.image}
+                image={state.user && state.user.image || ""}
                 alt={task.user ? task.user.name : "No user"}
                 id={task.user.telegram_id}
               />
@@ -366,17 +380,17 @@ const Task = () => {
               <div className='rounded-[16px] flex gap-4 items-center cursor-pointer pr-3'>
                 <div className='flex '>
                   {state.selectedUsers.length > 0 ? (
-                    state.selectedUsers.map((user: any, index: number) => (
+                    state.selectedUsers.map((user: IUser, index: number) => (
                       <AvatarUser
                         key={index}
-                        image={user.image}
+                        image={user.image || ""}
                         alt={user.name}
                         id={user.telegram_id}
                       />
                     ))
                   ) : (
                     <AvatarUser
-                      image={state.user && state.user.image}
+                      image={state.user && state.user.image || ""}
                       alt={task.user ? task.user.name : "No user"}
                       id={task.user.telegram_id}
                     />
@@ -605,7 +619,7 @@ const Task = () => {
           state.selectPriority ? "bottom-3" : "bottom-[-100%]"
         }  z-[100] fixed transition-all rounded-[25px] bg-white px-3 py-5 right-3 left-3 flex flex-col gap-2`}
       >
-        {priorities.map((priority: any, index: number) => (
+        {priorities.map((priority: IPriority, index: number) => (
           <div
             onClick={() => {
               updatePriority(index + 1);
@@ -620,7 +634,7 @@ const Task = () => {
               <div
                 className={index + 1 === state.selectPriority ? "text-blue-600" : ""}
               >
-                {priority[lang]}
+                {priority[lang as keyof IPriority]}
               </div>
             </div>
             <div
@@ -653,7 +667,7 @@ const Task = () => {
       >
         {
           state.participants.length > 0 ?
-          state.participants.map((user: any, index: number) => (
+          state.participants.map((user: IUser, index: number) => (
             <div
               key={index}
               onClick={() => {
@@ -661,7 +675,7 @@ const Task = () => {
               }}
               className={`${
                 state.selectedUsers.some(
-                  (u: any) => u.telegram_id === user.telegram_id,
+                  (u: IUser) => u.telegram_id === user.telegram_id,
                 ) 
                   ? "bg-gray-100"
                   : ""
@@ -669,7 +683,7 @@ const Task = () => {
             >
               <div className='flex gap-[27px]'>
                 <AvatarUser
-                  image={user.image}
+                  image={user.image || ""}
                   alt={user.name}
                   id={user.telegram_id}
                 />
@@ -721,7 +735,7 @@ const Task = () => {
             placeholder='Type to here'
             className='w-full h-full bg-transparent outline-none border-none'
             value={state.confirmationInput}
-            onChange={(e: any) => setState({confirmationInput: e.target.value})}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setState({confirmationInput: e.target.value})}
             onFocus={() => setState({focusDelete: true})}
           />
         </div>

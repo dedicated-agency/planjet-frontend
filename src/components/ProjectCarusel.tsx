@@ -4,12 +4,51 @@ import { useSwipeable } from "react-swipeable";
 import { useParams } from "react-router-dom";
 import { TopProjectBar } from "./TopProjectBar";
 import { fetchData } from "../common/fetchData";
-import ProjectCaruselItem from "./ProjectCaruselItem";
+import ProjectCaruselItem, { IProjectTaskUser } from "./ProjectCaruselItem";
 import { useGetTasks } from "../common/fetchTasks";
 import { Loader } from "./mini/Loader";
 import { t } from "i18next";
+import { ICommentIn, IUser } from "./Comment";
 
-const initialState = {
+interface Params {
+  user_ids?: string;
+}
+
+interface IProjectTask {
+  id: number,
+  status_id: number,
+  taskUser: IProjectTaskUser[],
+  user_id: string,
+  name: string;
+  description: string;
+  created_at: string;
+  priority: number;
+  taskComment: ICommentIn[];
+  user: IUser
+}
+
+export interface IStatus {
+  id: number; 
+  name: string;
+  tasksCount: number;
+  order: number;
+}
+
+export interface IState {
+  statuses: IStatus[];
+  tasks: IProjectTask[];
+  index: number;
+  name: string;
+  users: [];
+  currectUser: number;
+  selector: boolean;
+  selectedStatus: number | string | null;
+  touchStart: number | null;
+  touchEnd: number | null;
+  selectedUsers: string;
+}
+
+const initialState: IState = {
   statuses: [],
   tasks: [],
   index: 0,
@@ -23,15 +62,21 @@ const initialState = {
   selectedUsers: "",
 };
 
+
 export const ProjectCarusel = () => {
   const { id } = useParams();
   const [state, setState] = useReducer(
-    (state: any, setState: any) => ({
+    (state: IState, setState: Partial<IState>) => ({
       ...state,
       ...setState,
     }),
     initialState,
   );
+
+  console.log(state);
+  
+
+  
 
   const {
     data: project,
@@ -46,6 +91,11 @@ export const ProjectCarusel = () => {
     },
     Number(id),
   );
+
+  console.log(project);
+  
+
+  
 
   useEffect(() => {
     const currentHash = window.location.hash;
@@ -73,7 +123,7 @@ export const ProjectCarusel = () => {
     const extractedStatus = currentHash.substring(1).split("&")[1];
     if(extractedStatus !== "null" && currentHash && extractedStatus)
     {
-      setState({selectedStatus: extractedStatus});
+      setState({ selectedStatus: extractedStatus});
     }else if(state.statuses.length)
     {
       setState({selectedStatus: state.statuses[0].id});
@@ -131,7 +181,7 @@ export const ProjectCarusel = () => {
   }, [project]);
 
   const getStatuses = async () => {
-    const params: any = {};
+    const params: Params = {};
     if (state.selectedUsers !== "") {
       params.user_ids = state.selectedUsers;
     }
@@ -149,13 +199,13 @@ export const ProjectCarusel = () => {
 
   return (
     <>
-      <TopProjectBar state={state} setState={setState} id={id} group_id={project?.group_id} />
+      <TopProjectBar state={state} setState={setState} id={Number(id)} group_id={project?.group_id} />
       <div
         ref={tabContainerRef}
         className='flex h-[44px] max-w-[700px] w-full overflow-x-scroll border-b bg-white px-2 transition scroll-smooth status-list fixed top-[56px] z-[19]'
       >
         {state.statuses.length > 0 &&
-          state.statuses.map((status: any) => (
+          state.statuses.map((status: IStatus) => (
             <div
               key={status.id}
               className='flex h-full  items-center gap-2 px-4 relative cursor-pointer'
@@ -204,7 +254,7 @@ export const ProjectCarusel = () => {
             className='flex flex-col-reverse px-4 pb-12 items-center justify-start'
           >
             {project && project.tasks.length > 0 ? (
-              project.tasks.map((task: any, index: number) => (
+              project.tasks.map((task: IProjectTask, index: number) => (
                 <ProjectCaruselItem
                   getStatuses={getStatuses}
                   key={task.id}

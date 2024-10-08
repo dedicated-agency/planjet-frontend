@@ -10,13 +10,25 @@ import WebApp from "@twa-dev/sdk";
 import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
 import getUsersData from "../common/getUsersData";
 import { t } from "i18next";
+import { IUser } from "../components/Comment";
+import { IStatus } from "../components/ProjectCarusel";
 
 const getProject = async (id: number) => {
   const response = await axiosClient.get("/project/show/" + id);
   return response.data;
 };
 
-const initialState = {
+interface IState {
+  items: IStatus[];
+  statusNotificationPermissions: any;
+  projectNotificationPermissions: any;
+  users: IUser[];
+  statusText: string;
+}
+
+
+
+const initialState: IState = {
   items: [],
   users: [],
   statusText: "",
@@ -32,12 +44,16 @@ const GroupSettings = () => {
   const navigate = useNavigate();
 
   const [state, setState] = useReducer(
-    (state: any, setState: any) => ({
+    (state: IState, setState: Partial<IState>) => ({
       ...state,
       ...setState,
     }),
     initialState,
   );
+
+
+  console.log(state);
+  
 
   const {
     data: project,
@@ -48,7 +64,7 @@ const GroupSettings = () => {
   useEffect(() => {
     if (project) {
       setState({
-        items: project.statuses.sort((a: any, b: any) => a.order - b.order),
+        items: project.statuses.sort((a: IStatus, b: IStatus) => a.order - b.order),
         statusNotificationPermissions: JSON.parse(project.statusNotificationPermissions),
         projectNotificationPermissions: JSON.parse(project.projectNotificationPermissions)
       });
@@ -77,7 +93,7 @@ const GroupSettings = () => {
   };
 
   const editNotification = async (type: string, value: boolean) => {
-    const result: any = await axiosClient.put("/project/" + id + "/notification", {
+    const result = await axiosClient.put("/project/" + id + "/notification", {
       type,
       value: value,
     });
@@ -366,11 +382,11 @@ const GroupSettings = () => {
       </p>
       <div className='mt-2 p-1 bg-white rounded-xl'>
         {state.users.length ? (
-          state.users.map((user: any, index: number) => (
+          state.users.map((user: IUser, index: number) => (
             <div key={index} className='flex  py-1 items-center h-[44px] '>
               <div className='min-w-[44px] ml-2'>
                 <AvatarUser
-                  image={user.image}
+                  image={user.image || ""}
                   alt={user.name}
                   width={32}
                   height={32}

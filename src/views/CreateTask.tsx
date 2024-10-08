@@ -18,6 +18,7 @@ import imageCacheChacker from "../common/imagesCacher";
 import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
 import { t } from "i18next";
 import { useUserContext } from "../context/UserContext";
+import { IUser } from "../components/Comment";
 
 const priorities = [
   {
@@ -116,9 +117,9 @@ const CreateTask = () => {
   }, [project, projectid]);
 
   const getUsers = async () => {
-    const resultPromises = project.users.map(async (user: any) => {
+    const resultPromises = project.users.map(async (user: IUser) => {
       try {
-        user.image = await imageCacheChacker(user.telegram_id);
+        user.image = await imageCacheChacker((user.telegram_id).toString());
         return user;
       } catch (error) {
         console.log("Create task image error" + error);

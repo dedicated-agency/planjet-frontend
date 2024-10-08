@@ -1,3 +1,4 @@
+import { IUser } from "../components/Comment";
 import axiosClient from "./axiosClient";
 import imageCacheChacker from "./imagesCacher";
 
@@ -14,6 +15,12 @@ interface GroupUser {
     user_id: string,
     is_selected: boolean,
     user: User
+}
+
+interface IUserProp {
+    user_id: string,
+    image: string,
+    user: IUser,
 }
 
 interface DynamicObject {
@@ -33,7 +40,7 @@ const getUsersData = async (group_id: string) => {
         return usersByGroups[group_id];
     }else{
         const groupUsers = await getData(group_id);
-        const resultPromises = groupUsers.map(async (user: any) => {
+        const resultPromises = groupUsers.map(async (user: IUserProp) => {
             user.image = await imageCacheChacker( user.user_id );
             return {...user, name: user.user.name, telegram_id: user.user_id, username: user.user.username};
         });
