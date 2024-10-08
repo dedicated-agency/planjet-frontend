@@ -1,5 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import { StateContext } from "../context/StateContext";
+import { useEffect, useRef, useState } from "react";
 import { AvatarUser } from "../components/mini/AvatarUser";
 import { useGetTasks } from "../common/fetchTasks";
 import { Loader } from "../components/mini/Loader";
@@ -18,6 +17,7 @@ import Square from "../assets/icons/Square";
 import imageCacheChacker from "../common/imagesCacher";
 import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
 import { t } from "i18next";
+import { useUserContext } from "../context/UserContext";
 
 const priorities = [
   {
@@ -49,10 +49,8 @@ const CreateTask = () => {
     WebApp.setHeaderColor("#F2F2F7");
   }, []);
   const navigate = useNavigate();
-  const {
-    lang,
-    user,
-  } = useContext(StateContext);
+  const { user } = useUserContext();
+  const lang = user.lang
   const [text, setText] = useState("");
   const textareaRef = useRef(null);
   const handleChange = (event: any) => {

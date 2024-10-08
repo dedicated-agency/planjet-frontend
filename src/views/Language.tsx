@@ -1,20 +1,20 @@
-import { useContext, useState } from "react";
-import { StateContext } from "../context/StateContext";
+import { useState } from "react";
 import { Symbol } from "../assets/icons/Symbol";
 import WebApp from "@twa-dev/sdk";
 import { t } from "i18next";
 import i18n from "../i18n";
+import { useUserContext } from "../context/UserContext";
 
 const Language = () => {
   const BackButton = WebApp.BackButton;
   BackButton.show();
   BackButton.onClick(() => window.history.back());
-  const { lang, setContextState } = useContext(StateContext);
+  const {user} = useUserContext();
+  const lang = user.lang
   const [selectedLanguage, setSelectedLanguage] = useState(lang);
 
   const handleLanguageChange = (language: string) => {
     setSelectedLanguage(language);
-    setContextState({ lang: language });
     i18n.changeLanguage(language);
   };
 

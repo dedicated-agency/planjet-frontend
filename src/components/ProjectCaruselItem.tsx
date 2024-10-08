@@ -2,15 +2,15 @@
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import { AvatarUser } from "./mini/AvatarUser";
-import { useContext, useEffect, useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import { dateTimeConverter } from "../common/dateTimeConverter";
 import axiosClient from "../common/axiosClient";
 import { useQueryClient } from "react-query";
 import StatusSelector from "./StatusSelector";
 import Comment from "../assets/icons/Comment";
-import { StateContext } from "../context/StateContext";
 import imageCacheChacker from "../common/imagesCacher";
 import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
+import { useUserContext } from "../context/UserContext";
 
 const initialState = {
   userPhoto: '',
@@ -20,7 +20,7 @@ const initialState = {
 
 const ProjectCaruselItem = (props: any) => {
   const navigate = useNavigate();
-  const { user } = useContext(StateContext);
+  const {user} = useUserContext()
   const { project, statuses, setProjectState, getStatuses, selectedStatus } = props;
 
   const [state, setState] = useReducer(

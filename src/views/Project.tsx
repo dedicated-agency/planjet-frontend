@@ -2,18 +2,18 @@ import { useParams } from "react-router-dom";
 import { AddTaskButton } from "../components/AddTaskButton";
 import { ProjectCarusel } from "../components/ProjectCarusel";
 import WebApp from "@twa-dev/sdk";
-import { useContext, useEffect } from "react";
-import { StateContext } from "../context/StateContext";
+import { useEffect } from "react";
+import { useUserContext } from "../context/UserContext";
 
 const BackButton = WebApp.BackButton;
 BackButton.show();
 BackButton.onClick(() => window.history.back());
 const Project = () => {
   const { id } = useParams();
-  const { setContextState } = useContext(StateContext);
+  const context = useUserContext()
   useEffect(() => {
     WebApp.setHeaderColor("#FFFFFF");
-    setContextState({ location: "project" });
+    context.updateUserState({location: "project" });
   }, []);
 
   return (

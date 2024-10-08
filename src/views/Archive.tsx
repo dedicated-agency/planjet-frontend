@@ -5,14 +5,13 @@ import { useQuery } from "react-query";
 import { useGetTasks } from "../common/fetchTasks";
 import { Avatar } from "../components/mini/Avatar";
 import WebApp from "@twa-dev/sdk";
-import { useContext } from "react";
-import { StateContext } from "../context/StateContext";
 
 const getArchiveById = async (id: any) => {
   return await fetchData(`project/${id}/archive`, {});
 };
 
 import languages from "../local/languages.json";
+import { useUserContext } from "../context/UserContext";
 
 const Archive = () => {
   const BackButton = WebApp.BackButton;
@@ -20,20 +19,14 @@ const Archive = () => {
   BackButton.onClick(() => window.history.back());
   const { id } = useParams();
 
-  const { data: project } = useGetTasks(
-    {
-      // status: state.selectedStatus,
-      // user_ids: state.selectedUsers,
-      // user_id: state.currectUser !== 0 ? state.currectUser.telegram_id : null
-    },
-    Number(id),
-  );
+  const { data: project } = useGetTasks( {}, Number(id) );
 
   const { data: archiveById } = useQuery(["EventsById"], () =>
     getArchiveById(id),
   );
 
-  const { lang } = useContext(StateContext);
+  const { user } = useUserContext();
+  const lang = user.lang
   const locale: any = languages;
 
   return (

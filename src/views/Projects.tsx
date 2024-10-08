@@ -1,8 +1,7 @@
 import WebApp from "@twa-dev/sdk";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Avatar } from "../components/mini/Avatar";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { StateContext } from "../context/StateContext";
 import { FaAngleRight } from "react-icons/fa6";
 import { useQuery } from "react-query";
 import { fetchData } from "../common/fetchData";
@@ -10,6 +9,7 @@ import { Loader } from "../components/mini/Loader";
 import { AvatarUser } from "../components/mini/AvatarUser";
 import getUsersData from "../common/getUsersData";
 import { t } from "i18next";
+import { useUserContext } from "../context/UserContext";
 
 const getGroup = async (id: number) => {
   return await fetchData("/group/" + id, {});
@@ -21,7 +21,7 @@ const Projects = () => {
   BackButton.onClick(() => window.history.back());
 
   const { id } = useParams();
-  const { location } = useContext(StateContext);
+  const { location } = useUserContext()
   const navigate = useNavigate();
   const [groups, setGroups] = useState<any[]>([]);
   const [openParticipant, setOpenParticipant] = useState(false);

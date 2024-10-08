@@ -92,7 +92,6 @@ function App() {
     lang: state.lang,
     location: state.location,
     setContextState: setState,
-    availableUserImages: state.availableUserImages
   };
 
   return (

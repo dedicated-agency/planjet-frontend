@@ -1,12 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Iicon from "../assets/icons/Iicon";
-import { StateContext } from "../context/StateContext";
 import { AvatarUser } from "./mini/AvatarUser";
 import { Link } from "react-router-dom";
 import imageCacheChacker from "../common/imagesCacher";
+import { useUserContext } from "../context/UserContext";
 
 const UserNavbar = () => {
-  const { user } = useContext(StateContext);
+  const {user} = useUserContext();
+
   const [userImage, setImageUser] = useState('');
 
   useEffect(() => {
@@ -14,7 +15,7 @@ const UserNavbar = () => {
   }, [user]);
 
   const getInitial = async () => {
-    setImageUser(await imageCacheChacker(user.id));
+    setImageUser(await imageCacheChacker(String(user.telegram_id)));
   };
 
   return (
@@ -27,7 +28,7 @@ const UserNavbar = () => {
             height={40}
             alt={user.first_name}
             image={userImage}
-            id={user.id}
+            id={user.telegram_id}
           />
         </Link>
         <p

@@ -2,14 +2,15 @@
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
 import WebApp from "@twa-dev/sdk";
-import { useContext, useEffect } from "react";
-import { StateContext } from "../../context/StateContext";
+import { useEffect } from "react";
 import languages from "../../local/languages.json";
+import { useUserContext } from "../../context/UserContext";
 const UsefullCommand = () => {
   useEffect(() => {
     WebApp.setHeaderColor("#007AFF");
   }, []);
-  const { lang } = useContext(StateContext);
+  const { user } = useUserContext();
+  const lang = user.lang;
   const locale: any = languages;
   return (
     <div className='bg-custom-gradient-blue p-8 h-full xsm:h-auto xxsm:h-full'>
