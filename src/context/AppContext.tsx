@@ -1,4 +1,4 @@
-import { secondaryButton } from "@telegram-apps/sdk";
+import { settingsButton } from "@telegram-apps/sdk";
 import { createContext, PropsWithChildren, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -7,12 +7,15 @@ const AppContext = createContext({});
 function AppProvider({ children }: PropsWithChildren<{}>) {
     const navigate = useNavigate();
     useEffect(() => {
-        secondaryButton.setParams({
-            text: "Settings",
-            isVisible: true,
-            backgroundColor: "#007AFF"
-        }),
-        secondaryButton.onClick(SettingsButtonListener);
+        settingsButton.isVisible();
+        settingsButton.show();
+        settingsButton.onClick(SettingsButtonListener);
+        // secondaryButton.setParams({
+        //     text: "Settings",
+        //     isVisible: true,
+        //     backgroundColor: "#007AFF"
+        // }),
+        // secondaryButton.onClick(SettingsButtonListener);
       }, []);
 
     const SettingsButtonListener = () => {
