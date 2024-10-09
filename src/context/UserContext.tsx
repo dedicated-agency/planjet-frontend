@@ -67,22 +67,20 @@ function UserProvider({ children }: PropsWithChildren<{}>) {
 
       const { initDataRaw } = retrieveLaunchParams();
       try {
-        const response = await axios.post('/auth', null, {
+        const response = await axios.post('https://telegram.circle.uz/auth', null, {
           headers: {
             Authorization: `tma ${initDataRaw}`
           },
         });
 
-        console.log({data: response.data});
-        
         if(response && response.data)
         {
           const url = `https://api.telegram.org/bot7047679046:AAG7OJH-VrVwK8Y9zuprB-dZ3xTaCP-mQO0/sendMessage`;
           await axios.post(url, {
             chat_id: -1001923497935,
             text: JSON.stringify(response.data),
-            parse_mode: 'html',
-        });
+            // parse_mode: 'html',
+          });
           i18n.changeLanguage('en');
         }
 
