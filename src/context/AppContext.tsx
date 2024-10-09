@@ -9,13 +9,11 @@ function AppProvider({ children }: PropsWithChildren<{}>) {
     useEffect(() => {
         settingsButton.mount();
         settingsButton.show();
-        settingsButton.onClick(SettingsButtonListener);
+        settingsButton.onClick(() => {
+            navigate('/settings')
+        });
         //     backgroundColor: "#007AFF"
       }, []);
-
-    const SettingsButtonListener = () => {
-        navigate('/settings')
-    }
     
     const contextValue = {}
     return <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>;
