@@ -27,7 +27,7 @@ const Settings = () => {
             className='text-[17px] font-normal text-black'
             style={{ fontFamily: "SF Pro Display" }}
           >
-            {t('notification_language')}
+            {t('app_language')}
           </p>
           <ArrowRight />
         </Link>

@@ -14,7 +14,7 @@ const HowToCreate = ({ setPage }: IFunction) => {
     WebApp.setHeaderColor("#007AFF");
   }, []);
   return (
-    <div className='bg-custom-gradient-blue p-8 h-full xsm:h-auto xxsm:h-full'>
+    <div className='bg-custom-gradient-blue p-8  h-[100vh]'>
       <div>
         <div className='h-[130px] flex items-center justify-center'>
           <img src={logo} alt='' />

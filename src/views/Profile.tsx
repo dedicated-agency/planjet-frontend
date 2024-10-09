@@ -55,7 +55,7 @@ const Profile = () => {
         </p>
       </div>
       <div className='flex flex-col gap-[12px]'>
-        <Link to={"/settings"} className='w-full h-[48px] flex items-center justify-between px-[16px] bg-white rounded-[12px]'>
+        <Link to={"/language"} className='w-full h-[48px] flex items-center justify-between px-[16px] bg-white rounded-[12px]'>
           <p
             className='text-[17px] font-normal text-black'
             style={{ fontFamily: "SF Pro Display" }}

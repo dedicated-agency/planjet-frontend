@@ -242,7 +242,7 @@ const Mytasks = () => {
                       state.index === index
                         ? "bg-custom-gradient-blue"
                         : "bg-customBlack"
-                    } text-white flex items-center justify-center pt-[1px]  min-w-[18px] `}
+                    } text-white flex  items-center justify-center pt-[2px]  min-w-[18px] `}
                     style={{ fontFamily: "SF Pro Display" }}
                   >
                     {status.count}

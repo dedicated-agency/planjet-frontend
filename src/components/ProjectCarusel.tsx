@@ -73,11 +73,6 @@ export const ProjectCarusel = () => {
     initialState,
   );
 
-  console.log(state);
-  
-
-  
-
   const {
     data: project,
     isLoading,
@@ -91,11 +86,6 @@ export const ProjectCarusel = () => {
     },
     Number(id),
   );
-
-  console.log(project);
-  
-
-  
 
   useEffect(() => {
     const currentHash = window.location.hash;

@@ -9,14 +9,14 @@ const UsefullCommand = () => {
     WebApp.setHeaderColor("#007AFF");
   }, []);
   return (
-    <div className='bg-custom-gradient-blue p-8 h-full xsm:h-auto xxsm:h-full'>
+    <div className='bg-custom-gradient-blue p-8  h-[100vh]'>
       <div>
         <div className='h-[130px] flex items-center justify-center'>
           <img src={logo} alt='' />
         </div>
         <div className='h-max mt-2'>
           <p
-            className='text-[32px] font-medium text-white leading-[38px]'
+            className='text-2xl text-center font-medium text-white leading-[38px]'
             style={{ fontFamily: "SF Pro Display" }}
           >
             {t("useful_commands_for_chats")}
@@ -36,7 +36,7 @@ const UsefullCommand = () => {
                 {t("create_task")}
               </p>
             </div>
-            <div className='border-l-[2.5px] border-customWhite bg-customWhite flex items-center gap-[12px] p-[16px] rounded-[20px]'>
+            {/* <div className='border-l-[2.5px] border-customWhite bg-customWhite flex items-center gap-[12px] p-[16px] rounded-[20px]'>
               <span
                 className='bg-customBlue py-[3px] px-[6px] rounded-[8px] font-normal text-[17px] text-white'
                 style={{ fontFamily: "SF Pro Display" }}
@@ -49,21 +49,8 @@ const UsefullCommand = () => {
               >
                 {t("show_project_list")}
               </p>
-            </div>
-            <div className='border-l-[2.5px] border-customWhite bg-customWhite flex items-center gap-[12px] p-[16px] rounded-[20px]'>
-              <span
-                className='bg-customBlue py-[3px] px-[6px] rounded-[8px] font-normal text-[17px] text-white'
-                style={{ fontFamily: "SF Pro Display" }}
-              >
-                /manager
-              </span>
-              <p
-                className='font-medium text-[17px] text-white leading-[20px]'
-                style={{ fontFamily: "SF Pro Display " }}
-              >
-                {("open_app")}
-              </p>
-            </div>
+            </div> */}
+
             <div className='border-l-[2.5px] border-customWhite bg-customWhite flex items-center gap-[12px] p-[16px] rounded-[20px]'>
               <span
                 className='bg-customBlue py-[3px] px-[6px] rounded-[8px] font-normal text-[17px] text-white'
@@ -76,6 +63,20 @@ const UsefullCommand = () => {
                 style={{ fontFamily: "SF Pro Display" }}
               >
                 {t("translate_to_status_ready")}
+              </p>
+            </div>
+            <div className='border-l-[2.5px] border-customWhite bg-customWhite flex items-center gap-[12px] p-[16px] rounded-[20px]'>
+              <span
+                className='bg-customBlue py-[3px] px-[6px] rounded-[8px] font-normal text-[17px] text-white'
+                style={{ fontFamily: "SF Pro Display" }}
+              >
+                /dashboard
+              </span>
+              <p
+                className='font-medium text-[17px] text-white leading-[20px]'
+                style={{ fontFamily: "SF Pro Display " }}
+              >
+                {t("open_app")}
               </p>
             </div>
           </div>

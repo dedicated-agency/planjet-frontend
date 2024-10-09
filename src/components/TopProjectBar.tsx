@@ -45,8 +45,6 @@ export const TopProjectBar = (props: IProps) => {
     }),
     initialState,
   );
-  console.log(state);
-  
 
   const setParticipants = (user: IUser) => {
     const check = barState.selectedUsers.some(
