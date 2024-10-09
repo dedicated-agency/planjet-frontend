@@ -13,9 +13,6 @@ function AppProvider({ children }: PropsWithChildren<{}>) {
             settingsButton.mount();
             settingsButton.show();
             onSettingsButtonClick(() => navigate('/settings'));
-            return () => {
-                settingsButton.hide(); 
-            };
         }
       }, [navigate]);
     
