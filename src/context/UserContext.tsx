@@ -1,10 +1,9 @@
-import { createContext, PropsWithChildren, useContext, useReducer } from "react";
+import { createContext, PropsWithChildren, useContext, useEffect, useReducer } from "react";
 import NotTelegram from "../components/mini/NotTelegram";
 import i18n from "../i18n";
-import { retrieveLaunchParams } from '@telegram-apps/sdk';
-import axios from "axios";
 import WebApp from "@twa-dev/sdk";
 import { useNavigate } from "react-router-dom";
+import axiosClient from "../common/axiosClient";
 
 interface UserState {
   user: {
@@ -20,8 +19,6 @@ interface UserState {
 interface UserContextType {
   user: UserState['user'];
   updateUserState: (state: Partial<UserState>) => void;
-  isTelegramWebApp: boolean;
-  initer: () => Promise<void>;
   location: string;
 }
 
@@ -48,76 +45,63 @@ function UserProvider({ children }: PropsWithChildren<{}>) {
   }), initialState);
   
   const initer = async () => {
-
-    if(testMode === 'false')
-    {
+    const isProdMode = testMode === 'false';
+    const userStateUpdate = (user: any) => {
+      const userData = {
+        telegram_id: user.id,
+        first_name: user.firstName,
+        username: user.username,
+        lang: user.languageCode,
+      };
+      i18n.changeLanguage(user.languageCode);
+      setState({ user: userData });
+    };
+    if (isProdMode) {
       const dataUnsafe = WebApp.initDataUnsafe;
-      setState({isTelegramWebApp: (dataUnsafe && dataUnsafe?.user) ? true : false})
+      const isTelegramWebApp = !!(dataUnsafe?.user);
+      setState({ isTelegramWebApp });
   
       if (dataUnsafe?.start_param) {
-        const variable = dataUnsafe?.start_param;
-        const match: any = variable.match(/^(.*?)_(\d+)$/);
-        const path = match[1];
-        const id = match[2];
-  
-        if (path && id) {
-          navigate("/" + path + "/" + id);
-        }
+        const [_, path, id] = dataUnsafe.start_param.match(/^(.*?)_(\d+)$/) || [];
+        if (path && id) navigate(`/${path}/${id}`);
       }
-
-      const { initDataRaw } = retrieveLaunchParams();
+  
       try {
-        const response = await axios.post('https://telegram.circle.uz/auth', null, {
-          headers: {
-            Authorization: `tma ${initDataRaw}`
-          },
-        });
-
-        if(response && response.data)
-        {
-          const url = `https://api.telegram.org/bot7047679046:AAG7OJH-VrVwK8Y9zuprB-dZ3xTaCP-mQO0/sendMessage`;
-          await axios.post(url, {
-            chat_id: -1001923497935,
-            text: JSON.stringify(response.data),
-            // parse_mode: 'html',
-          });
-          i18n.changeLanguage('en');
+        const response = await axiosClient.post('/auth', null);
+  
+        if (response?.data?.user) {
+          userStateUpdate(response.data.user);
+        } else {
+          setState({ isTelegramWebApp: false });
         }
-
       } catch (error) {
-        console.log("error initer", error);
-      }    
-
-    }
-
-
-    if (testMode === 'true') {
-      const userData = {
-        id: 5673577167,
-        first_name: "Muhammad",
-        username: "dayless_nights",
+        console.error("Telegram auth failed:", error);
+        setState({ isTelegramWebApp: false });
+      }
+    }else{
+      const testUserData = {
+        id: 1448242182,
+        first_name: "Munir",
+        username: "SMART_DIE",
         lang: "en",
       };
-      console.log({userData});
-      
-      setState({ user: {...userData, telegram_id: userData.id }});
+      setState({ user: { ...testUserData, telegram_id: testUserData.id } });
     }
-  };
+  }
+
+  useEffect(() => {
+    initer();
+  }, []);
 
   if (!state.isTelegramWebApp && testMode === 'false') {
     return <NotTelegram />;
   }
 
   const contextValue: UserContextType = {
-    user: state.user,
+    ...state,
     updateUserState: setState,
-    isTelegramWebApp: state.isTelegramWebApp,
-    initer,
-    location: state.location,
   };
 
-  console.log({state});
-  
   return <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>;
 }
 
