@@ -130,7 +130,7 @@ const Task = () => {
     const getUserImages = async (usersArray: IUser[]) => {
       return await Promise.all(
         usersArray.map(async (user: IUser) => {
-          user.image = await imageCacheChacker((user.telegram_id).toString());
+          user.image = await imageCacheChacker(`${user.telegram_id}`);
           return user;
         })
       );
@@ -148,7 +148,7 @@ const Task = () => {
     : Promise.resolve([]);
 
   const commentsPromise = task.taskComment.length
-    ? getUserImages(task.taskComment)
+    ? getUserImages(task.taskComment.map((taskComment: ITaskChange) => ({ ...taskComment, telegram_id: taskComment.user_id })))
     : Promise.resolve([]);
 
   const eventsPromise = task.taskChange.length

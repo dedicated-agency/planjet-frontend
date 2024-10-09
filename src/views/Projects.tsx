@@ -43,9 +43,6 @@ const Projects = () => {
     getGroup(Number(id)),
   );
 
-  console.log(data);
-  
-
   const getData = async () => {
     const returnGroup = await getUsersData(`${id}`);
     setGroups(returnGroup);

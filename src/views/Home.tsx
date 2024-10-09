@@ -55,7 +55,6 @@ const Home = () => {
         <UserNavbar />
       </div>
       <div className='px-3 mt-2'>
-      
         {isOpenCommand && (
           <Command handleOnboardingClose={handleOnboardingClose} />
         )}
@@ -76,7 +75,7 @@ const Home = () => {
           </div>
           <div className='flex items-center'>
             <div className='w-[32px]'>
-              <div className='flex items-center justify-center text-[12px] w-[20px] h-[20px] border rounded-full bg-customPurpleLight text-customPurple p-0'>
+              <div className='flex items-center justify-center text-[12px] w-[20px] h-[20px] pt-[1px] border rounded-full bg-customPurpleLight text-customPurple p-0'>
                 {myTasks}
               </div>
             </div>

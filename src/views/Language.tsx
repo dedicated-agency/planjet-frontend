@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Symbol } from "../assets/icons/Symbol";
 import WebApp from "@twa-dev/sdk";
 import { t } from "i18next";
@@ -10,12 +9,11 @@ const Language = () => {
   const BackButton = WebApp.BackButton;
   BackButton.show();
   BackButton.onClick(() => window.history.back());
-  const {user} = useUserContext();
+  const {user, updateUserState} = useUserContext();
   const lang = user.lang
-  const [selectedLanguage, setSelectedLanguage] = useState(lang);
 
   const handleLanguageChange = async (language: string) => {
-    setSelectedLanguage(language);
+    updateUserState({user: {...user, lang: language}})
     i18n.changeLanguage(language);
     await axiosClient.post('/user/language', {
       lang: language
@@ -29,7 +27,7 @@ const Language = () => {
           className='text-[13px] text-customGrayDark'
           style={{ fontFamily: "SF Pro Display" }}
         >
-          {t('notification_language')}
+          {t('app_language')}
         </p>
         <p
           className='text-[13px] text-customBlue'
@@ -41,72 +39,51 @@ const Language = () => {
       <div>
         <div className='bg-white rounded-xl py-2'>
           {/* English */}
-          <label className='flex justify-between px-4 py-2 items-center'>
+          <label className='flex justify-between px-4 py-2 items-center' onClick={() => handleLanguageChange("en")}>
             <p
               className='text-[17px] font-normal text-black'
               style={{ fontFamily: "SF Pro Display" }}
             >
               English
             </p>
-            <input
-              type='radio'
-              name='language'
-              value='en'
-              className='hidden peer'
-              checked={selectedLanguage === "en"}
-              onChange={() => handleLanguageChange("en")}
-            />
             <div
               className={`text-gray-500 ${
-                selectedLanguage === "uz" ? "flex" : "hidden"
+                lang === "en" ? "flex" : "hidden"
               }`}
             >
               <Symbol />
             </div>
           </label>
           {/* Русский */}
-          <label className='flex justify-between px-4 py-2 items-center'>
+          <label className='flex justify-between px-4 py-2 items-center' 
+            onClick={() => handleLanguageChange("ru")}
+          >
             <p
               className='text-[17px] font-normal text-black'
               style={{ fontFamily: "SF Pro Display" }}
             >
               Русский
             </p>
-            <input
-              type='radio'
-              name='language'
-              value='ru'
-              className='hidden peer'
-              checked={selectedLanguage === "ru"}
-              onChange={() => handleLanguageChange("ru")}
-            />
             <div
               className={`text-gray-500 ${
-                selectedLanguage === "uz" ? "flex" : "hidden"
+                lang === "ru" ? "flex" : "hidden"
               }`}
             >
               <Symbol />
             </div>
           </label>
           {/* O’zbek */}
-          <label className='flex justify-between px-4 py-2 items-center'>
+          <label className='flex justify-between px-4 py-2 items-center' 
+            onClick={() => handleLanguageChange("uz")}>
             <p
               className='text-[17px] font-normal text-black'
               style={{ fontFamily: "SF Pro Display" }}
             >
               Uzbek
             </p>
-            <input
-              type='radio'
-              name='language'
-              value='uz'
-              className='hidden peer'
-              checked={selectedLanguage === "uz"}
-              onChange={() => handleLanguageChange("uz")}
-            />
             <div
               className={`text-gray-500 ${
-                selectedLanguage === "uz" ? "flex" : "hidden"
+                lang === "uz" ? "flex" : "hidden"
               }`}
             >
               <Symbol />

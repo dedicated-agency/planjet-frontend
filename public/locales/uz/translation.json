@@ -21,7 +21,7 @@
     "comments": "Izohlar",
     "participant": "ishtirokchi",
     "select_all": "Barchasini tanlang",
-    "no_task_yet": "Hali vazifa yo'q",
+    "no_task_yet": "Vazifalar yo'q",
     "start_date": "Boshlanish sanasi",
     "file": "Fayl",
     "priority": "ustuvorlik",
@@ -111,5 +111,7 @@
     "delete_confirmation": "Ushbu vazifani o'chirishni xohlaysizmi? O'chirish uchun \"I'm Sure\" deb yozing.",
     "recent_events": "So'ngi voqealar",
     "status_settings": "status sozlamalari",
-    "noti_text": "Bot ushbu voqealar paytida guruh suhbatiga xabarnoma yuboradi"
+    "noti_text": "Bot ushbu voqealar paytida guruh suhbatiga xabarnoma yuboradi",
+    "no_comments": "Izohlar yo'q",
+    "app_language": "Ilova tili"
 }

@@ -76,9 +76,6 @@ const ProjectCaruselItem = (props: IProps) => {
     initialState,
   );
 
-  console.log(state);
-  
-
   const queryClient = useQueryClient();
 
   const updateStatus = async (status: number) => {

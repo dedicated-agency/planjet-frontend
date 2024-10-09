@@ -42,7 +42,7 @@ const TimeZone = () => {
           className='text-[13px] text-customGrayDark'
           style={{ fontFamily: "SF Pro Display" }}
         >
-          {t('notification_language')}
+          {t('app_language')}
         </p>
         <p
           className='text-[13px] text-customBlue'

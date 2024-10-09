@@ -41,7 +41,6 @@ const CommentAndEvent = (props: {
   queryClient: QueryClient;
 }) => {
   const { state, setState, queryClient } = props;
-  console.log(state.events);
   
   const { id } = useParams();
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -114,10 +113,11 @@ const CommentAndEvent = (props: {
             )}
           </div>
           <div className='transition-all flex flex-col gap-2 mt-5'>
-            {state.comments.length > 0 &&
+            {state.comments.length > 0 ?
               state.comments.map((comment: ICommentIn, index: number) => {
                 return <Comment comment={comment} key={index} />;
-              })}
+              }): t('no_comments')
+            }
           </div>
         </>
       )}

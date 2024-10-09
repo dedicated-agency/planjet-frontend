@@ -44,6 +44,7 @@ const AppRoutes = () => {
             <Route path='/profile' element={<Profile />} />
             <Route path='/settings' element={<Settings />} />
             <Route path='/timezone' element={<TimeZone />} />
+            <Route path='*' element={<Home />} />
         </Routes>
     </div>
 }

@@ -74,7 +74,7 @@
     "create_task": "Creates a task",
     "show_project_list": "Shows the list of projects",
     "open_app": "Opens the app",
-    "translate_to_status_ready": "Changes the status to - ready",
+    "translate_to_status_ready": "Change the status to completed",
     "archive_files": "Archive",
     "no_events": "No Events",
     "notifications_in_chat": "Notifications in chat",
@@ -111,5 +111,7 @@
     "delete_confirmation": "Are you sure you want to delete this task? Please type \"I'm Sure\" to delete.",
     "recent_events": "Recent Events",
     "status_settings": "status settings",
-    "noti_text": "The bot will send notifications to the group chat at these events"
+    "noti_text": "The bot will send notifications to the group chat at these events",
+    "no_comments": "No comments yet",
+    "app_language": "Application language"
 }
