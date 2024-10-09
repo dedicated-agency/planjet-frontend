@@ -4,6 +4,7 @@ import WebApp from "@twa-dev/sdk";
 import { t } from "i18next";
 import i18n from "../i18n";
 import { useUserContext } from "../context/UserContext";
+import axiosClient from "../common/axiosClient";
 
 const Language = () => {
   const BackButton = WebApp.BackButton;
@@ -13,9 +14,12 @@ const Language = () => {
   const lang = user.lang
   const [selectedLanguage, setSelectedLanguage] = useState(lang);
 
-  const handleLanguageChange = (language: string) => {
+  const handleLanguageChange = async (language: string) => {
     setSelectedLanguage(language);
     i18n.changeLanguage(language);
+    await axiosClient.post('/user/language', {
+      lang: language
+    });
   };
 
   return (

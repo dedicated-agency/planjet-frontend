@@ -32,12 +32,12 @@ interface IUser {
 }
 
 const BigProjects = () => {
-  const context = useUserContext()
+  const {updateUserState} = useUserContext()
   const [groups, setGroups] = useState<IGroup[]>([]);
   const { data, error } = useQuery(["groupSelect"], () => getGroups());
 
   useEffect(() => {
-    context.updateUserState({location: "home" });
+    updateUserState({location: "home" });
     if (data?.length) {
       getData();
     }

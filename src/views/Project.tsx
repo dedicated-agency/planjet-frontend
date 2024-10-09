@@ -10,10 +10,10 @@ BackButton.show();
 BackButton.onClick(() => window.history.back());
 const Project = () => {
   const { id } = useParams();
-  const context = useUserContext()
+  const {updateUserState} = useUserContext()
   useEffect(() => {
     WebApp.setHeaderColor("#FFFFFF");
-    context.updateUserState({location: "project" });
+    updateUserState({location: "project" });
   }, []);
 
   return (
