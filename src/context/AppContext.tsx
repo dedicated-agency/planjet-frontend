@@ -1,20 +1,19 @@
-import { settingsButton } from "@telegram-apps/sdk";
+import { settingsButton, onSettingsButtonClick } from "@telegram-apps/sdk";
 import { createContext, PropsWithChildren, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const AppContext = createContext({});
+const testMode: string = import.meta.env.VITE_TEST_MODE;
 
 function AppProvider({ children }: PropsWithChildren<{}>) {
     const navigate = useNavigate();
     useEffect(() => {
-        settingsButton.mount();
-        settingsButton.show();
-        settingsButton.onClick(() => {
-            navigate('/settings')
-        });
-        return () => {
-            settingsButton.hide(); 
-        };
+        if(testMode === 'false')
+        {
+            settingsButton.mount();
+            settingsButton.show();
+            onSettingsButtonClick(() => navigate('/settings'));
+        }
       }, [navigate]);
     
     const contextValue = {}
