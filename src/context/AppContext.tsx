@@ -1,4 +1,5 @@
 import { settingsButton } from "@telegram-apps/sdk";
+import WebApp from "@twa-dev/sdk";
 import { createContext, PropsWithChildren, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -12,10 +13,11 @@ function AppProvider({ children }: PropsWithChildren<{}>) {
         {
             settingsButton.mount();
             settingsButton.show();
-            window.addEventListener("settings_button_pressed", () => {
-                // window.location.href = "https://planjet.sbsa.uz/settings/";
-                navigate('/settings')
-            })
+            // window.addEventListener("settings_button_pressed", () => {
+            //     // window.location.href = "https://planjet.sbsa.uz/settings/";
+            //     navigate('/settings')
+            // })
+            WebApp.SettingsButton.onClick(() => navigate('/settings'))
         }
       }, [navigate]);
     
