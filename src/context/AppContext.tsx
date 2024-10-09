@@ -13,8 +13,9 @@ function AppProvider({ children }: PropsWithChildren<{}>) {
         {
             settingsButton.mount();
             settingsButton.show();
-            WebApp.SettingsButton.onClick(() => navigate('/settings'))
-            WebApp.isVerticalSwipesEnabled = false
+            WebApp.SettingsButton.onClick(() => navigate('/settings'));
+            WebApp.setBackgroundColor("#f2f2f7")
+            WebApp.expand();
         }
       }, [navigate]);
     
