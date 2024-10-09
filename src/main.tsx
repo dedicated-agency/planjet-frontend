@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import './i18n'; 
 import Application from "./Application.tsx";
 import { UserProvider } from "./context/UserContext.tsx";
+import { AppProvider } from "./context/AppContext.tsx";
 
 const queryClient = new QueryClient();
 
@@ -14,7 +15,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <QueryClientProvider client={queryClient}>
     <BrowserRouter>
       <UserProvider>
-        <Application/>
+        <AppProvider>
+          <Application/>
+        </AppProvider>
       </UserProvider>
     </BrowserRouter>
   </QueryClientProvider>,
