@@ -12,9 +12,10 @@ function AppProvider({ children }: PropsWithChildren<{}>) {
         {
             settingsButton.mount();
             settingsButton.show();
-            settingsButton.onClick(() => {
-                window.location.href = "https://planjet.sbsa.uz/settings/";
-            });
+            window.addEventListener("settings_button_pressed", () => {
+                // window.location.href = "https://planjet.sbsa.uz/settings/";
+                navigate('/settings')
+            })
         }
       }, [navigate]);
     
