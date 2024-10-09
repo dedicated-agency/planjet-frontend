@@ -1,4 +1,4 @@
-import { settingsButton, onSettingsButtonClick } from "@telegram-apps/sdk";
+import { settingsButton } from "@telegram-apps/sdk";
 import { createContext, PropsWithChildren, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -12,7 +12,9 @@ function AppProvider({ children }: PropsWithChildren<{}>) {
         {
             settingsButton.mount();
             settingsButton.show();
-            onSettingsButtonClick(() => navigate('/settings'));
+            settingsButton.onClick(() => {
+                window.location.href = "https://planjet.sbsa.uz/settings/";
+            });
         }
       }, [navigate]);
     
