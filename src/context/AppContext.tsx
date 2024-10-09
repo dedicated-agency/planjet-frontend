@@ -12,8 +12,10 @@ function AppProvider({ children }: PropsWithChildren<{}>) {
         settingsButton.onClick(() => {
             navigate('/settings')
         });
-        //     backgroundColor: "#007AFF"
-      }, []);
+        return () => {
+            settingsButton.hide(); 
+        };
+      }, [navigate]);
     
     const contextValue = {}
     return <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>;
