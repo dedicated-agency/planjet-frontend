@@ -14,7 +14,6 @@ function AppProvider({ children }: PropsWithChildren<{}>) {
             settingsButton.mount();
             settingsButton.show();
             WebApp.SettingsButton.onClick(() => navigate('/settings'))
-            WebApp.expand();
         }
       }, [navigate]);
     
