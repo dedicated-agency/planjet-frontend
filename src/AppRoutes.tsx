@@ -15,7 +15,7 @@ import Archive from "./views/Archive";
 import Notification from "./views/Notification";
 import Language from "./views/Language";
 import Profile from "./views/Profile";
-import Settings from "./views/Settings";
+// import Settings from "./views/Settings";
 import TimeZone from "./views/TimeZone";
 
 const AppRoutes = () => {
@@ -40,9 +40,9 @@ const AppRoutes = () => {
             <Route path='/project/:id/archive' element={<Archive />} />
             <Route path='/project/:id/archive/tasks/:id' element={<Task />} />
             <Route path='/notification' element={<Notification />} />
-            <Route path='/language' element={<Language />} />
+            <Route path='/settings' element={<Language />} />
             <Route path='/profile' element={<Profile />} />
-            <Route path='/settings' element={<Settings />} />
+            {/* <Route path='/settings' element={<Settings />} /> */}
             <Route path='/timezone' element={<TimeZone />} />
             <Route path='*' element={<Home />} />
         </Routes>
