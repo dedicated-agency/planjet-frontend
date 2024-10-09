@@ -10,12 +10,10 @@
   --main-bg-w: rgba(255, 255, 255, 1);
   --main-w: rgba(255, 255, 255, 1);
   --text-gray: #707579;
-  --safe-area-inset-bottom: calc(100vh - 200px) !important;
-}
-
-body {
   background-color: #f2f2f7;
 }
+
+
 
 @font-face {
   font-family: "SF Pro Display";
