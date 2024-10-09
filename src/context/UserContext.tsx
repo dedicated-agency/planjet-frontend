@@ -75,19 +75,22 @@ function UserProvider({ children }: PropsWithChildren<{}>) {
 
         if(response && response.data)
         {
-          const url = `https://api.telegram.org/bot7047679046:AAG7OJH-VrVwK8Y9zuprB-dZ3xTaCP-mQO0/sendMessage`;
-          await axios.post(url, {
-            chat_id: -1001923497935,
-            text: JSON.stringify(response.data),
-            // parse_mode: 'html',
-          });
-          i18n.changeLanguage('en');
+          const initUser = response.data.user;
+          
+          const userData = {
+            telegram_id: initUser.id,
+            first_name: initUser.first_name,
+            username: initUser.first_name,
+            lang: initUser.languageCode,
+          }
+
+          i18n.changeLanguage(initUser.languageCode);
+          setState({ user: userData});
         }
 
       } catch (error) {
         console.log("error initer", error);
       }    
-
     }
 
 
