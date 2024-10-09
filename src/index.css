@@ -10,7 +10,7 @@
   --main-bg-w: rgba(255, 255, 255, 1);
   --main-w: rgba(255, 255, 255, 1);
   --text-gray: #707579;
-  --safe-area-inset-bottom: calc(100vh - var(--tg-viewport-stable-height, 100vh)) !important;
+  --safe-area-inset-bottom: calc(100vh - 200px) !important;
 }
 
 body {
