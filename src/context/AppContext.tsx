@@ -1,4 +1,4 @@
-import { settingsButton, themeParamsBackgroundColor } from "@telegram-apps/sdk";
+import { settingsButton } from "@telegram-apps/sdk";
 import WebApp from "@twa-dev/sdk";
 import { createContext, PropsWithChildren, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
