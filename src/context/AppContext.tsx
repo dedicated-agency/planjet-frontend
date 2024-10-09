@@ -7,15 +7,10 @@ const AppContext = createContext({});
 function AppProvider({ children }: PropsWithChildren<{}>) {
     const navigate = useNavigate();
     useEffect(() => {
-        settingsButton.isVisible();
+        settingsButton.mount();
         settingsButton.show();
         settingsButton.onClick(SettingsButtonListener);
-        // secondaryButton.setParams({
-        //     text: "Settings",
-        //     isVisible: true,
         //     backgroundColor: "#007AFF"
-        // }),
-        // secondaryButton.onClick(SettingsButtonListener);
       }, []);
 
     const SettingsButtonListener = () => {
