@@ -219,7 +219,7 @@ export const ProjectCarusel = () => {
       <div
         ref={tabContainerRef}
         style={{top: (state.isAtBottom && isMobileDevice) ? "90px": '56px'}}
-        className=' flex h-[44px] max-w-[700px] w-full overflow-x-scroll border-b bg-white px-2 scroll-smooth status-list fixed z-[19]'
+        className='transition-all flex h-[44px] max-w-[700px] w-full overflow-x-scroll border-b bg-white px-2 scroll-smooth status-list fixed z-[19]'
       >
         {state.statuses.length > 0 &&
           state.statuses.map((status: IStatus) => (

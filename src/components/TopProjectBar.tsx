@@ -83,7 +83,7 @@ export const TopProjectBar = (props: IProps) => {
 
   return (
     <>
-      <header style={{top: (state.isAtBottom && isMobileDevice) ? "34px": 0}} className=' fixed z-20 h-[56px] bg-white w-full max-w-[700px] mx-auto flex justify-between items-center border-b px-[20px]'>
+      <header style={{top: (state.isAtBottom && isMobileDevice) ? "34px": 0}} className='transition-all fixed z-20 h-[56px] bg-white w-full max-w-[700px] mx-auto flex justify-between items-center border-b px-[20px]'>
         <div className='flex items-center text-gray-700 gap-2 cursor-pointer'>
           <Avatar image={""} alt={state.name} radius={8} id={id} />
           <div>
