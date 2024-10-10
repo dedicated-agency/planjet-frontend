@@ -10,10 +10,53 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-      </style>
+    </style>
+    <style>
+      .mobile-body {
+        overflow: hidden;
+        height: 100vh;
+      }
+  
+      .mobile-wrap {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+  
+      .mobile-content {
+        height: calc(100% + 1px);
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="wrap">
+      <div id="content">
+        <div id="root"></div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
+    <script src="https://unpkg.com/@telegram-apps/sdk@1.0.0/dist/index.iife.js"></script>
+    <script>
+      (function() {
+        var { retrieveLaunchParams, postEvent } = window.telegramApps.sdk;
+        var lp = retrieveLaunchParams();
+  
+        // Some versions of Telegram don't need the classes above.
+        if (['macos', 'tdesktop', 'weba', 'web', 'webk'].includes(lp.platform)) {
+          return;
+        }
+  
+        // Expand the application.
+        postEvent('web_app_expand');
+  
+        document.body.classList.add('mobile-body');
+        document.getElementById('wrap').classList.add('mobile-wrap');
+        document.getElementById('content').classList.add('mobile-content');
+      })();
+    </script>
   </body>
 </html>
