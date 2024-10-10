@@ -7,7 +7,6 @@ import './i18n';
 import Application from "./Application.tsx";
 import { UserProvider } from "./context/UserContext.tsx";
 import { AppProvider } from "./context/AppContext.tsx";
-
 const queryClient = new QueryClient();
 WebApp.ready();
 ReactDOM.createRoot(document.getElementById("root")!).render(
