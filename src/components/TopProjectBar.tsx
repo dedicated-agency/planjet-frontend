@@ -37,11 +37,10 @@ interface IProps {
   setState: React.Dispatch<Partial<IState>>;
   id: number;
   group_id: number;
-  isMobileDevice: boolean;
 }
 
 export const TopProjectBar = (props: IProps) => {
-  const { state, setState, id, group_id, isMobileDevice } = props;
+  const { state, setState, id, group_id } = props;
   const [barState, setBarState] = useReducer(
     (state: IInitState, setState: Partial<IInitState>) => ({
       ...state,
@@ -83,7 +82,7 @@ export const TopProjectBar = (props: IProps) => {
 
   return (
     <>
-      <header style={{top: (state.isAtBottom && isMobileDevice) ? "34px": 0}} className='transition-all fixed z-20 h-[56px] bg-white w-full max-w-[700px] mx-auto flex justify-between items-center border-b px-[20px]'>
+      <header style={{top: (state.isAtBottom) ? "34px": 0}} className='transition-all fixed z-20 h-[56px] bg-white w-full max-w-[700px] mx-auto flex justify-between items-center border-b px-[20px]'>
         <div className='flex items-center text-gray-700 gap-2 cursor-pointer'>
           <Avatar image={""} alt={state.name} radius={8} id={id} />
           <div>

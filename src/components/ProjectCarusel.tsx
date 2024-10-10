@@ -182,16 +182,16 @@ export const ProjectCarusel = () => {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
     const scrollHeight = document.documentElement.scrollHeight;
     const clientHeight = window.innerHeight;
+
+    const details = navigator.userAgent;
+    const isMobileDevice = /iphone|ipad/i.test(details);
     
-    if (scrollTop + clientHeight >= scrollHeight - 10) {
+    if (scrollTop + clientHeight >= scrollHeight - 10 &&  project.tasks.length > 6 && isMobileDevice) {
       setState({isAtBottom: true});
     } else {
       setState({isAtBottom: false});
     }
   };
-
-  const details = navigator.userAgent;
-  const isMobileDevice = /iphone|ipad/i.test(details);
 
   const getStatuses = async () => {
     const params: Params = {};
@@ -206,8 +206,6 @@ export const ProjectCarusel = () => {
     window.location.hash = `0&${status}`;
     setState({ selectedStatus: status});
   }
-
-  console.log({isMobileDevice});
   
 
   // @ts-ignore
@@ -215,10 +213,10 @@ export const ProjectCarusel = () => {
 
   return (
     <>
-      <TopProjectBar isMobileDevice={isMobileDevice} state={state} setState={setState} id={Number(id)} group_id={project?.group_id} />
+      <TopProjectBar  state={state} setState={setState} id={Number(id)} group_id={project?.group_id} />
       <div
         ref={tabContainerRef}
-        style={{top: (state.isAtBottom && isMobileDevice) ? "90px": '56px'}}
+        style={{top: state.isAtBottom ? "90px": '56px'}}
         className='transition-all flex h-[44px] max-w-[700px] w-full overflow-x-scroll border-b bg-white px-2 scroll-smooth status-list fixed z-[19]'
       >
         {state.statuses.length > 0 &&
