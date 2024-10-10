@@ -84,37 +84,28 @@ const Mytasks = () => {
       const newIndex = state.index + 1;
       setState({ index: newIndex });
       getTasks(state.statuses[newIndex].name);
-      updateHash(state.statuses[newIndex].id);
+      statusClicker(state.statuses[newIndex].id)
     } else if (direction === "RIGHT" && state.index > 0) {
       const newIndex = state.index - 1;
       setState({ index: newIndex });
       getTasks(state.statuses[newIndex].name);
-      updateHash(state.statuses[newIndex].id);
+      statusClicker(state.statuses[newIndex].id)
     }
   };
 
   const tabContainerRef = useRef(null);
-  // @ts-ignore
-  const scrollTabs = (direction) => {
-    if (tabContainerRef.current) {
-      const scrollAmount = direction === "RIGHT" ? -50 : 50;
-      // @ts-ignore
-      tabContainerRef.current.scrollBy({
-        top: 0,
-        left: scrollAmount,
-        behavior: "smooth",
-      });
-    }
-  };
+
+  const statusClicker = (id: number) => {
+    const element = document.getElementById('status_' + id);
+    if(element)  element.scrollIntoView({ behavior: "smooth" });
+  }
 
   const handlers = useSwipeable({
     onSwipedLeft: () => {
       handleSwipe("LEFT");
-      scrollTabs("LEFT");
     },
     onSwipedRight: () => {
       handleSwipe("RIGHT");
-      scrollTabs("RIGHT");
     },
     trackMouse: true,
   });
@@ -133,10 +124,9 @@ const Mytasks = () => {
         setState({
           statuses: response.data,
           selectedStatus: response.data[0].name,
-        }); // Set initial selected status
-        // Get tasks for the first status by default
+        });
         if (response.data.length > 0) {
-          getTasks(response.data[0].name); // Fetch tasks by the first status name
+          getTasks(response.data[0].name); 
         }
       }
     } catch (error) {
@@ -173,6 +163,7 @@ const Mytasks = () => {
   const updateHash = (status: number) => {
     window.location.hash = `0&${status}`;
     setState({ selectedStatus: status });
+    statusClicker(status)
   };
 
   return (
@@ -218,6 +209,7 @@ const Mytasks = () => {
           >
             {state.statuses.map((status: IStatus, index: number) => (
               <div
+              id={"status_" +  status.id}
                 key={index}
                 className={`flex h-full  items-center gap-2 px-4 relative cursor-pointer`}
                 onClick={() => {
@@ -263,7 +255,7 @@ const Mytasks = () => {
         >
           <div className='flex flex-col px-4 pb-12 items-center justify-start'>
             {state.tasks.length > 0 ? (
-              state.tasks.map((task: IProject) => (
+              state.tasks.slice().reverse().map((task: IProject) => (
                 <MyTask key={task?.id} project={task} /> // Render individual task components
               ))
             ) : (
