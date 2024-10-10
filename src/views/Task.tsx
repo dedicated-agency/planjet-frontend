@@ -117,8 +117,6 @@ const Task = () => {
     () => getStatuses(Number(task?.project_id)),
   );
 
-  console.log(task);
-  
 
   useEffect(() => {
     if (task) getUsers();
