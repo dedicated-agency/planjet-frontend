@@ -24,10 +24,7 @@ export interface IUser {
 }
 
 const Comment = ({ comment }: IComment) => {
-
   const { color, lightColor } = useUserColor(comment.user_id);
-  console.log({comment});
-  
   return (
     <div className='flex gap-5' key={comment.id}>
       <AvatarUser
