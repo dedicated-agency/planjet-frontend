@@ -218,7 +218,7 @@ export const ProjectCarusel = () => {
       <TopProjectBar isMobileDevice={isMobileDevice} state={state} setState={setState} id={Number(id)} group_id={project?.group_id} />
       <div
         ref={tabContainerRef}
-        style={{top: (state.isAtBottom && isMobileDevice) ? "96px": '56px'}}
+        style={{top: (state.isAtBottom && isMobileDevice) ? "91px": '56px'}}
         className='transition-all flex h-[44px] max-w-[700px] w-full overflow-x-scroll border-b bg-white px-2 scroll-smooth status-list fixed z-[19]'
       >
         {state.statuses.length > 0 &&
