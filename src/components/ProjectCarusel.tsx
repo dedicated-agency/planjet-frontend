@@ -182,6 +182,8 @@ export const ProjectCarusel = () => {
   const updateHash = (status: number) => {
     window.location.hash = `0&${status}`;
     setState({ selectedStatus: status});
+    const element = document.getElementById('status_' + status);
+    if(element)  element.scrollIntoView({ behavior: "smooth" });
   }
   
   // @ts-ignore
@@ -197,6 +199,7 @@ export const ProjectCarusel = () => {
         {state.statuses.length > 0 &&
           state.statuses.map((status: IStatus) => (
             <div
+              id={"status_" + status.id}
               key={status.id}
               className='transition-all flex h-full  items-center gap-2 px-4 relative cursor-pointer'
               onClick={() => updateHash(status.id)}
