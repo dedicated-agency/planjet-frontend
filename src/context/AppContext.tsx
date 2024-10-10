@@ -18,7 +18,6 @@ function AppProvider({ children }: PropsWithChildren<{}>) {
             postEvent('web_app_expand');
             postEvent('web_app_setup_main_button', { is_visible: false })
             postEvent('web_app_setup_swipe_behavior', { allow_vertical_swipe: false })
-            // WebApp.disableVerticalSwipes()
 
         }
       }, [navigate]);
