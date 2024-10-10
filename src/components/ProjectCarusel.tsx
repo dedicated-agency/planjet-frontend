@@ -46,7 +46,6 @@ export interface IState {
   touchStart: number | null;
   touchEnd: number | null;
   selectedUsers: string;
-  isAtBottom: boolean,
 }
 
 const initialState: IState = {
@@ -61,7 +60,6 @@ const initialState: IState = {
   touchStart: null,
   touchEnd: null,
   selectedUsers: "",
-  isAtBottom: false,
 };
 
 
@@ -170,28 +168,9 @@ export const ProjectCarusel = () => {
     if (project) {
       setState({ name: project.name, users: project.users });
     }
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll); // Clean up the event listener
-    };
   }, [project]);
 
 
-  const handleScroll = () => {
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    const scrollHeight = document.documentElement.scrollHeight;
-    const clientHeight = window.innerHeight;
-
-    const details = navigator.userAgent;
-    const isMobileDevice = /iphone|ipad/i.test(details);
-    
-    if (scrollTop + clientHeight >= scrollHeight - 10 &&  project.tasks.length > 6 && isMobileDevice) {
-      setState({isAtBottom: true});
-    } else {
-      setState({isAtBottom: false});
-    }
-  };
 
   const getStatuses = async () => {
     const params: Params = {};
@@ -207,17 +186,15 @@ export const ProjectCarusel = () => {
     setState({ selectedStatus: status});
   }
   
-
   // @ts-ignore
   if (error) return <div>An error occurred: {error.message}</div>;
 
   return (
     <>
-      <TopProjectBar  state={state} setState={setState} id={Number(id)} group_id={project?.group_id} />
+      <TopProjectBar state={state} setState={setState} id={Number(id)} group_id={project?.group_id} />
       <div
         ref={tabContainerRef}
-        style={{top: state.isAtBottom ? "90px": '56px'}}
-        className='transition-all flex h-[44px] max-w-[700px] w-full overflow-x-scroll border-b bg-white px-2 scroll-smooth status-list fixed z-[19]'
+        className='transition-all top-[56px] flex h-[44px] max-w-[700px] w-full overflow-x-scroll border-b bg-white px-2 scroll-smooth status-list fixed z-[19]'
       >
         {state.statuses.length > 0 &&
           state.statuses.map((status: IStatus) => (
