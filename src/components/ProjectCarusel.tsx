@@ -89,11 +89,11 @@ export const ProjectCarusel = () => {
 
   useEffect(() => {
     const currentHash = window.location.hash;
+    const list = document.getElementById("tasks-list");
     if(!isLoading && !isFetching && currentHash)
     {
       const extractedId = currentHash.substring(1).split("&")[0];
       const element = document.getElementById(extractedId);
-      const list = document.getElementById("tasks-list");
       if(element && list) 
       {
         const offset = 105;
@@ -104,7 +104,7 @@ export const ProjectCarusel = () => {
             behavior: "smooth",
           });
         }, 0);
-      }    
+      } 
     }
   }, [isLoading, isFetching]);
 
@@ -242,10 +242,10 @@ export const ProjectCarusel = () => {
           <div
             id="tasks-list"
             key={state.index}
-            className='carusel-heighter flex flex-col-reverse px-4 pb-12 items-center overflow-y-scroll'
+            className='carusel-heighter flex flex-col px-4 pb-12 items-center overflow-y-scroll'
           >
             {project && project.tasks.length > 0 ? (
-              project.tasks.map((task: IProjectTask, index: number) => (
+              project.tasks.slice().reverse().map((task: IProjectTask, index: number) => (
                 <ProjectCaruselItem
                   getStatuses={getStatuses}
                   key={task.id}
