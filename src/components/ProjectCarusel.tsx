@@ -218,14 +218,14 @@ export const ProjectCarusel = () => {
       <TopProjectBar isMobileDevice={isMobileDevice} state={state} setState={setState} id={Number(id)} group_id={project?.group_id} />
       <div
         ref={tabContainerRef}
-        style={{top: (state.isAtBottom && isMobileDevice) ? "91px": '56px'}}
-        className='transition-all flex h-[44px] max-w-[700px] w-full overflow-x-scroll border-b bg-white px-2 scroll-smooth status-list fixed z-[19]'
+        style={{top: (state.isAtBottom && isMobileDevice) ? "90px": '56px'}}
+        className=' flex h-[44px] max-w-[700px] w-full overflow-x-scroll border-b bg-white px-2 scroll-smooth status-list fixed z-[19]'
       >
         {state.statuses.length > 0 &&
           state.statuses.map((status: IStatus) => (
             <div
               key={status.id}
-              className='flex h-full  items-center gap-2 px-4 relative cursor-pointer'
+              className='transition-all flex h-full  items-center gap-2 px-4 relative cursor-pointer'
               onClick={() => updateHash(status.id)}
             >
               <>
