@@ -15,21 +15,18 @@ const initialState: IInitState = {
   users: [],
   selectedUsers: [],
   openParticipant: false,
-  isAtBottom: false,
 };
 
 interface IInitState {
   users: IUser[];
   selectedUsers: IUser[];
   openParticipant: boolean;
-  isAtBottom: boolean;
 }
 
 interface IStateProp {
   name: string;
   mytasks?: number;
   users: IUser[];
-  isAtBottom: boolean,
 }
 
 interface IProps {
@@ -79,7 +76,7 @@ export const TopProjectBar = (props: IProps) => {
   };
   return (
     <>
-      <header style={{top: (state.isAtBottom) ? "34px": 0}} className='transition-all fixed z-20 h-[56px] bg-white w-full max-w-[700px] mx-auto flex justify-between items-center border-b px-[20px]'>
+      <header className='top-0 transition-all fixed z-20 h-[56px] bg-white w-full max-w-[700px] mx-auto flex justify-between items-center border-b px-[20px]'>
         <div className='flex items-center text-gray-700 gap-2 cursor-pointer'>
           <Avatar image={""} alt={state.name} radius={8} id={id} />
           <div>
