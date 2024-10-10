@@ -15,7 +15,7 @@ function AppProvider({ children }: PropsWithChildren<{}>) {
             settingsButton.show();
             WebApp.SettingsButton.onClick(() => navigate('/settings'));
             WebApp.setBackgroundColor("#f2f2f7")
-            WebApp.expand();
+            WebApp.disableVerticalSwipes()
         }
       }, [navigate]);
     
