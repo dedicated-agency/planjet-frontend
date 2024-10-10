@@ -114,7 +114,7 @@ const ProjectCaruselItem = (props: IProps) => {
   };
 
   const locationNavigator = () => {
-    navigate("#" + project.id + "&" + selectedStatus)
+    navigate("#" + project.id + "&" + selectedStatus, { replace: true });
     navigate("/tasks/" + project.id);
   }
 
