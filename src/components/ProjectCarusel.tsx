@@ -126,37 +126,21 @@ export const ProjectCarusel = () => {
         selectedStatus: state.statuses[state.index + 1].id,
         index: state.index + 1,
       });
+      statusClicker(state.statuses[state.index + 1].id)
     } else if (direction === "RIGHT" && state.index > 0) {
       setState({
         selectedStatus: state.statuses[state.index - 1].id,
         index: state.index - 1,
       });
+      statusClicker(state.statuses[state.index - 1].id)
     }
   };
 
   const tabContainerRef = useRef(null);
-  // @ts-ignore
-  const scrollTabs = (direction) => {
-    if (tabContainerRef.current) {
-      const scrollAmount = direction === "RIGHT" ? -50 : 50;
-      // @ts-ignore
-      tabContainerRef.current.scrollBy({
-        top: 0,
-        left: scrollAmount,
-        behavior: "smooth",
-      });
-    }
-  };
 
   const handlers = useSwipeable({
-    onSwipedLeft: () => {
-      handleSwipe("LEFT");
-      scrollTabs("LEFT");
-    },
-    onSwipedRight: () => {
-      handleSwipe("RIGHT");
-      scrollTabs("RIGHT");
-    },
+    onSwipedLeft: () => handleSwipe("LEFT"),
+    onSwipedRight: () => handleSwipe("RIGHT"),
     trackMouse: true,
   });
 
@@ -182,7 +166,11 @@ export const ProjectCarusel = () => {
   const updateHash = (status: number) => {
     window.location.hash = `0&${status}`;
     setState({ selectedStatus: status});
-    const element = document.getElementById('status_' + status);
+    statusClicker(status)
+  }
+
+  const statusClicker = (id: number) => {
+    const element = document.getElementById('status_' + id);
     if(element)  element.scrollIntoView({ behavior: "smooth" });
   }
   
