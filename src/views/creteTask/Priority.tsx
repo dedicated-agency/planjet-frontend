@@ -1,17 +1,53 @@
+import { t } from "i18next";
+import { useState } from "react";
+import ArrowRight from "../../assets/icons/ArrowRight";
+import Prioritet from "../../assets/icons/Prioritet";
 import { IPriority } from "./CreateTaskFromGroup";
 
-const Priority = ({
-  openPriority,
-  setOpenPriority,
-  setSelectPriority,
-  priorities,
-  selectPriority,
-}: any) => {
+const priorities = [
+  { title: t("priority_data_1") },
+  { title: t("priority_data_2") },
+  { title: t("priority_data_3") },
+];
+
+interface Props {
+  setSelectPriority: (val: number) => void;
+  selectPriority: number;
+}
+
+const Priority = ({ setSelectPriority, selectPriority }: Props) => {
+  const [openPriority, setOpenPriority] = useState(false);
+
   return (
     <>
+      <div
+        className="h-[44px] flex justify-between items-center px-[16px]"
+        onClick={() => setOpenPriority(true)}
+      >
+        <div className="flex justify-between items-center gap-2">
+          <div className="flex gap-[1px] items-end justify-center">
+            <Prioritet />
+          </div>
+          <p
+            className="text-black tex-[16px] font-normal font-sans capitalize"
+            style={{ fontFamily: "SF Pro Display" }}
+          >
+            {t("priority")}
+          </p>
+        </div>
+        <div className="flex items-center gap-1 text-gray-400">
+          <p
+            className="font-normal text-[16px] text-customBlack"
+            style={{ fontFamily: "SF Pro Display" }}
+          >
+            {t(`priority_data_${selectPriority}`)}
+          </p>
+          <ArrowRight />
+        </div>
+      </div>
       {openPriority && (
         <div
-          className='bg-black opacity-45 z-10 fixed top-0 w-full h-full'
+          className="bg-black opacity-45 z-10 fixed top-0 w-full h-full"
           onClick={() => setOpenPriority(false)}
         ></div>
       )}
@@ -31,7 +67,7 @@ const Priority = ({
               index + 1 === selectPriority ? "bg-gray-100" : ""
             }  p-4 rounded-xl flex justify-between items-center`}
           >
-            <div className='flex gap-4'>
+            <div className="flex gap-4">
               <div
                 className={index + 1 === selectPriority ? "text-blue-600" : ""}
               >
@@ -46,7 +82,7 @@ const Priority = ({
               } flex justify-center items-center rounded border w-5 h-5`}
             >
               {index + 1 === selectPriority && (
-                <div className='bg-blue-500 w-3 h-3 rounded-sm'></div>
+                <div className="bg-blue-500 w-3 h-3 rounded-sm"></div>
               )}
             </div>
           </div>
