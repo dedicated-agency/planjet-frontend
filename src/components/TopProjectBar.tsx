@@ -62,7 +62,6 @@ export const TopProjectBar = (props: IProps) => {
 
   useEffect(() => {
     group_id && getUsers();
-
   }, [group_id]);
 
   const getUsers = async () => {
@@ -78,8 +77,6 @@ export const TopProjectBar = (props: IProps) => {
     });
     setBarState({openParticipant: false});
   };
-
-
   return (
     <>
       <header style={{top: (state.isAtBottom) ? "34px": 0}} className='transition-all fixed z-20 h-[56px] bg-white w-full max-w-[700px] mx-auto flex justify-between items-center border-b px-[20px]'>
