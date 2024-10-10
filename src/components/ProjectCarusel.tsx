@@ -244,7 +244,7 @@ export const ProjectCarusel = () => {
           <div
             id="tasks-list"
             key={state.index}
-            className='carusel-heighter flex flex-col-reverse px-4 pb-12 items-center justify-start overflow-y-scroll'
+            className='carusel-heighter flex flex-col-reverse px-4 pb-12 items-center justify-end overflow-y-scroll'
           >
             {project && project.tasks.length > 0 ? (
               project.tasks.map((task: IProjectTask, index: number) => (
