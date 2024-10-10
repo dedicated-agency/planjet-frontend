@@ -5,7 +5,7 @@ import Project from "./views/Project";
 import Mytasks from "./views/Mytasks";
 import GroupSettings from "./views/GroupSettings";
 import CreateTask from "./views/CreateTask";
-import CreateTaskFromGroup from "./views/CreateTaskFromGroup";
+import CreateTaskFromGroup from "./views/creteTask/CreateTaskFromGroup";
 import Task from "./views/Task";
 import Events from "./views/Events";
 import Onboarding from "./views/onboarding/Onboarding";

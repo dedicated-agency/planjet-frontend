@@ -1,18 +1,22 @@
 // img
-import { Link } from "react-router-dom";
-import logo from "../../assets/images/logo.png";
 import WebApp from "@twa-dev/sdk";
 import { useEffect } from "react";
 import { t } from "i18next";
-const UsefullCommand = () => {
+import Logo from "../../assets/icons/Logo";
+
+interface IFunction {
+  setPage: (page: number) => void;
+}
+
+const UsefullCommand = ({ setPage }: IFunction) => {
   useEffect(() => {
     WebApp.setHeaderColor("#007AFF");
   }, []);
   return (
     <div className='bg-custom-gradient-blue p-8  h-[100vh]'>
       <div>
-        <div className='h-[130px] flex items-center justify-center'>
-          <img src={logo} alt='' />
+        <div className='h-[120px] flex items-center justify-center'>
+          <Logo />
         </div>
         <div className='h-max mt-2'>
           <p
@@ -36,7 +40,7 @@ const UsefullCommand = () => {
                 {t("create_task")}
               </p>
             </div>
-            {/* <div className='border-l-[2.5px] border-customWhite bg-customWhite flex items-center gap-[12px] p-[16px] rounded-[20px]'>
+            <div className='border-l-[2.5px] border-customWhite bg-customWhite flex items-center gap-[12px] p-[16px] rounded-[20px]'>
               <span
                 className='bg-customBlue py-[3px] px-[6px] rounded-[8px] font-normal text-[17px] text-white'
                 style={{ fontFamily: "SF Pro Display" }}
@@ -49,8 +53,21 @@ const UsefullCommand = () => {
               >
                 {t("show_project_list")}
               </p>
-            </div> */}
-
+            </div>
+            <div className='border-l-[2.5px] border-customWhite bg-customWhite flex items-center gap-[12px] p-[16px] rounded-[20px]'>
+              <span
+                className='bg-customBlue py-[3px] px-[6px] rounded-[8px] font-normal text-[17px] text-white'
+                style={{ fontFamily: "SF Pro Display" }}
+              >
+                /manager
+              </span>
+              <p
+                className='font-medium text-[17px] text-white leading-[20px]'
+                style={{ fontFamily: "SF Pro Display " }}
+              >
+                {"open_app"}
+              </p>
+            </div>
             <div className='border-l-[2.5px] border-customWhite bg-customWhite flex items-center gap-[12px] p-[16px] rounded-[20px]'>
               <span
                 className='bg-customBlue py-[3px] px-[6px] rounded-[8px] font-normal text-[17px] text-white'
@@ -83,13 +100,13 @@ const UsefullCommand = () => {
         </div>
       </div>
       <div className='bg- fixed left-0 right-0 bottom-0 flex flex-col justify-center px-8 h-[100px] pb-[42px]'>
-        <Link
-          to={"/"}
-          className='h-[52px] flex items-center justify-center rounded-[16px] shadow-custom font-medium text-[17px] bg-white '
+        <div
+          onClick={() => setPage(4)}
+          className='h-[52px] flex items-center justify-center rounded-[16px] font-medium text-[17px] bg-customWhite border-2 border-customWhite120 backdrop-blur-[50px] shadow-custom '
           style={{ fontFamily: "SF Pro Display" }}
         >
-          <p className='text-gradient-blue'>{t("understood")}</p>
-        </Link>
+          <p className='text-white'>{t("understood")}</p>
+        </div>
       </div>
       <div className='h-[80px]'></div>
     </div>

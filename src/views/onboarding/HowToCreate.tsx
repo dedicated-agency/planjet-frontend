@@ -1,23 +1,23 @@
 // img
 import { Link } from "react-router-dom";
-import logo from "../../assets/images/logo.png";
 import { useEffect } from "react";
 import WebApp from "@twa-dev/sdk";
 import { t } from "i18next";
+import Logo from "../../assets/icons/Logo";
 
 interface IFunction {
   setPage?: (page: number) => void;
 }
 
-const HowToCreate = ({ setPage }: IFunction) => {  
+const HowToCreate = ({ setPage }: IFunction) => {
   useEffect(() => {
     WebApp.setHeaderColor("#007AFF");
   }, []);
   return (
-    <div className='bg-custom-gradient-blue p-8  h-[100vh]'>
+    <div className='bg-custom-gradient-blue p-8 h-full'>
       <div>
-        <div className='h-[130px] flex items-center justify-center'>
-          <img src={logo} alt='' />
+        <div className='h-[120px] flex items-center justify-center'>
+          <Logo />
         </div>
         <div className='h-max mt-2'>
           <p
@@ -84,16 +84,16 @@ const HowToCreate = ({ setPage }: IFunction) => {
       <div className='fixed left-0 right-0 bottom-0 flex flex-col justify-center px-8 h-[100px] pb-[42px]'>
         {setPage ? (
           <div
-            className='h-[52px] flex items-center justify-center rounded-[16px] shadow-custom font-medium text-[17px] bg-white'
-            style={{ fontFamily: "SF Pro Display " }}
+            className='h-[52px] flex items-center justify-center rounded-[16px] font-medium text-[17px] bg-customWhite border-2 border-customWhite120 backdrop-blur-[50px] shadow-custom'
             onClick={() => setPage(3)}
+            style={{ fontFamily: "SF Pro Display" }}
           >
-            <p className='text-gradient-blue'>{t("next")}</p>
+            <p className='text-white'>{t("next")}</p>
           </div>
         ) : (
           <Link
             to={"/tasks/create/1"}
-            className='h-[52px] flex items-center justify-center rounded-[16px] shadow-custom font-medium text-[17px] bg-white'
+            className='h-[52px] flex items-center justify-center rounded-[16px] font-medium text-[17px] bg-customWhite border-2 border-customWhite120 backdrop-blur-[50px] shadow-custom text-white'
             style={{ fontFamily: "SF Pro Display " }}
           >
             {t("understood")}

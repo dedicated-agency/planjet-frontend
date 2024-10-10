@@ -11,6 +11,7 @@ import useUserColor from "../common/useUserColor";
 import { IUserData } from "../common/sendData";
 import { t } from "i18next";
 import { useUserContext } from "../context/UserContext";
+import { Avatar } from "./mini/Avatar";
 
 const getGroups = async () => {
   return await fetchData("/group/selected", {});
@@ -107,6 +108,12 @@ const BigProjects = () => {
               <div>
                 <div className='flex justify-between'>
                   <div className='flex gap-[8px]'>
+                    <Avatar
+                      image={""}
+                      alt={project.name}
+                      id={project.id}
+                      radius={8}
+                    />
                     <div
                       className=''
                       style={{ color: `rgba(255, 255, 255, 1)` }}

@@ -9,7 +9,7 @@ export const Avatar = (props: {
 }) => {
   const { width, image, alt, radius, id } = props;
 
-  const { color, lightColor } = useUserColor(id);
+  const { color } = useUserColor(id);
   
   return image ? (
     <img
@@ -27,10 +27,10 @@ export const Avatar = (props: {
         width: `${width ? width : 40}px`,
         height: `${width ? width : 40}px`,
         borderRadius: `${radius}px`,
-        background: lightColor,
+        background: `linear-gradient(0deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.12))`,
         color: color
       }}
-      className={`rounded-[${radius}px] border bg-white flex justify-center items-center text-gray-500 uppercase text-lg`}
+      className={`rounded-[${radius}px] border border-customGrey2 backdrop-blur-xl flex justify-center items-center text-gray-500 uppercase text-lg`}
     >
       {alt[0]}
     </div>
