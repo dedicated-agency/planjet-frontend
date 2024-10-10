@@ -15,18 +15,21 @@ const initialState: IInitState = {
   users: [],
   selectedUsers: [],
   openParticipant: false,
+  isAtBottom: false,
 };
 
 interface IInitState {
   users: IUser[];
   selectedUsers: IUser[];
   openParticipant: boolean;
+  isAtBottom: boolean;
 }
 
 interface IStateProp {
   name: string;
   mytasks?: number;
   users: IUser[];
+  isAtBottom: boolean,
 }
 
 interface IProps {
@@ -34,10 +37,11 @@ interface IProps {
   setState: React.Dispatch<Partial<IState>>;
   id: number;
   group_id: number;
+  isMobileDevice: boolean;
 }
 
 export const TopProjectBar = (props: IProps) => {
-  const { state, setState, id, group_id } = props;
+  const { state, setState, id, group_id, isMobileDevice } = props;
   const [barState, setBarState] = useReducer(
     (state: IInitState, setState: Partial<IInitState>) => ({
       ...state,
@@ -59,6 +63,7 @@ export const TopProjectBar = (props: IProps) => {
 
   useEffect(() => {
     group_id && getUsers();
+
   }, [group_id]);
 
   const getUsers = async () => {
@@ -75,9 +80,10 @@ export const TopProjectBar = (props: IProps) => {
     setBarState({openParticipant: false});
   };
 
+
   return (
     <>
-      <header className='fixed z-20 h-[56px] bg-white w-full top-0 max-w-[700px] mx-auto flex justify-between items-center border-b px-[20px]'>
+      <header style={{top: (state.isAtBottom && isMobileDevice) ? "40px": 0}} className='transition-all fixed z-20 h-[56px] bg-white w-full max-w-[700px] mx-auto flex justify-between items-center border-b px-[20px]'>
         <div className='flex items-center text-gray-700 gap-2 cursor-pointer'>
           <Avatar image={""} alt={state.name} radius={8} id={id} />
           <div>
