@@ -42,14 +42,12 @@ const Profile = () => {
           />
         </div>
         <p
-          className='font-medium text-[20px] text-customBlackLight leading-[24px]'
-          style={{ fontFamily: "SF Pro Display" }}
+          className='font-medium text-[20px] text-customBlackLight leading-[24px] font-sfpro'
         >
           {user && user.first_name}
         </p>
         <p
-          className='font-normal text-[14px] text-customBlack1'
-          style={{ fontFamily: "SF Pro Display" }}
+          className='font-normal text-[14px] text-customBlack1 font-sfpro'
         >
           @{user && user.username}
         </p>
@@ -57,8 +55,7 @@ const Profile = () => {
       <div className='flex flex-col gap-[12px]'>
         <Link to={"/language"} className='w-full h-[48px] flex items-center justify-between px-[16px] bg-white rounded-[12px]'>
           <p
-            className='text-[17px] font-normal text-black'
-            style={{ fontFamily: "SF Pro Display" }}
+            className='text-[17px] font-normal text-black font-sfpro'
           >
             {t('settings')}
           </p>
@@ -67,8 +64,7 @@ const Profile = () => {
         <div className='bg-white rounded-[12px] overflow-hidden'>
           <div className='w-full h-[48px] flex items-center justify-between px-[16px] bg-white '>
             <p
-              className='text-[17px] font-normal text-black'
-              style={{ fontFamily: "SF Pro Display" }}
+              className='text-[17px] font-normal text-black font-sfpro'
             >
               {t('documentation')}
             </p>
@@ -76,8 +72,7 @@ const Profile = () => {
           </div>
           <div className='w-full h-[48px] flex items-center justify-between px-[16px] bg-white rounded-[12px]'>
             <p
-              className='text-[17px] font-normal text-black'
-              style={{ fontFamily: "SF Pro Display" }}
+              className='text-[17px] font-normal text-black font-sfpro'
             >
               {t('support')}
             </p>
@@ -87,8 +82,7 @@ const Profile = () => {
         <div className='bg-white rounded-[12px] overflow-hidden'>
           <div className='w-full h-[48px] flex items-center justify-between px-[16px] bg-white '>
             <p
-              className='text-[17px] font-normal text-black'
-              style={{ fontFamily: "SF Pro Display" }}
+              className='text-[17px] font-normal text-black font-sfpro'
             >
               {t('user_agreement')}
             </p>
@@ -96,8 +90,7 @@ const Profile = () => {
           </div>
           <div className='w-full h-[48px] flex items-center justify-between px-[16px] bg-white rounded-[12px]'>
             <p
-              className='text-[17px] font-normal text-black'
-              style={{ fontFamily: "SF Pro Display" }}
+              className='text-[17px] font-normal text-black font-sfpro'
             >
               {t('privacy_policy')}
             </p>

@@ -13,15 +13,13 @@ const NotificationListItem = (props: {title: string, subtitle?: string, checked:
     return <label className='flex justify-between items-center py-[12px] px-[16px] bg-white'>
     <div>
       <p
-        className='text-[17px] font-normal leading-6'
-        style={{ fontFamily: "SF Pro Display " }}
+        className='text-[17px] font-normal leading-6 font-sfpro'
       >
         {title}
       </p>
       {
         subtitle ?      <p
-        className='font-normal text-[13px] text-customBlack leading-3'
-        style={{ fontFamily: "SF Pro Display " }}
+        className='font-normal text-[13px] text-customBlack leading-3 font-sfpro'
       >
         {subtitle}
       </p> : ""

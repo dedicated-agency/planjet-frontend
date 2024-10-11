@@ -44,9 +44,8 @@ const EllipsisText: React.FC<EllipsisTextProps> = ({ text, width }) => {
         whiteSpace: "nowrap", // Bir qatorda ko'rsatish
         textOverflow: "ellipsis",
         display: "block",
-        fontFamily: "SF Pro Display",
       }}
-      className='text-[17px] font-medium leading-6'
+      className='text-[17px] font-medium leading-6 font-sfpro'
     >
       {displayText}
     </div>

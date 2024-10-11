@@ -113,5 +113,8 @@
     "status_settings": "status settings",
     "noti_text": "The bot will send notifications to the group chat at these events",
     "no_comments": "No comments yet",
-    "app_language": "Application language"
+    "app_language": "Application language",
+    "remaining_questions": "Any questions left?",
+    "contact_support": "Contact support – we are always ready to help!",
+    "go_to_home": "go to home"
 }

@@ -198,8 +198,7 @@ export const ProjectCarusel = () => {
                     Number(state.selectedStatus) === Number(status.id)
                       ? "text-gradient-blue"
                       : "text-customBlack"
-                  } font-bold`}
-                  style={{ fontFamily: "SF Pro Display" }}
+                  } font-bold font-sfpro`}
                 >
                   {status.name}
                 </p>
@@ -208,8 +207,7 @@ export const ProjectCarusel = () => {
                     Number(state.selectedStatus) === Number(status.id)
                       ? "bg-custom-gradient-blue"
                       : "bg-customBlack"
-                  } text-white flex items-center justify-center pt-[1px]  min-w-[18px]`}
-                  style={{ fontFamily: "SF Pro Display" }}
+                  } text-white flex items-center justify-center pt-[1px]  min-w-[18px] font-sfpro`}
                 >
                   {status.tasksCount}
                 </p>

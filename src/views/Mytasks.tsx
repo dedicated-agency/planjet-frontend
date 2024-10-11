@@ -177,8 +177,7 @@ const Mytasks = () => {
           <SymbolBorder />
           <div>
             <p
-              className='text-[17px] font-medium text-black leading-5'
-              style={{ fontFamily: "SF Pro Display" }}
+              className='text-[17px] font-medium text-black leading-5 font-sfpro'
             >
               {t("my_tasks")}
             </p>
@@ -189,8 +188,7 @@ const Mytasks = () => {
           onClick={() => setIsOpenProjectFilter(true)}
         >
           <p
-            className='text-[14px] font-[300] text-customBlack'
-            style={{ fontFamily: "SF Pro Display" }}
+            className='text-[14px] font-[300] text-customBlack font-sfpro'
           >
             {selectedProject
               ? selectedProject?.name
@@ -224,8 +222,7 @@ const Mytasks = () => {
                       state.index === index
                         ? "text-gradient-blue"
                         : "text-customBlack"
-                    } font-bold`}
-                    style={{ fontFamily: "SF Pro Display" }}
+                    } font-bold font-sfpro`}
                   >
                     {capitalizeFirstLetter(status.name)}
                   </p>
@@ -234,8 +231,7 @@ const Mytasks = () => {
                       state.index === index
                         ? "bg-custom-gradient-blue"
                         : "bg-customBlack"
-                    } text-white flex  items-center justify-center pt-[2px]  min-w-[18px] `}
-                    style={{ fontFamily: "SF Pro Display" }}
+                    } text-white flex  items-center justify-center pt-[2px]  min-w-[18px] font-sfpro`}
                   >
                     {status.count}
                   </p>
@@ -298,8 +294,7 @@ const Mytasks = () => {
                   id={group.id}
                 />
                 <p
-                  className='font-normal text-[17px] text-black'
-                  style={{ fontFamily: "SF Pro Display" }}
+                  className='font-normal text-[17px] text-black font-sfpro'
                 >
                   {group.name}
                 </p>
@@ -332,8 +327,7 @@ const Mytasks = () => {
                     className='flex items-center justify-between h-[44px] transition-all duration-500 ease-in-out cursor-pointer'
                   >
                     <p
-                      className='font-normal text-[17px] text-black'
-                      style={{ fontFamily: "SF Pro Display" }}
+                      className='font-normal text-[17px] text-black font-sfpro'
                     >
                       {capitalizeFirstLetter(project?.name)}
                     </p>

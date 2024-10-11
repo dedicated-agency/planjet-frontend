@@ -39,14 +39,12 @@ const TimeZone = () => {
       </div>
       <div className='h-[40px] w-full px-[16px] py-[11px] flex justify-between'>
         <p
-          className='text-[13px] text-customGrayDark'
-          style={{ fontFamily: "SF Pro Display" }}
+          className='text-[13px] text-customGrayDark font-sfpro'
         >
           {t('app_language')}
         </p>
         <p
-          className='text-[13px] text-customBlue'
-          style={{ fontFamily: "SF Pro Display" }}
+          className='text-[13px] text-customBlue font-sfpro'
         >
           {t('default')}
         </p>
@@ -56,8 +54,7 @@ const TimeZone = () => {
           {/* Tashkent */}
           <label className='flex justify-between px-4 py-2 items-center'>
             <p
-              className='text-[17px] font-normal text-black'
-              style={{ fontFamily: "SF Pro Display" }}
+              className='text-[17px] font-normal text-black font-sfpro'
             >
               Tashkent
             </p>
@@ -71,8 +68,7 @@ const TimeZone = () => {
             />
             <div className='flex gap-[8px]'>
               <p
-                className='text-[17px] font-normal text-black'
-                style={{ fontFamily: "SF Pro Display" }}
+                className='text-[17px] font-normal text-black font-sfpro'
               >
                 +5:00
               </p>
@@ -84,8 +80,7 @@ const TimeZone = () => {
           {/* Ashgabat */}
           <label className='flex justify-between px-4 py-2 items-center'>
             <p
-              className='text-[17px] font-normal text-black'
-              style={{ fontFamily: "SF Pro Display" }}
+              className='text-[17px] font-normal text-black font-sfpro'
             >
               Ashgabat
             </p>
@@ -99,8 +94,7 @@ const TimeZone = () => {
             />
             <div className='flex gap-[8px]'>
               <p
-                className='text-[17px] font-normal text-black'
-                style={{ fontFamily: "SF Pro Display" }}
+                className='text-[17px] font-normal text-black font-sfpro'
               >
                 +5:00
               </p>
@@ -112,8 +106,7 @@ const TimeZone = () => {
           {/* London */}
           <label className='flex justify-between px-4 py-2 items-center'>
             <p
-              className='text-[17px] font-normal text-black'
-              style={{ fontFamily: "SF Pro Display" }}
+              className='text-[17px] font-normal text-black font-sfpro'
             >
               London
             </p>
@@ -127,8 +120,7 @@ const TimeZone = () => {
             />
             <div className='flex gap-[8px]'>
               <p
-                className='text-[17px] font-normal text-black'
-                style={{ fontFamily: "SF Pro Display" }}
+                className='text-[17px] font-normal text-black font-sfpro'
               >
                 +5:00
               </p>

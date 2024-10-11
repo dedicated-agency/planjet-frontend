@@ -26,8 +26,7 @@ const Events = () => {
       <div className='fixed top-0 left-0 right-0 flex justify-between h-[56px] items-center p-3 bg-[#f2f2f7]'>
         <div className='text-gray-500 h-full w-[60px] flex items-center'></div>
         <p
-          className='font-medium text-[17px] text-customDark capitalize'
-          style={{ fontFamily: "SF Pro Display" }}
+          className='font-medium text-[17px] text-customDark capitalize font-sfpro'
         >
           {t('events')}
         </p>
@@ -36,8 +35,7 @@ const Events = () => {
       <div className='flex flex-col gap-[7px]'>
         {data?.length !== 0 ? (
           <p
-            className='capitalize font-medium text-[15px] text-customBlack'
-            style={{ fontFamily: "SF Pro Display" }}
+            className='capitalize font-medium text-[15px] text-customBlack font-sfpro'
           >
             Today
           </p>
@@ -52,8 +50,7 @@ const Events = () => {
           ) : (
             <div className='w-full flex justify-center mt-10'>
               <p
-                className='capitalize font-medium text-[15px] text-customBlack'
-                style={{ fontFamily: "SF Pro Display" }}
+                className='capitalize font-medium text-[15px] text-customBlack font-sfpro'
               >
                 {t('no_events')}
               </p>

@@ -26,8 +26,8 @@ import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
 import { t } from "i18next";
 import { useUserContext } from "../context/UserContext";
 import { IUser } from "../components/Comment";
-import { IPriority } from "./CreateTaskFromGroup";
 import { IProjectTaskUser } from "../components/ProjectCaruselItem";
+import { IPriority } from "./creteTask/CreateTaskFromGroup";
 
 const getTask = async (id: number) => {
   try {
@@ -44,8 +44,6 @@ const getStatuses = async (id: number) => {
     console.log("getStatuses error: " + error);
   }
 };
-
-
 
 const initialState = {
   users: [],
@@ -81,7 +79,7 @@ const Task = () => {
   }, []);
 
   const { id } = useParams();
-  const { user } = useUserContext()
+  const { user } = useUserContext();
   const lang = user.lang;
   const navigate = useNavigate();
 
@@ -90,9 +88,13 @@ const Task = () => {
       (u: IUser) => u.telegram_id === user.telegram_id,
     );
     if (check) {
-      setState({selectedUsers: state.selectedUsers.filter((u: IUser) => u.telegram_id !== user.telegram_id)})
+      setState({
+        selectedUsers: state.selectedUsers.filter(
+          (u: IUser) => u.telegram_id !== user.telegram_id,
+        ),
+      });
     } else {
-      setState({selectedUsers: [user, ...state.selectedUsers]});
+      setState({ selectedUsers: [user, ...state.selectedUsers] });
     }
   };
 
@@ -103,8 +105,6 @@ const Task = () => {
     }),
     initialState,
   );
-
-  
 
   const {
     data: task,
@@ -117,6 +117,7 @@ const Task = () => {
     () => getStatuses(Number(task?.project_id)),
   );
 
+  console.log(task);
 
   useEffect(() => {
     if (task) getUsers();
@@ -130,28 +131,40 @@ const Task = () => {
         usersArray.map(async (user: IUser) => {
           user.image = await imageCacheChacker(`${user.telegram_id}`);
           return user;
-        })
+        }),
       );
     };
 
     const user = { ...task.user };
     user.image = await imageCacheChacker(task.user.telegram_id);
-  
+
     const selectedUsersPromise = task.taskUser.length
-    ? getUserImages(task.taskUser.map((taskUser: IProjectTaskUser) => taskUser.user))
-    : Promise.resolve([]);
+      ? getUserImages(
+          task.taskUser.map((taskUser: IProjectTaskUser) => taskUser.user),
+        )
+      : Promise.resolve([]);
 
-  const participantsPromise = task.users.length
-    ? getUserImages(task.users)
-    : Promise.resolve([]);
+    const participantsPromise = task.users.length
+      ? getUserImages(task.users)
+      : Promise.resolve([]);
 
-  const commentsPromise = task.taskComment.length
-    ? getUserImages(task.taskComment.map((taskComment: ITaskChange) => ({ ...taskComment, telegram_id: taskComment.user_id })))
-    : Promise.resolve([]);
+    const commentsPromise = task.taskComment.length
+      ? getUserImages(
+          task.taskComment.map((taskComment: ITaskChange) => ({
+            ...taskComment,
+            telegram_id: taskComment.user_id,
+          })),
+        )
+      : Promise.resolve([]);
 
-  const eventsPromise = task.taskChange.length
-    ? getUserImages(task.taskChange.map((taskChange: ITaskChange) => ({ ...taskChange, telegram_id: taskChange.user_id })))
-    : Promise.resolve([]);
+    const eventsPromise = task.taskChange.length
+      ? getUserImages(
+          task.taskChange.map((taskChange: ITaskChange) => ({
+            ...taskChange,
+            telegram_id: taskChange.user_id,
+          })),
+        )
+      : Promise.resolve([]);
 
     const [selectedUsers, participants, comments, events] = await Promise.all([
       selectedUsersPromise,
@@ -162,7 +175,7 @@ const Task = () => {
 
     const details = navigator.userAgent;
     const isMobileDevice = /android|iphone|kindle|ipad/i.test(details);
-  
+
     const data = {
       user,
       selectedUsers,
@@ -219,9 +232,9 @@ const Task = () => {
   };
 
   const archiveTask = async () => {
-    let text = t('send_archive');
+    let text = t("send_archive");
     if (task.is_archive) {
-      text = t('de_archiving');
+      text = t("de_archiving");
     }
     if (confirm(text)) {
       try {
@@ -265,11 +278,16 @@ const Task = () => {
     <>
       <div className='fixed z-10 top-0 left-0 right-0 flex justify-between h-[56px] items-center bg-white p-3 shadow-custom'>
         <Link to={"/projects/" + task.project_id} className='w-[60px] flex'>
-          <Avatar image={""} alt={task.project?.name} radius={8} width={36} id={task.project?.id} />
+          <Avatar
+            image={""}
+            alt={task.project?.name}
+            radius={8}
+            width={36}
+            id={task.project?.id}
+          />
         </Link>
         <p
-          className='font-medium text-[17px] text-black'
-          style={{ fontFamily: "SF Pro Display" }}
+          className='font-medium text-[17px] text-black font-sfpro'
         >
           {capitalizeFirstLetter(task.project?.name)}
         </p>
@@ -283,16 +301,14 @@ const Task = () => {
               <Square />
             </div>
             <p
-              className='font-semibold text-[17px] text-black whitespace-pre-line'
-              style={{ fontFamily: "SF Pro Display" }}
+              className='font-semibold text-[17px] text-black whitespace-pre-line font-sfpro'
             >
               {capitalizeFirstChar(task.name)}
             </p>
           </div>
           {task.description && (
             <p
-              className='text-[14px] text-customBlackLight mt-2 font-normal whitespace-pre-line'
-              style={{ fontFamily: "SF Pro Display" }}
+              className='text-[14px] text-customBlackLight mt-2 font-normal whitespace-pre-line font-sfpro'
             >
               {task.description}
             </p>
@@ -325,15 +341,13 @@ const Task = () => {
                 <Calendar />
               </div>
               <p
-                className='text-black font-normal text-[16px]'
-                style={{ fontFamily: "SF Pro Display " }}
+                className='text-black font-normal text-[16px] font-sfpro'
               >
-                {t('created_at')}
+                {t("created_at")}
               </p>
             </div>
             <p
-              className='text-black font-medium text-[15px]'
-              style={{ fontFamily: "SF Pro Display " }}
+              className='text-black font-medium text-[15px] font-sfpro'
             >
               {task.created_at &&
                 dateTimeConverter.convertTime(task.created_at)}
@@ -345,15 +359,14 @@ const Task = () => {
                 <User />
               </div>
               <p
-                className='text-black font-normal text-[16px]'
-                style={{ fontFamily: "SF Pro Display " }}
+                className='text-black font-normal text-[16px] font-sfpro'
               >
-                {t('author')}
+                {t("author")}
               </p>
             </div>
             <div className='pr-3'>
               <AvatarUser
-                image={state.user && state.user.image || ""}
+                image={(state.user && state.user.image) || ""}
                 alt={task.user ? task.user.name : "No user"}
                 id={task.user.telegram_id}
               />
@@ -361,17 +374,16 @@ const Task = () => {
           </div>
           <div
             className='flex justify-between items-center p-2 h-[44px]'
-            onClick={() => setState({openParticipant: true})}
+            onClick={() => setState({ openParticipant: true })}
           >
             <div className='flex justify-between items-center gap-[16px]'>
               <div className='text-gray-400'>
                 <Users />
               </div>
               <p
-                className='text-black font-normal text-[16px] ml-[-5px]'
-                style={{ fontFamily: "SF Pro Display " }}
+                className='text-black font-normal text-[16px] ml-[-5px] font-sfpro'
               >
-                {capitalizeFirstLetter(t('participant'))}
+                {capitalizeFirstLetter(t("participant"))}
               </p>
             </div>
             <div className='flex items-center gap-[8px]'>
@@ -388,7 +400,7 @@ const Task = () => {
                     ))
                   ) : (
                     <AvatarUser
-                      image={state.user && state.user.image || ""}
+                      image={(state.user && state.user.image) || ""}
                       alt={task.user ? task.user.name : "No user"}
                       id={task.user.telegram_id}
                     />
@@ -405,10 +417,9 @@ const Task = () => {
                   <Calendar />
                 </div>
                 <p
-                  className='text-black font-normal text-[16px]'
-                  style={{ fontFamily: "SF Pro Display " }}
+                  className='text-black font-normal text-[16px] font-sfpro'
                 >
-                  {t('story_point')}
+                  {t("story_point")}
                 </p>
               </div>
               <div className='pr-3'>
@@ -449,14 +460,13 @@ const Task = () => {
                 <Prioritet />
               </div>
               <p
-                className='text-black font-normal text-[16px]'
-                style={{ fontFamily: "SF Pro Display" }}
+                className='text-black font-normal text-[16px] font-sfpro'
               >
-                {capitalizeFirstLetter(t('priority'))}
+                {capitalizeFirstLetter(t("priority"))}
               </p>
             </div>
             <div
-              onClick={() => setState({selectPriority: task.priority})}
+              onClick={() => setState({ selectPriority: task.priority })}
               className={`text-customBlackLight text-[15px] flex items-center gap-[4px] font-sans font-normal ${
                 task.priority === 3
                   ? "bg-[#FDD3D0]"
@@ -475,14 +485,13 @@ const Task = () => {
                 <SymbolB />
               </div>
               <div
-                className='text-black font-normal text-[16px]'
-                style={{ fontFamily: "SF Pro Display " }}
+                className='text-black font-normal text-[16px] font-sfpro'
               >
-                {t('status')}
+                {t("status")}
               </div>
             </div>
             <div
-              onClick={() => setState({selectStatus: task.status.id})}
+              onClick={() => setState({ selectStatus: task.status.id })}
               className={`text-customBlackLight text-[15px] flex items-center gap-[4px] font-sans font-normal ${
                 task.status.name == "To do"
                   ? "bg-[#F2F2F7]"
@@ -513,14 +522,14 @@ const Task = () => {
         >
           <div
             className='flex justify-between items-center px-2'
-            onClick={() => setState({isOpenComment: !state.isOpenComment})}
+            onClick={() => setState({ isOpenComment: !state.isOpenComment })}
           >
             <div className='transition-all flex justify-between items-center gap-2'>
               <div className='flex gap-[1px] items-end justify-center text-gray-400'>
                 <FaRegComment />
               </div>
               <p className='text-gray-400 font-bold font-sans'>
-                {t('comments_and_events')}
+                {t("comments_and_events")}
               </p>
             </div>
             <div className='transition-all flex items-center gap-3'>
@@ -552,7 +561,7 @@ const Task = () => {
                       : "text-gray-400"
                   } transition w-[50%] capitalize rounded-full text-center text-sm font-sans font-bold py-1 cursor-pointer`}
                 >
-                  {t('comments')} {task.taskComment.length}
+                  {t("comments")} {task.taskComment.length}
                 </div>
                 <div
                   onClick={() => setState({ selector: "event" })}
@@ -562,7 +571,7 @@ const Task = () => {
                       : "text-gray-400"
                   } transition w-[50%] capitalize  rounded-full text-center text-sm font-sans font-bold py-1 cursor-pointer`}
                 >
-                  {t('events')} {task.taskChange.length}
+                  {t("events")} {task.taskChange.length}
                 </div>
               </div>
               <CommentAndEvent
@@ -577,13 +586,13 @@ const Task = () => {
         {Number(user.telegram_id) === Number(task.user_id) && (
           <div className='flex mt-5 gap-3'>
             <div
-              onClick={() => setState({isOpenDelete: true})}
+              onClick={() => setState({ isOpenDelete: true })}
               className='w-full h-[55px] bg-gray-300 rounded-xl text-gray-500 flex flex-col justify-center items-center'
             >
               <div>
                 <IoTrash size={20} />
               </div>
-              <p className='text-[12px]'>{t('delete')}</p>
+              <p className='text-[12px]'>{t("delete")}</p>
             </div>
             <div
               onClick={archiveTask}
@@ -592,7 +601,7 @@ const Task = () => {
               <div>
                 <TbArrowBarUp size={20} />
               </div>
-              <p className='text-[12px]'>{t('archive')}</p>
+              <p className='text-[12px]'>{t("archive")}</p>
             </div>
           </div>
         )}
@@ -609,7 +618,7 @@ const Task = () => {
       {state.selectPriority && (
         <div
           className='transition-all bg-black opacity-45 z-10 fixed top-0 w-full h-full'
-          onClick={() => setState({selectPriority: null})}
+          onClick={() => setState({ selectPriority: null })}
         ></div>
       )}
       <div
@@ -621,7 +630,7 @@ const Task = () => {
           <div
             onClick={() => {
               updatePriority(index + 1);
-              setState({selectPriority: null});
+              setState({ selectPriority: null });
             }}
             key={index}
             className={`${
@@ -630,7 +639,9 @@ const Task = () => {
           >
             <div className='flex gap-4'>
               <div
-                className={index + 1 === state.selectPriority ? "text-blue-600" : ""}
+                className={
+                  index + 1 === state.selectPriority ? "text-blue-600" : ""
+                }
               >
                 {priority[lang as keyof IPriority]}
               </div>
@@ -654,7 +665,7 @@ const Task = () => {
         <div
           className='bg-black opacity-45 z-10 fixed top-0 w-full h-full'
           onClick={() => {
-            setState({openParticipant: false});
+            setState({ openParticipant: false });
           }}
         ></div>
       )}
@@ -663,8 +674,7 @@ const Task = () => {
           state.openParticipant ? "bottom-3" : "bottom-[-100%]"
         } overflow-y-scroll max-h-[70%] z-[100] fixed transition-all rounded-[25px] bg-white px-3 py-5 pb-[60px] mb-[10px] left-3 right-3 flex flex-col gap-2 scrollbar-hidden`}
       >
-        {
-          state.participants.length > 0 ?
+        {state.participants.length > 0 ? (
           state.participants.map((user: IUser, index: number) => (
             <div
               key={index}
@@ -674,7 +684,7 @@ const Task = () => {
               className={`${
                 state.selectedUsers.some(
                   (u: IUser) => u.telegram_id === user.telegram_id,
-                ) 
+                )
                   ? "bg-gray-100"
                   : ""
               }  p-4 rounded-xl flex justify-between items-center`}
@@ -689,20 +699,28 @@ const Task = () => {
               </div>
               <div
                 className={`${
-                  state.selectedUsers.some((u: {telegram_id: number}) => u.telegram_id === user.telegram_id)
+                  state.selectedUsers.some(
+                    (u: { telegram_id: number }) =>
+                      u.telegram_id === user.telegram_id,
+                  )
                     ? "border-blue-500"
                     : "border-gray-400"
                 } flex justify-center items-center rounded border w-5 h-5`}
               >
-                {
-                  state.selectedUsers.some((u: {telegram_id: number}) => u.telegram_id === user.telegram_id) ? 
-                  <div className='bg-blue-500 w-3 h-3 rounded-sm'></div> 
-                  : ""
-                }
+                {state.selectedUsers.some(
+                  (u: { telegram_id: number }) =>
+                    u.telegram_id === user.telegram_id,
+                ) ? (
+                  <div className='bg-blue-500 w-3 h-3 rounded-sm'></div>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
-          )) : <Loader/>
-        }
+          ))
+        ) : (
+          <Loader />
+        )}
         <div>
           {state.openParticipant && (
             <div className='bg-white rounded-b-[25px] h-[30px] fixed bottom-3 left-3 right-3'>
@@ -710,7 +728,7 @@ const Task = () => {
                 className=' fixed left-6 right-6 bottom-6 bg-custom-gradient-blue text-white flex justify-center items-center py-4 rounded-xl mt-3'
                 onClick={() => updateParticipants()}
               >
-                {t('choose')}
+                {t("choose")}
               </div>
             </div>
           )}
@@ -719,12 +737,16 @@ const Task = () => {
       {state.isOpenDelete && (
         <div
           className='transition-all bg-black opacity-45 z-10 fixed top-0 w-full h-full'
-          onClick={() => setState({isOpenDelete: false, focusDelete: false})}
+          onClick={() => setState({ isOpenDelete: false, focusDelete: false })}
         ></div>
       )}
       <div
         className={`${
-          state.isOpenDelete ? (state.focusDelete ? "bottom-[30%]" : "bottom-3") : "bottom-[-100%]"
+          state.isOpenDelete
+            ? state.focusDelete
+              ? "bottom-[30%]"
+              : "bottom-3"
+            : "bottom-[-100%]"
         }  z-[100] fixed transition-all rounded-[25px] bg-white px-3 py-5 right-3 left-3 flex flex-col gap-2`}
       >
         <div className='w-full h-[56px] py-[6px] px-[18px] bg-[#F2F2F7] rounded-[16px]'>
@@ -733,15 +755,16 @@ const Task = () => {
             placeholder='Type to here'
             className='w-full h-full bg-transparent outline-none border-none'
             value={state.confirmationInput}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setState({confirmationInput: e.target.value})}
-            onFocus={() => setState({focusDelete: true})}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setState({ confirmationInput: e.target.value })
+            }
+            onFocus={() => setState({ focusDelete: true })}
           />
         </div>
         <p
-          className='text-[16px] font-normal text-customGrayDark px-3 mt-2 leading-4'
-          style={{ fontFamily: "SF Pro Display" }}
+          className='text-[16px] font-normal text-customGrayDark px-3 mt-2 leading-4 font-sfpro'
         >
-          {t('delete_confirmation')}
+          {t("delete_confirmation")}
         </p>
         <div>
           {state.isOpenDelete && (
@@ -749,10 +772,10 @@ const Task = () => {
               <div
                 className='w-[50%] bottom-[22px] bg-custom-gradient-blue text-white flex justify-center items-center py-4 left-6 right-6 rounded-xl mt-3 capitalize'
                 onClick={() => {
-                  setState({confirmationInput: '', isOpenDelete: false})
+                  setState({ confirmationInput: "", isOpenDelete: false });
                 }}
               >
-                {t('cancel')}
+                {t("cancel")}
               </div>
 
               {state.confirmationInput === "I'm Sure" ? (
@@ -760,11 +783,11 @@ const Task = () => {
                   className='w-[50%] bottom-[22px] bg-[#FF3B30] text-white flex justify-center items-center py-4 left-6 right-6 rounded-xl mt-3 cursor-pointer'
                   onClick={() => deleteTask()}
                 >
-                  {t('delete')}
+                  {t("delete")}
                 </div>
               ) : (
                 <div className='w-[50%] bottom-[22px] bg-[#FDD3D0] text-white flex justify-center items-center py-4 left-6 right-6 rounded-xl mt-3 cursor-pointer'>
-                  {t('delete')}
+                  {t("delete")}
                 </div>
               )}
             </div>
@@ -779,18 +802,12 @@ export default Task;
 
 export const priorities = [
   {
-    uz: "Past",
-    ru: "Низкий",
-    en: "Low",
+    title: t("priority_data_1"),
   },
   {
-    uz: "O'rta",
-    ru: "Средний",
-    en: "Medium",
+    title: t("priority_data_2"),
   },
   {
-    uz: "Yuqori",
-    ru: "Высокий",
-    en: "High",
+    title: t("priority_data_3"),
   },
 ];

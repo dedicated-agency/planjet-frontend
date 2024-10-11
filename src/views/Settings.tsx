@@ -12,8 +12,7 @@ const Settings = () => {
     <div className='px-3 mt-2'>
       <div className="h-[40px] w-full px-[16px] py-[11px]">
         <p
-          className='text-[13px] text-customGrayDark'
-          style={{ fontFamily: "SF Pro Display" }}
+          className='text-[13px] text-customGrayDark font-sfpro'
         >
           {t('app_settings')}
         </p>
@@ -24,8 +23,7 @@ const Settings = () => {
           className='w-full h-[48px] flex items-center justify-between px-[16px] bg-white'
         >
           <p
-            className='text-[17px] font-normal text-black'
-            style={{ fontFamily: "SF Pro Display" }}
+            className='text-[17px] font-normal text-black font-sfpro'
           >
             {t('app_language')}
           </p>
@@ -33,8 +31,7 @@ const Settings = () => {
         </Link>
         {/* <Link to={"/timezone"} className='w-full h-[48px] flex items-center justify-between px-[16px] bg-white rounded-[12px]'>
           <p
-            className='text-[17px] font-normal text-black'
-            style={{ fontFamily: "SF Pro Display" }}
+            className='text-[17px] font-normal text-black font-sfpro'
           >
             {t('time_zone}
           </p>

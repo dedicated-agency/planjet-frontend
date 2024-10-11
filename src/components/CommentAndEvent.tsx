@@ -151,8 +151,7 @@ const CommentAndEvent = (props: {
                       size={13}
                     />
                     <span
-                      className='ml-2 font-sans text-[15px] text-blue-500 font-[400]'
-                      style={{ fontFamily: "SF Pro Display" }}
+                      className='ml-2 text-[15px] text-blue-500 font-[400] font-sfpro'
                     >
                       {eventElement.user.name}
                     </span>
@@ -163,16 +162,14 @@ const CommentAndEvent = (props: {
                   <div className='mt-3  font-sans text-sm  font-[500]'>
                     {eventElement.type === "created" && (
                       <p
-                        className='text-[13px] font-medium text-customBlackLight'
-                        style={{ fontFamily: "SF Pro Display" }}
+                        className='text-[13px] font-medium text-customBlackLight font-sfpro'
                       >
                         {t("created_task")}
                       </p>
                     )}
                     {eventElement.type === "archive" && (
                       <p
-                        className='text-[13px] font-medium text-customBlackLight'
-                        style={{ fontFamily: "SF Pro Display" }}
+                        className='text-[13px] font-medium text-customBlackLight font-sfpro'
                       >
                         {eventElement.new_value}
                       </p>
@@ -180,8 +177,7 @@ const CommentAndEvent = (props: {
                     {eventElement.type === "status" && (
                       <>
                         <p
-                          className='text-[13px] font-medium text-customBlackLight pb-[10px]'
-                          style={{ fontFamily: "SF Pro Display" }}
+                          className='text-[13px] font-medium text-customBlackLight pb-[10px] font-sfpro'
                         >
                           {t("change_status")}
                         </p>
@@ -204,8 +200,7 @@ const CommentAndEvent = (props: {
                     {eventElement.type === "priority" && (
                       <>
                         <p
-                          className='text-[13px] font-medium text-customBlackLight pb-[10px]'
-                          style={{ fontFamily: "SF Pro Display" }}
+                          className='text-[13px] font-medium text-customBlackLight pb-[10px] font-sfpro'
                         >
                           {t("priority_change")}
                         </p>
@@ -230,8 +225,7 @@ const CommentAndEvent = (props: {
                     {eventElement.type === "comment" && (
                       <>
                         <p
-                          className='text-[13px] font-medium text-customBlackLight pb-[5px]'
-                          style={{ fontFamily: "SF Pro Display" }}
+                          className='text-[13px] font-medium text-customBlackLight pb-[5px] font-sfpro'
                         >
                           {t("comment")}
                         </p>
@@ -245,8 +239,7 @@ const CommentAndEvent = (props: {
                     {eventElement.type === "participant" && (
                       <>
                         <p
-                          className='text-[13px] font-medium text-customBlackLight pb-[5px]'
-                          style={{ fontFamily: "SF Pro Display" }}
+                          className='text-[13px] font-medium text-customBlackLight pb-[5px] font-sfpro'
                         >
                           {t("participants_changed")}
                         </p>

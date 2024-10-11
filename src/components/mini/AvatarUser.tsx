@@ -16,13 +16,11 @@ export const AvatarUser = (props: {
       alt={props.alt}
       className={`w-[${props.width ? props.width : 24}px] h-[${
         props.height ? props.height : 24
-      }px] min-w-[${props.width ? props.width : 24}px] rounded-full border-[2px] border-customWhite2 ${
+      }px] min-w-[${props.width ? props.width : 24}px] object-cover rounded-full border-[2px] border-customWhite2 ${
         props.mr ? "" : "mr-[-12px] "
       }`}
       style={{
-        fontFamily: "SF Pro Display",
-        backgroundColor: lightColor,
-        color: color,
+        minWidth: `${props.width ? props.width : 24}px`,
         minHeight: `${props.width ? props.width : 24}px`
       }}
     />
@@ -32,10 +30,9 @@ export const AvatarUser = (props: {
         props.width ? props.width : 24
       }px] h-[${props.width ? props.width : 24}px] min-w-[${
         props.width ? props.width : 24
-      }px] rounded-full border-[1.5px] border-customWhite2 bg-gray-100 flex justify-center items-center text-customBlack uppercase text-md`}
+      }px] rounded-full border-[1.5px] border-customWhite2 bg-gray-100 flex justify-center items-center text-customBlack uppercase text-md font-sfpro`}
       style={{
-        fontFamily: "SF Pro Display",
-        backgroundColor: lightColor,
+        background: lightColor.color,
         color: color,
         minHeight: `${props.width ? props.width : 24}px`
       }}

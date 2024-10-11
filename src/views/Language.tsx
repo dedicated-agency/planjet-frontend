@@ -24,14 +24,12 @@ const Language = () => {
     <div className='px-3 my-2'>
       <div className='h-[40px] w-full px-[16px] py-[11px] flex justify-between'>
         <p
-          className='text-[13px] text-customGrayDark'
-          style={{ fontFamily: "SF Pro Display" }}
+          className='text-[13px] text-customGrayDark font-sfpro'
         >
           {t('app_language')}
         </p>
         <p
-          className='text-[13px] text-customBlue'
-          style={{ fontFamily: "SF Pro Display" }}
+          className='text-[13px] text-customBlue font-sfpro'
         >
           {t('default')}
         </p>
@@ -41,8 +39,7 @@ const Language = () => {
           {/* English */}
           <label className='flex justify-between px-4 py-2 items-center' onClick={() => handleLanguageChange("en")}>
             <p
-              className='text-[17px] font-normal text-black'
-              style={{ fontFamily: "SF Pro Display" }}
+              className='text-[17px] font-normal text-black font-sfpro'
             >
               English
             </p>
@@ -59,8 +56,7 @@ const Language = () => {
             onClick={() => handleLanguageChange("ru")}
           >
             <p
-              className='text-[17px] font-normal text-black'
-              style={{ fontFamily: "SF Pro Display" }}
+              className='text-[17px] font-normal text-black font-sfpro'
             >
               Русский
             </p>
@@ -76,8 +72,7 @@ const Language = () => {
           <label className='flex justify-between px-4 py-2 items-center' 
             onClick={() => handleLanguageChange("uz")}>
             <p
-              className='text-[17px] font-normal text-black'
-              style={{ fontFamily: "SF Pro Display" }}
+              className='text-[17px] font-normal text-black font-sfpro'
             >
               Uzbek
             </p>
@@ -91,8 +86,7 @@ const Language = () => {
           </label>
         </div>
         <p
-          className='text-[13px] font-normal text-customGrayDark px-3 mt-2'
-          style={{ fontFamily: "SF Pro Display" }}
+          className='text-[13px] font-normal text-customGrayDark px-3 mt-2 font-sfpro'
         >
           {t('select_notification_language')}
         </p>

@@ -10,6 +10,7 @@ import getUsersData from "../common/getUsersData";
 import { t } from "i18next";
 import { IUser } from "./Comment";
 import { IState } from "./ProjectCarusel";
+import capitalizeFirstLetter from "../common/capitalizeFirstLetter";
 
 const initialState: IInitState = {
   users: [],
@@ -81,17 +82,15 @@ export const TopProjectBar = (props: IProps) => {
           <Avatar image={""} alt={state.name} radius={8} id={id} />
           <div>
             <p
-              className='text-[17px] text-black leading-6'
-              style={{ fontFamily: "SF Pro Display" }}
+              className='text-[17px] text-black leading-6 font-sfpro'
             >
-              {state.name}
+              {capitalizeFirstLetter(state.name)}
             </p>
             {state.mytasks ? (
               ""
             ) : (
               <p
-                className='text-[13px] text-customGrayDark leading-3'
-                style={{ fontFamily: "SF Pro Display" }}
+                className='text-[13px] text-customGrayDark leading-3 font-sfpro'
               >
                 {state.users && state.users.length} {t('participant')}
               </p>

@@ -135,8 +135,7 @@ const GroupSettings = () => {
         <label className='flex justify-between items-center py-[12px] px-[16px] bg-white'>
           <div>
             <p
-              className='text-[17px] font-normal leading-6'
-              style={{ fontFamily: "SF Pro Display " }}
+              className='text-[17px] font-normal leading-6 font-sfpro'
             >
               {t('to_do')}
             </p>
@@ -156,8 +155,7 @@ const GroupSettings = () => {
         <label className='flex justify-between items-center py-[12px] px-[16px] bg-white'>
           <div>
             <p
-              className='text-[17px] font-normal leading-6'
-              style={{ fontFamily: "SF Pro Display " }}
+              className='text-[17px] font-normal leading-6 font-sfpro'
             >
               {t('in_progress')}
             </p>
@@ -178,8 +176,7 @@ const GroupSettings = () => {
         <label className='flex justify-between items-center py-[12px] px-[16px] bg-white'>
           <div>
             <p
-              className='text-[17px] font-normal leading-6'
-              style={{ fontFamily: "SF Pro Display " }}
+              className='text-[17px] font-normal leading-6 font-sfpro'
             >
               {t('testing')}
             </p>
@@ -199,8 +196,7 @@ const GroupSettings = () => {
         <label className='flex justify-between items-center py-[12px] px-[16px] bg-white'>
           <div>
             <p
-              className='text-[17px] font-normal leading-6 capitalize'
-              style={{ fontFamily: "SF Pro Display " }}
+              className='text-[17px] font-normal leading-6 capitalize font-sfpro'
             >
               {t('completed')}
             </p>
@@ -242,14 +238,12 @@ const GroupSettings = () => {
         <label className='flex justify-between items-center py-[12px] px-[16px] bg-white'>
           <div>
             <p
-              className='text-[17px] font-normal leading-6'
-              style={{ fontFamily: "SF Pro Display " }}
+              className='text-[17px] font-normal leading-6 font-sfpro'
             >
               {t('create_task')}
             </p>
             <p
-              className='font-normal text-[13px] text-customBlack leading-3'
-              style={{ fontFamily: "SF Pro Display " }}
+              className='font-normal text-[13px] text-customBlack leading-3 font-sfpro'
             >
               /add
             </p>
@@ -269,14 +263,12 @@ const GroupSettings = () => {
         <label className='flex justify-between items-center py-[12px] px-[16px] bg-white'>
           <div>
             <p
-              className='text-[17px] font-normal leading-6'
-              style={{ fontFamily: "SF Pro Display " }}
+              className='text-[17px] font-normal leading-6 font-sfpro'
             >
               {t('edit_task')}
             </p>
             <p
-              className='font-normal text-[13px] text-customBlack leading-3'
-              style={{ fontFamily: "SF Pro Display " }}
+              className='font-normal text-[13px] text-customBlack leading-3 font-sfpro'
             >
               /edit
             </p>
@@ -297,14 +289,12 @@ const GroupSettings = () => {
         <label className='flex justify-between items-center py-[12px] px-[16px] bg-white'>
           <div>
             <p
-              className='text-[17px] font-normal leading-6'
-              style={{ fontFamily: "SF Pro Display " }}
+              className='text-[17px] font-normal leading-6 font-sfpro'
             >
               {t('add_task_to_archive')}
             </p>
             <p
-              className='font-normal text-[13px] text-customBlack leading-3'
-              style={{ fontFamily: "SF Pro Display " }}
+              className='font-normal text-[13px] text-customBlack leading-3 font-sfpro'
             >
               /archive
             </p>
@@ -324,14 +314,12 @@ const GroupSettings = () => {
         <label className='flex justify-between items-center py-[12px] px-[16px] bg-white'>
           <div>
             <p
-              className='text-[17px] font-normal leading-6'
-              style={{ fontFamily: "SF Pro Display " }}
+              className='text-[17px] font-normal leading-6 font-sfpro'
             >
               {t('delete_task')}
             </p>
             <p
-              className='font-normal text-[13px] text-customBlack leading-3'
-              style={{ fontFamily: "SF Pro Display " }}
+              className='font-normal text-[13px] text-customBlack leading-3 font-sfpro'
             >
               /delete
             </p>
@@ -357,8 +345,7 @@ const GroupSettings = () => {
         <label className='flex justify-between items-center py-[12px] px-[16px] bg-white'>
           <div>
             <p
-              className='text-[17px] font-normal leading-6'
-              style={{ fontFamily: "SF Pro Display" }}
+              className='text-[17px] font-normal leading-6 font-sfpro'
             >
               {t('show_comments')}
             </p>
@@ -411,8 +398,7 @@ const GroupSettings = () => {
       </div>
       <div
         onClick={deleteProject}
-        className='h-[50px] flex items-center justify-center mt-4 mb-[42px] rounded-xl bg-gray-300 text-customRed text-[17px] font-medium'
-        style={{ fontFamily: "SF Pro Display" }}
+        className='h-[50px] flex items-center justify-center mt-4 mb-[42px] rounded-xl bg-gray-300 text-customRed text-[17px] font-medium font-sfpro'
       >
         {capitalizeFirstLetter(t('delete') + " " + t('project'))}
       </div>

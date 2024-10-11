@@ -115,7 +115,10 @@
         "delete_confirmation": "Are you sure you want to delete this task? Please type \"I'm Sure\" to delete.",
         "recent_events": "Recent Events",
         "status_settings": "status settings",
-        "noti_text": "The bot will send notifications to the group chat at these events"
+        "noti_text": "The bot will send notifications to the group chat at these events",
+        "remaining_questions": "Any questions left?",
+        "contact_support": "Contact support – we are always ready to help!",
+        "go_to_home": "go to home"
     },
     "ru": {
         "my_tasks": "Мои задачи",
@@ -232,6 +235,9 @@
         "delete_confirmation": "Вы уверены, что хотите удалить эту задачу? Чтобы удалить, введите \"I'm Sure\".",
         "recent_events": "Недавние события",
         "status_settings": "Настройки статусов",
-        "noti_text": "Бот будет присылать уведомления в групповой чат при этих событиях"
+        "noti_text": "Бот будет присылать уведомления в групповой чат при этих событиях",
+        "remaining_questions": "Остались вопросы?",
+        "contact_support": "напишите в поддержку – мы всегда готовы помочь!",
+        "go_to_home": "на главную"
     }
 }

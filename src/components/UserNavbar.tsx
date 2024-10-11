@@ -32,8 +32,7 @@ const UserNavbar = () => {
           />
         </Link>
         <p
-          className='text-[17px] font-medium text-customBlackLight'
-          style={{ fontFamily: "SF Pro Display" }}
+          className='text-[17px] font-medium text-customBlackLight font-sfpro'
         >
           {user && user.first_name}
         </p>
@@ -44,8 +43,7 @@ const UserNavbar = () => {
         </Link>
         {/* <div className='w-[73px] h-[28px] flex items-center justify-center bg-custom-gradient-blue rounded-[8px]'>
           <p
-            className='text-[13px] text-white font-medium'
-            style={{ fontFamily: "SF Pro Display" }}
+            className='text-[13px] text-white font-medium font-sfpro'
           >
             Premium
           </p>

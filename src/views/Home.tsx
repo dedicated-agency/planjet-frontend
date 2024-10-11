@@ -67,8 +67,7 @@ const Home = () => {
           <div className='flex gap-[12px] items-center'>
             <SymbolFill />
             <p
-              className='h-full flex items-center text-[17px] text-black font-medium'
-              style={{ fontFamily: "SF Pro Display" }}
+              className='h-full flex items-center text-[17px] text-black font-medium font-sfpro'
             >
               {t('my_tasks')}
             </p>

@@ -73,14 +73,12 @@ const Projects = () => {
             <Avatar image={""} alt={data.name} width={48} radius={12} id={Number(id)} />
             <div>
               <p
-                className='text-[17px] text-white font-medium p-0 m-0'
-                style={{ fontFamily: "SF Pro Display " }}
+                className='text-[17px] text-white font-medium p-0 m-0 font-sfpro'
               >
                 {data.name}
               </p>
               <p
-                className='text-[12px] text-gray-300'
-                style={{ fontFamily: "SF Pro Display " }}
+                className='text-[12px] text-gray-300 font-sfpro'
               >
                 {data.groupUsers.length} {t('participant')}
               </p>
@@ -149,16 +147,14 @@ const Projects = () => {
                 <div className='flex items-center gap-3'>
                   <Avatar image={""} alt={"#"} width={28} radius={6} id={item.id} />
                   <p
-                    className='text-[17px] text-black'
-                    style={{ fontFamily: "SF Pro Display " }}
+                    className='text-[17px] text-black font-sfpro'
                   >
                     {item.name}
                   </p>
                 </div>
                 <div className='flex items-center gap-1'>
                   <div
-                    className='text-[13px] font-bold text-white bg-customGrey1 px-[4px] py-[2px] rounded-3xl min-w-[20px] text-center'
-                    style={{ fontFamily: "SF Pro Display " }}
+                    className='text-[13px] font-bold text-white bg-customGrey1 px-[4px] py-[2px] rounded-3xl min-w-[20px] text-center font-sfpro'
                   >
                     {item.tasks.length}
                   </div>
@@ -188,16 +184,14 @@ const Projects = () => {
                         id={item.id}
                       />
                       <p
-                        className='text-[17px] text-black capitalize'
-                        style={{ fontFamily: "SF Pro Display " }}
+                        className='text-[17px] text-black capitalize font-sfpro'
                       >
                         {item.name}
                       </p>
                     </div>
                     <div className='flex items-center gap-1'>
                       <div
-                        className='text-[12px] font-bold text-blue-500 bg-blue-200 px-[4px] py-[2px] rounded-3xl min-w-[20px] text-center'
-                        style={{ fontFamily: "SF Pro Display " }}
+                        className='text-[12px] font-bold text-blue-500 bg-blue-200 px-[4px] py-[2px] rounded-3xl min-w-[20px] text-center font-sfpro'
                       >
                         {item.tasks.length}
                       </div>
@@ -240,14 +234,12 @@ const Projects = () => {
               />
               <div className='ml-3'>
                 <p
-                  className='text-[17px] font-normal text-black leading-5'
-                  style={{ fontFamily: "SF Pro Display" }}
+                  className='text-[17px] font-normal text-black leading-5 font-sfpro'
                 >
                   {user.user.name}
                 </p>
                 <p
-                  className='text-[14px] font-normal text-customBlack leading-3'
-                  style={{ fontFamily: "SF Pro Display" }}
+                  className='text-[14px] font-normal text-customBlack leading-3 font-sfpro'
                 >
                   @{user.user.username}
                 </p>
