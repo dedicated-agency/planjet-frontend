@@ -29,16 +29,14 @@ const Priority = ({ setSelectPriority, selectPriority }: Props) => {
             <Prioritet />
           </div>
           <p
-            className="text-black tex-[16px] font-normal font-sans capitalize"
-            style={{ fontFamily: "SF Pro Display" }}
+            className="text-black tex-[16px] font-normal capitalize font-sfpro"
           >
             {t("priority")}
           </p>
         </div>
         <div className="flex items-center gap-1 text-gray-400">
           <p
-            className="font-normal text-[16px] text-customBlack"
-            style={{ fontFamily: "SF Pro Display" }}
+            className="font-normal text-[16px] text-customBlack font-sfpro"
           >
             {t(`priority_data_${selectPriority}`)}
           </p>

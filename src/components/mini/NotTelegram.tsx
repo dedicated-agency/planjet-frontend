@@ -7,11 +7,11 @@ const NotTelegram = () => {
       <div className="text-center">
           <div className="text-white text-3xl font-bold mb-6 flex justify-center items-center gap-2">
             <img src={mainlogo} alt="tg" className="h-[30px]" /> 
-            <span className="text-4xl">PlanJet</span>
+            <span className="text-4xl font-sfpro">PlanJet</span>
           </div>
-          <p className="text-white text-lg mb-12 font-bold px-3">Внедряйте наш инструмент для упрощения работы в Telegram</p>
+          <p className="text-white text-lg mb-12 font-bold px-3 font-sfpro">Внедряйте наш инструмент для упрощения работы в Telegram</p>
           <a href="https://t.me/plan_jet_bot/PlanJet" className="font-bold bg-white text-blue-500 px-6 py-3 rounded-full inline-flex items-center space-x-2">
-              <span>Начать</span>
+              <span className="font-sfpro">Начать</span>
               <img src={tg} alt="tg" />
           </a>
       </div>

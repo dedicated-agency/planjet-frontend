@@ -17,16 +17,10 @@ const ForQuestion = () => {
           <Logo />
         </div>
         <div className='flex flex-col gap-6'>
-          <p
-            className='font-medium text-4xl leading-10 text-white text-center'
-            style={{ fontFamily: "SF Pro Display" }}
-          >
+          <p className='font-medium text-4xl leading-10 text-white text-center font-sfpro'>
             {t("remaining_questions")}
           </p>
-          <p
-            className='font-medium text-xl text-white leading-6 text-center'
-            style={{ fontFamily: "SF Pro Display" }}
-          >
+          <p className='font-medium text-xl text-white leading-6 text-center font-sfpro'>
             {capitalizeFirstLetter(t("contact_support"))}
           </p>
         </div>
@@ -41,8 +35,7 @@ const ForQuestion = () => {
       <div className='fixed left-0 right-0 bottom-0 flex flex-col justify-center px-8 h-[100px] pb-[42px]'>
         <Link
           to={"/"}
-          className='h-[52px] flex items-center justify-center rounded-[16px] font-medium text-[17px] bg-customWhite border-2 border-customWhite120 backdrop-blur-[50px] shadow-custom '
-          style={{ fontFamily: "SF Pro Display" }}
+          className='h-[52px] flex items-center justify-center rounded-[16px] font-medium text-[17px] bg-customWhite border-2 border-customWhite120 backdrop-blur-[50px] shadow-custom font-sfpro'
         >
           <p className='text-white'>{capitalizeFirstLetter(t("go_to_home"))}</p>
         </Link>

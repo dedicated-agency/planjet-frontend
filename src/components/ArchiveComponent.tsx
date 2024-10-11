@@ -22,21 +22,18 @@ const ArchiveComponent = (props: IArchive) => {
   return (
     <Link to={`tasks/${props.archive.id}`} className='bg-white p-[16px] rounded-[16px]'>
       <p
-        className='font-medium text-[17px] text-customBlack1E single-line-ellipsis'
-        style={{ fontFamily: "SF Pro Display" }}
+        className='font-medium text-[17px] text-customBlack1E single-line-ellipsis font-sfpro'
       >
         {capitalizeFirstLetter(props.archive.name)}
       </p>
       <p
-        className='font-light text-[14px] text-customBlack mt-1 mb-1 duo-line-ellipsis'
-        style={{ fontFamily: "SF Pro Display" }}
+        className='font-light text-[14px] text-customBlack mt-1 mb-1 duo-line-ellipsis font-sfpro'
       >
         {capitalizeFirstLetter(props.archive.description)}
       </p>
       <div className='flex items-center justify-between mt-3'>
         <p
-          className='font-medium text-[13px] text-customBlack'
-          style={{ fontFamily: "SF Pro Display" }}
+          className='font-medium text-[13px] text-customBlack font-sfpro'
         >
           {dateTimeConverter.convertTime(props.archive.created_at)}
         </p>

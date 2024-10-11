@@ -11,8 +11,7 @@ const Command = ({ handleOnboardingClose }: ICommand) => {
     <div className='bg-white shadow-custom p-[16px] rounded-[16px] mb-3'>
       <div className='flex justify-between items-center'>
         <p
-          className='font-medium text-[17px]'
-          style={{ fontFamily: "SF Pro Display" }}
+          className='font-medium text-[17px] font-sfpro'
         >
           {t('useful_commands')}
         </p>
@@ -24,15 +23,13 @@ const Command = ({ handleOnboardingClose }: ICommand) => {
         </div>
       </div>
       <p
-        className='font-light text-[14px] text-customBlack mt-1'
-        style={{ fontFamily: "SF Pro Display" }}
+        className='font-light text-[14px] text-customBlack mt-1 font-sfpro'
       >
         {t('bot_commands_for_simplified_work')}
       </p>
       <Link
         to={"/onboarding"}
-        className='w-[72px] h-[28px] bg-custom-gradient-blue flex justify-center items-center rounded-[8px] cursor-pointer mt-2 text-white text-[13px] font-medium'
-        style={{ fontFamily: "SF Pro Display" }}
+        className='w-[72px] h-[28px] bg-custom-gradient-blue flex justify-center items-center rounded-[8px] cursor-pointer mt-2 text-white text-[13px] font-medium font-sfpro'
       >
         {t('study')}
       </Link>

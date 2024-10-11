@@ -4,16 +4,28 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/mainlogo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no, viewport-fit=cover">
-
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>PlanJet</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-      </style>
+    <script src="https://telegram.org/js/telegram-web-app.js" ></script>
+    <script src="https://unpkg.com/@telegram-apps/sdk@1.0.0/dist/index.iife.js" ></script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="wrap">
+        <div id="root"></div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      (function() {
+        var { retrieveLaunchParams, postEvent } = window.telegramApps.sdk;
+        var lp = retrieveLaunchParams();
+        if (['macos', 'tdesktop', 'weba', 'web', 'webk'].includes(lp.platform)) {
+          return;
+        }
+        postEvent('web_app_expand');
+        document.body.classList.add('mobile-body');
+        document.getElementById('wrap').classList.add('mobile-wrap');
+        document.getElementById('root').classList.add('mobile-content');
+      })();
+    </script>
   </body>
 </html>

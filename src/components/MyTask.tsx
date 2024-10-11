@@ -33,15 +33,13 @@ const ProjectCaruselItem = (props: IProjectProps) => {
         >
           <div className='flex justify-between items-center mb-2 relative'>
             <p
-              className='text[17px] text-customDark1 font-sans font-[500] single-line-ellipsis'
-              style={{ fontFamily: "SF Pro Display" }}
+              className='text[17px] text-customDark1 font-[500] single-line-ellipsis font-sfpro'
             >
               {capitalizeFirstLetter(project.name)}
             </p>
           </div>
           <p
-            className='text-sm text-customBlack font-sans font-normal duo-line-ellipsis'
-            style={{ fontFamily: "SF Pro Display" }}
+            className='text-sm text-customBlack font-normal duo-line-ellipsis font-sfpro'
           >
             {project.description}
           </p>

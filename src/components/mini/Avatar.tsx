@@ -6,10 +6,17 @@ export const Avatar = (props: {
   width?: number;
   radius?: number;
   id?: number;
+  bgColor?: boolean;
 }) => {
-  const { width, image, alt, radius, id } = props;
+  const { width, image, alt, radius, id, bgColor } = props;
 
-  const { color } = useUserColor(id);
+  const initials = alt
+    .split(" ")
+    .slice(0, 2)
+    .map((word) => word[0])
+    .join("")
+
+  const { color, lightColor } = useUserColor(id);
   
   return image ? (
     <img
@@ -27,12 +34,12 @@ export const Avatar = (props: {
         width: `${width ? width : 40}px`,
         height: `${width ? width : 40}px`,
         borderRadius: `${radius}px`,
-        background: `linear-gradient(0deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.12))`,
+        background: `${!bgColor ? lightColor.color : "linear-gradient(0deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.12))"}`,
         color: color
       }}
-      className={`rounded-[${radius}px] border border-customGrey2 backdrop-blur-xl flex justify-center items-center text-gray-500 uppercase text-lg`}
+      className={`rounded-[${radius}px] border border-customGrey2 backdrop-blur-xl flex justify-center items-center text-gray-500 uppercase shadow-custom60`}
     >
-      {alt[0]}
+      {initials}
     </div>
   );
 };

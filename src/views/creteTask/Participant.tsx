@@ -1,17 +1,99 @@
 import { t } from "i18next";
 import { IUser } from "../../components/Comment";
 import { AvatarUser } from "../../components/mini/AvatarUser";
+import ArrowRight from "../../assets/icons/ArrowRight";
+import User from "../../assets/icons/User";
+import { useEffect, useState } from "react";
+import getUsersData from "../../common/getUsersData";
+
+interface IParticipant {
+  setSelectedUsers: (users: IUser[]) => void;
+  selectedUsers: IUser[];
+  project: IParticipantProject;
+  project_id: number;
+}
+
+interface IParticipantProject {
+  group_id: number
+}
+
 
 const Participant = ({
-  openParticipant,
-  setOpenParticipant,
   setSelectedUsers,
-  users,
-  setParticipants,
-  selectedUsers
-}: any) => {
+  selectedUsers,
+  project,
+  project_id
+}: IParticipant) => {
+  const [users, setUsers] = useState([]);
+  const [openParticipant, setOpenParticipant] = useState(false);
+
+  console.log(project);
+  
+
+  useEffect(() => {
+    if (project) {
+      getUsers();
+    }
+  }, [project, project_id]);
+
+  const getUsers = async () => {
+    const result = await getUsersData(`${project.group_id}`);
+    // console.log({ result });
+    // @ts-ignore
+    setUsers(result);
+  };
+
+  const setParticipants = (user: IUser) => {
+    const check = selectedUsers.some(
+      (u: IUser) => u.telegram_id === user.telegram_id,
+    );
+    if (check) {
+      setSelectedUsers(
+        selectedUsers.filter((u: IUser) => u.telegram_id !== user.telegram_id),
+      );
+    } else {
+      setSelectedUsers([user, ...selectedUsers]);
+    }
+  };
   return (
     <>
+      <div className='h-[44px] flex justify-between items-center px-[16px]'>
+        <div className='flex justify-between items-center gap-2'>
+          <div className='text-gray-400'>
+            <User />
+          </div>
+          <p
+            className='text-black tex-[16px] font-normal capitalize font-sfpro'
+          >
+            {t("participant")}
+          </p>
+        </div>
+
+        <div
+          className='flex items-center gap-1 text-gray-400'
+          onClick={() => setOpenParticipant(true)}
+        >
+          {selectedUsers.length > 0 ? (
+            selectedUsers.map((user: IUser, index: number) => (
+              <AvatarUser
+                key={index}
+                image={user.image ? user.image : ""}
+                alt={user.name ? user.name : "No user"}
+                id={user.telegram_id}
+              />
+            ))
+          ) : (
+            <p
+              className='font-normal text-[16px] text-customBlack mr-[-10px] font-sfpro'
+            >
+              {t("appoint")}
+            </p>
+          )}
+          <div className='ml-3'>
+            <ArrowRight />
+          </div>
+        </div>
+      </div>
       {openParticipant && (
         <div
           className='bg-black opacity-45 z-10 fixed top-0 w-full h-full'

@@ -89,22 +89,22 @@ export const ProjectCarusel = () => {
 
   useEffect(() => {
     const currentHash = window.location.hash;
+    const list = document.getElementById("tasks-list");
     if(!isLoading && !isFetching && currentHash)
     {
       const extractedId = currentHash.substring(1).split("&")[0];
       const element = document.getElementById(extractedId);
-      if(element) 
+      if(element && list) 
       {
-        element.scrollIntoView({ behavior: "smooth", block: "start"});
         const offset = 105;
-        const targetPosition = element.getBoundingClientRect().top + window.scrollY - offset;
+        const targetPosition = element.getBoundingClientRect().top - offset
         setTimeout(() => {
-          window.scrollTo({
+          list.scrollTo({
             top: targetPosition,
             behavior: "smooth",
           });
         }, 0);
-      }    
+      } 
     }
   }, [isLoading, isFetching]);
 
@@ -126,37 +126,21 @@ export const ProjectCarusel = () => {
         selectedStatus: state.statuses[state.index + 1].id,
         index: state.index + 1,
       });
+      statusClicker(state.statuses[state.index + 1].id)
     } else if (direction === "RIGHT" && state.index > 0) {
       setState({
         selectedStatus: state.statuses[state.index - 1].id,
         index: state.index - 1,
       });
+      statusClicker(state.statuses[state.index - 1].id)
     }
   };
 
   const tabContainerRef = useRef(null);
-  // @ts-ignore
-  const scrollTabs = (direction) => {
-    if (tabContainerRef.current) {
-      const scrollAmount = direction === "RIGHT" ? -50 : 50;
-      // @ts-ignore
-      tabContainerRef.current.scrollBy({
-        top: 0,
-        left: scrollAmount,
-        behavior: "smooth",
-      });
-    }
-  };
 
   const handlers = useSwipeable({
-    onSwipedLeft: () => {
-      handleSwipe("LEFT");
-      scrollTabs("LEFT");
-    },
-    onSwipedRight: () => {
-      handleSwipe("RIGHT");
-      scrollTabs("RIGHT");
-    },
+    onSwipedLeft: () => handleSwipe("LEFT"),
+    onSwipedRight: () => handleSwipe("RIGHT"),
     trackMouse: true,
   });
 
@@ -182,8 +166,14 @@ export const ProjectCarusel = () => {
   const updateHash = (status: number) => {
     window.location.hash = `0&${status}`;
     setState({ selectedStatus: status});
+    statusClicker(status)
   }
 
+  const statusClicker = (id: number) => {
+    const element = document.getElementById('status_' + id);
+    if(element)  element.scrollIntoView({ behavior: "smooth" });
+  }
+  
   // @ts-ignore
   if (error) return <div>An error occurred: {error.message}</div>;
 
@@ -192,13 +182,14 @@ export const ProjectCarusel = () => {
       <TopProjectBar state={state} setState={setState} id={Number(id)} group_id={project?.group_id} />
       <div
         ref={tabContainerRef}
-        className='flex h-[44px] max-w-[700px] w-full overflow-x-scroll border-b bg-white px-2 transition scroll-smooth status-list fixed top-[56px] z-[19]'
+        className='transition-all top-[56px] flex h-[44px] max-w-[700px] w-full overflow-x-scroll border-b bg-white px-2 scroll-smooth status-list fixed z-[19]'
       >
         {state.statuses.length > 0 &&
           state.statuses.map((status: IStatus) => (
             <div
+              id={"status_" + status.id}
               key={status.id}
-              className='flex h-full  items-center gap-2 px-4 relative cursor-pointer'
+              className='transition-all flex h-full  items-center gap-2 px-4 relative cursor-pointer'
               onClick={() => updateHash(status.id)}
             >
               <>
@@ -207,8 +198,7 @@ export const ProjectCarusel = () => {
                     Number(state.selectedStatus) === Number(status.id)
                       ? "text-gradient-blue"
                       : "text-customBlack"
-                  } font-bold`}
-                  style={{ fontFamily: "SF Pro Display" }}
+                  } font-bold font-sfpro`}
                 >
                   {status.name}
                 </p>
@@ -217,8 +207,7 @@ export const ProjectCarusel = () => {
                     Number(state.selectedStatus) === Number(status.id)
                       ? "bg-custom-gradient-blue"
                       : "bg-customBlack"
-                  } text-white flex items-center justify-center pt-[1px]  min-w-[18px]`}
-                  style={{ fontFamily: "SF Pro Display" }}
+                  } text-white flex items-center justify-center pt-[1px]  min-w-[18px] font-sfpro`}
                 >
                   {status.tasksCount}
                 </p>
@@ -240,11 +229,12 @@ export const ProjectCarusel = () => {
           style={{ touchAction: "pan-y" }}
         >
           <div
+            id="tasks-list"
             key={state.index}
-            className='flex flex-col-reverse px-4 pb-12 items-center justify-start'
+            className='carusel-heighter flex flex-col px-4 pb-12 items-center overflow-y-scroll'
           >
             {project && project.tasks.length > 0 ? (
-              project.tasks.map((task: IProjectTask, index: number) => (
+              project.tasks.slice().reverse().map((task: IProjectTask, index: number) => (
                 <ProjectCaruselItem
                   getStatuses={getStatuses}
                   key={task.id}

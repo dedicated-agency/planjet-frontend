@@ -15,9 +15,12 @@ export default {
           var(--sds-size-depth-0) var(--sds-size-depth-100) var(--sds-size-depth-100) var(--sds-size-depth-negative-100) var(--sds-color-black-100),
           var(--sds-size-depth-0) var(--sds-size-depth-400) var(--sds-size-depth-800) var(--sds-size-depth-negative-100) var(--sds-color-black-200)
         `,
+        custom60: "0px 2px 6px -1px rgba(0, 0, 0, 0.06)",
+        custom510: "0px 2px 8px 0px rgba(0, 0, 0, 0.05), 0px 2px 8px 0px rgba(0, 0, 0, 0.1)",
         customMultiple: '0px 1px 4px 0px rgba(0, 0, 0, 0.1), 0px 4px 8px -1px rgba(0, 0, 0, 0.2)',
         customShadow: "0px 1px 2px 0px #1F1F1F1F;",
         customCombined: '0px 2px 4px 0px rgba(0, 0, 0, 0.1), 0px 2px 4px 0px rgba(0, 0, 0, 0.2)',
+        
       },
       letterSpacing: {
         'extra-wide': '1px',
@@ -27,6 +30,7 @@ export default {
         customBlueLight: "rgba(0, 122, 255, 0.15)",
         customIndigo: "rgba(88, 86, 214, 1)",
         customIndigo100: "rgba(100, 99, 176, 1)",
+        customIndigo500: "rgba(100, 99, 176, 0.5)",
         customIndigo120: "rgba(86, 148, 214, 0.12)",
         customIndigo150: "rgba(100, 99, 176, 0.15)",
         customIndigo500: "rgba(86, 148, 214, 0.5)",
@@ -65,6 +69,9 @@ export default {
       backgroundImage: {
         'custom-gradient-blue': 'linear-gradient(180deg, rgba(0, 122, 255, 1) 0%, rgba(88, 86, 214, 1) 100%)',
         'custom-gradient-indigo': 'linear-gradient(to bottom, #5856D6 0%, #7FA7F4 100%);',
+      },
+      fontFamily: {
+        'sfpro': ['"SF Pro Display"', 'sans-serif'],
       },
       screens: {
         'xsm': '300px',

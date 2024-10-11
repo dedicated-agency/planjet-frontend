@@ -43,8 +43,7 @@ const SettingsProjects = () => {
       <div className='fixed top-0 left-0 right-0 flex justify-between h-[56px] items-center p-3 bg-[#f2f2f7] z-10'>
         <div className='text-gray-500 h-full w-[60px] flex items-center'></div>
         <p
-          className='font-medium text-[17px] text-customDark capitalize'
-          style={{ fontFamily: "Sf Pro Display" }}
+          className='font-medium text-[17px] text-customDark capitalize font-sfpro'
         >
           {t('project_settings')}
         </p>

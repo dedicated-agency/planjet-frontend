@@ -30,10 +30,9 @@ export const AvatarUser = (props: {
         props.width ? props.width : 24
       }px] h-[${props.width ? props.width : 24}px] min-w-[${
         props.width ? props.width : 24
-      }px] rounded-full border-[1.5px] border-customWhite2 bg-gray-100 flex justify-center items-center text-customBlack uppercase text-md`}
+      }px] rounded-full border-[1.5px] border-customWhite2 bg-gray-100 flex justify-center items-center text-customBlack uppercase text-md font-sfpro`}
       style={{
-        fontFamily: "SF Pro Display",
-        background: lightColor,
+        background: lightColor.color,
         color: color,
         minHeight: `${props.width ? props.width : 24}px`
       }}

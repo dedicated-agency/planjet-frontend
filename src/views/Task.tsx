@@ -287,8 +287,7 @@ const Task = () => {
           />
         </Link>
         <p
-          className='font-medium text-[17px] text-black'
-          style={{ fontFamily: "SF Pro Display" }}
+          className='font-medium text-[17px] text-black font-sfpro'
         >
           {capitalizeFirstLetter(task.project?.name)}
         </p>
@@ -302,16 +301,14 @@ const Task = () => {
               <Square />
             </div>
             <p
-              className='font-semibold text-[17px] text-black whitespace-pre-line'
-              style={{ fontFamily: "SF Pro Display" }}
+              className='font-semibold text-[17px] text-black whitespace-pre-line font-sfpro'
             >
               {capitalizeFirstChar(task.name)}
             </p>
           </div>
           {task.description && (
             <p
-              className='text-[14px] text-customBlackLight mt-2 font-normal whitespace-pre-line'
-              style={{ fontFamily: "SF Pro Display" }}
+              className='text-[14px] text-customBlackLight mt-2 font-normal whitespace-pre-line font-sfpro'
             >
               {task.description}
             </p>
@@ -344,15 +341,13 @@ const Task = () => {
                 <Calendar />
               </div>
               <p
-                className='text-black font-normal text-[16px]'
-                style={{ fontFamily: "SF Pro Display " }}
+                className='text-black font-normal text-[16px] font-sfpro'
               >
                 {t("created_at")}
               </p>
             </div>
             <p
-              className='text-black font-medium text-[15px]'
-              style={{ fontFamily: "SF Pro Display " }}
+              className='text-black font-medium text-[15px] font-sfpro'
             >
               {task.created_at &&
                 dateTimeConverter.convertTime(task.created_at)}
@@ -364,8 +359,7 @@ const Task = () => {
                 <User />
               </div>
               <p
-                className='text-black font-normal text-[16px]'
-                style={{ fontFamily: "SF Pro Display " }}
+                className='text-black font-normal text-[16px] font-sfpro'
               >
                 {t("author")}
               </p>
@@ -387,8 +381,7 @@ const Task = () => {
                 <Users />
               </div>
               <p
-                className='text-black font-normal text-[16px] ml-[-5px]'
-                style={{ fontFamily: "SF Pro Display " }}
+                className='text-black font-normal text-[16px] ml-[-5px] font-sfpro'
               >
                 {capitalizeFirstLetter(t("participant"))}
               </p>
@@ -424,8 +417,7 @@ const Task = () => {
                   <Calendar />
                 </div>
                 <p
-                  className='text-black font-normal text-[16px]'
-                  style={{ fontFamily: "SF Pro Display " }}
+                  className='text-black font-normal text-[16px] font-sfpro'
                 >
                   {t("story_point")}
                 </p>
@@ -468,8 +460,7 @@ const Task = () => {
                 <Prioritet />
               </div>
               <p
-                className='text-black font-normal text-[16px]'
-                style={{ fontFamily: "SF Pro Display" }}
+                className='text-black font-normal text-[16px] font-sfpro'
               >
                 {capitalizeFirstLetter(t("priority"))}
               </p>
@@ -494,8 +485,7 @@ const Task = () => {
                 <SymbolB />
               </div>
               <div
-                className='text-black font-normal text-[16px]'
-                style={{ fontFamily: "SF Pro Display " }}
+                className='text-black font-normal text-[16px] font-sfpro'
               >
                 {t("status")}
               </div>
@@ -772,8 +762,7 @@ const Task = () => {
           />
         </div>
         <p
-          className='text-[16px] font-normal text-customGrayDark px-3 mt-2 leading-4'
-          style={{ fontFamily: "SF Pro Display" }}
+          className='text-[16px] font-normal text-customGrayDark px-3 mt-2 leading-4 font-sfpro'
         >
           {t("delete_confirmation")}
         </p>

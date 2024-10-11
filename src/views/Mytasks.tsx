@@ -84,37 +84,28 @@ const Mytasks = () => {
       const newIndex = state.index + 1;
       setState({ index: newIndex });
       getTasks(state.statuses[newIndex].name);
-      updateHash(state.statuses[newIndex].id);
+      statusClicker(state.statuses[newIndex].id)
     } else if (direction === "RIGHT" && state.index > 0) {
       const newIndex = state.index - 1;
       setState({ index: newIndex });
       getTasks(state.statuses[newIndex].name);
-      updateHash(state.statuses[newIndex].id);
+      statusClicker(state.statuses[newIndex].id)
     }
   };
 
   const tabContainerRef = useRef(null);
-  // @ts-ignore
-  const scrollTabs = (direction) => {
-    if (tabContainerRef.current) {
-      const scrollAmount = direction === "RIGHT" ? -50 : 50;
-      // @ts-ignore
-      tabContainerRef.current.scrollBy({
-        top: 0,
-        left: scrollAmount,
-        behavior: "smooth",
-      });
-    }
-  };
+
+  const statusClicker = (id: number) => {
+    const element = document.getElementById('status_' + id);
+    if(element)  element.scrollIntoView({ behavior: "smooth" });
+  }
 
   const handlers = useSwipeable({
     onSwipedLeft: () => {
       handleSwipe("LEFT");
-      scrollTabs("LEFT");
     },
     onSwipedRight: () => {
       handleSwipe("RIGHT");
-      scrollTabs("RIGHT");
     },
     trackMouse: true,
   });
@@ -133,10 +124,9 @@ const Mytasks = () => {
         setState({
           statuses: response.data,
           selectedStatus: response.data[0].name,
-        }); // Set initial selected status
-        // Get tasks for the first status by default
+        });
         if (response.data.length > 0) {
-          getTasks(response.data[0].name); // Fetch tasks by the first status name
+          getTasks(response.data[0].name); 
         }
       }
     } catch (error) {
@@ -173,6 +163,7 @@ const Mytasks = () => {
   const updateHash = (status: number) => {
     window.location.hash = `0&${status}`;
     setState({ selectedStatus: status });
+    statusClicker(status)
   };
 
   return (
@@ -186,8 +177,7 @@ const Mytasks = () => {
           <SymbolBorder />
           <div>
             <p
-              className='text-[17px] font-medium text-black leading-5'
-              style={{ fontFamily: "SF Pro Display" }}
+              className='text-[17px] font-medium text-black leading-5 font-sfpro'
             >
               {t("my_tasks")}
             </p>
@@ -198,8 +188,7 @@ const Mytasks = () => {
           onClick={() => setIsOpenProjectFilter(true)}
         >
           <p
-            className='text-[14px] font-[300] text-customBlack'
-            style={{ fontFamily: "SF Pro Display" }}
+            className='text-[14px] font-[300] text-customBlack font-sfpro'
           >
             {selectedProject
               ? selectedProject?.name
@@ -218,6 +207,7 @@ const Mytasks = () => {
           >
             {state.statuses.map((status: IStatus, index: number) => (
               <div
+              id={"status_" +  status.id}
                 key={index}
                 className={`flex h-full  items-center gap-2 px-4 relative cursor-pointer`}
                 onClick={() => {
@@ -232,8 +222,7 @@ const Mytasks = () => {
                       state.index === index
                         ? "text-gradient-blue"
                         : "text-customBlack"
-                    } font-bold`}
-                    style={{ fontFamily: "SF Pro Display" }}
+                    } font-bold font-sfpro`}
                   >
                     {capitalizeFirstLetter(status.name)}
                   </p>
@@ -242,8 +231,7 @@ const Mytasks = () => {
                       state.index === index
                         ? "bg-custom-gradient-blue"
                         : "bg-customBlack"
-                    } text-white flex  items-center justify-center pt-[2px]  min-w-[18px] `}
-                    style={{ fontFamily: "SF Pro Display" }}
+                    } text-white flex  items-center justify-center pt-[2px]  min-w-[18px] font-sfpro`}
                   >
                     {status.count}
                   </p>
@@ -263,7 +251,7 @@ const Mytasks = () => {
         >
           <div className='flex flex-col px-4 pb-12 items-center justify-start'>
             {state.tasks.length > 0 ? (
-              state.tasks.map((task: IProject) => (
+              state.tasks.slice().reverse().map((task: IProject) => (
                 <MyTask key={task?.id} project={task} /> // Render individual task components
               ))
             ) : (
@@ -306,8 +294,7 @@ const Mytasks = () => {
                   id={group.id}
                 />
                 <p
-                  className='font-normal text-[17px] text-black'
-                  style={{ fontFamily: "SF Pro Display" }}
+                  className='font-normal text-[17px] text-black font-sfpro'
                 >
                   {group.name}
                 </p>
@@ -340,8 +327,7 @@ const Mytasks = () => {
                     className='flex items-center justify-between h-[44px] transition-all duration-500 ease-in-out cursor-pointer'
                   >
                     <p
-                      className='font-normal text-[17px] text-black'
-                      style={{ fontFamily: "SF Pro Display" }}
+                      className='font-normal text-[17px] text-black font-sfpro'
                     >
                       {capitalizeFirstLetter(project?.name)}
                     </p>

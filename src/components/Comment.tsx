@@ -24,10 +24,7 @@ export interface IUser {
 }
 
 const Comment = ({ comment }: IComment) => {
-
   const { color, lightColor } = useUserColor(comment.user_id);
-  console.log({comment});
-  
   return (
     <div className='flex gap-5' key={comment.id}>
       <AvatarUser
@@ -39,7 +36,7 @@ const Comment = ({ comment }: IComment) => {
         <div className='flex w-full justify-between mb-3'>
           <div
             className='text-[12px] px-2 rounded-md bg-blue-200 text-blue-500'
-            style={{ color: color, background: lightColor }}
+            style={{ color: color, background: lightColor.color }}
           >
             {comment.user ? comment.user.name : "No user"}
           </div>
@@ -49,8 +46,7 @@ const Comment = ({ comment }: IComment) => {
           </div>
         </div>
         <div
-          className='px-1 font-sans font-medium text-gray-700 text-sm'
-          style={{ fontFamily: "SF Pro Display" }}
+          className='px-1 font-medium text-gray-700 text-sm font-sfpro'
         >
           {capitalizeFirstLetter(comment.comment)}
         </div>

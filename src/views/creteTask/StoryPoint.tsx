@@ -1,16 +1,53 @@
 import { t } from "i18next";
+import Calendar from "../../assets/icons/Calendar";
+import { useState } from "react";
+import ArrowRight from "../../assets/icons/ArrowRight";
+
+interface IStoryPoint {
+  storyPoint: number,
+  setStoryPoint: (storyPoint: number) => void,
+}
 
 const StoryPoint = ({
-  openStoryPoint,
-  setOpenStoryPoint,
-  focusStoryPoint,
-  setFocusStoryPoint,
   storyPoint,
   setStoryPoint,
-  setSelectStoryPoint
-}: any) => {
+}: IStoryPoint) => {
+  const [selectStoryPoint, setSelectStoryPoint] = useState(0);
+  const [openStoryPoint, setOpenStoryPoint] = useState(false);
+  const [focusStoryPoint, setFocusStoryPoint] = useState(false);
+
+
   return (
     <>
+      <div
+        className='h-[44px] flex justify-between items-center px-[16px]'
+        onClick={() => setOpenStoryPoint(true)}
+      >
+        <div className='flex justify-between items-center gap-2'>
+          <div className='flex gap-[1px] items-end justify-center text-gray-400'>
+            <Calendar />
+          </div>
+          <p
+            className='text-black tex-[16px] font-normal capitalize font-sfpro'
+          >
+            {t("story_point")}
+          </p>
+        </div>
+        <div className='flex items-center gap-1 text-gray-400'>
+          {!selectStoryPoint ? (
+            <p
+              className='font-normal text-[16px] text-customBlack font-sfpro'
+            >
+              0
+            </p>
+          ) : (
+            <p className='font-normal text-[16px] font-sans text-black'>
+              {selectStoryPoint}
+            </p>
+          )}
+          <ArrowRight />
+        </div>
+      </div>
       {openStoryPoint && (
         <div
           className='bg-black opacity-45 z-10 fixed top-0 w-full h-full'
