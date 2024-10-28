@@ -1,30 +1,26 @@
-# React + TypeScript + Vite
+# PlanJet | Overview
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Create tasks and manage your workflow in your Telegram chat!
+- Create a tasks directly from your messages, assign a user and set deadline (optional)
+- Get notification direct or in-group on task progression
+- Get weekly reporting about team status
+- Analyse and improve your work
 
-Currently, two official plugins are available:
+The project is open-sourced and available for self-hosting for your privacy.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+Frontend built using React.js / TypeScript.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Backend is on Nest.js / TypeScript and available [here](https://github.com/dedicated-agency/planjet-backend)
 
-- Configure the top-level `parserOptions` property like this:
+## Getting Started
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+1. Clone the repo & build
+2. Run the service, create public host for it
+3. Clone the backend & run it (more instructions are here)
+4. Create telegram bot
+5. Create web-app within the bot
+6. Set the URL for the web-app the URL of frontend
+7. Done!
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+You can find more guides on usage in our public version. 
